@@ -11,11 +11,17 @@ import {
 } from "react-native";
 
 export default class login extends Component {
+  static navigationOptions = {
+    header: null
+  };
+
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <StatusBar barStyle="dark-content" backgroundColor="#ccebff" />
         <View style={styles.container}>
+        <Text style={styles.title}>Quickio</Text>
           <Image style={styles.logo} source={require("./logo.png")} />
           <TextInput
             placeholder="Email"
@@ -35,11 +41,32 @@ export default class login extends Component {
             style={styles.input}
             ref={input => (this.passwordInput = input)}
           />
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity
+            onPress={() => navigate("Signup")}
+            style={styles.loginButton}
+          >
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
-          <Text>Forgot Password?</Text>
-          <Text>Don't have an Account? Sign Up here</Text>
+          <Text
+            style={{
+              textDecorationLine: "underline",
+              fontWeight: "500",
+              marginBottom: 14
+            }}
+          >
+            Forgot Password?
+          </Text>
+          <Text style={{ marginBottom: 6 }}>Don't have an Account?</Text>
+          <Text
+            style={{
+              textDecorationLine: "underline",
+              fontWeight: "500",
+              marginBottom: 4
+            }}
+            onPress={() => navigate("Signup")}
+          >
+            Sign Up here
+          </Text>
         </View>
       </KeyboardAvoidingView>
     );
@@ -56,26 +83,35 @@ const styles = StyleSheet.create({
   logo: {
     width: 260,
     height: 200,
-  marginBottom:16
+    marginBottom: 16
   },
   input: {
     backgroundColor: "#e6f5ff",
-    marginBottom: 10,
-    height: 50,
-    paddingHorizontal: 10,
-    width: 300
+    marginBottom: 12,
+    height: 42,
+    paddingHorizontal: 18,
+    width: 300,
+    borderRadius: 24
   },
   loginButton: {
     backgroundColor: "#0099ff",
     paddingVertical: 10,
-    marginBottom: 10,
-    width: 300
+    marginBottom: 14,
+    width: 300,
+    borderRadius: 24
   },
   loginButtonText: {
-    fontSize:22,
-    textAlign:"center",
+    fontSize: 22,
+    textAlign: "center",
     height: 30,
     color: "#fff",
     fontWeight: "bold"
+  },
+
+  title:{
+    fontFamily:'sans-serif-light',
+    fontWeight:"bold",
+    fontSize:36,
+    marginBottom:14
   }
 });
