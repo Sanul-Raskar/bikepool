@@ -45,7 +45,7 @@ export default class login extends Component {
                 ref={input => (this.passwordInput = input)}
               />
               <TouchableOpacity
-                onPress={() => navigate("Signup")}
+                onPress={() => navigate("Home")}
                 style={styles.loginButton}
               >
                 <Text style={styles.loginButtonText}>Login</Text>
