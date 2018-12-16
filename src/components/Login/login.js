@@ -7,7 +7,8 @@ import {
   KeyboardAvoidingView,
   Image,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
+  ScrollView
 } from "react-native";
 
 export default class login extends Component {
@@ -18,57 +19,61 @@ export default class login extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <StatusBar barStyle="dark-content" backgroundColor="#ccebff" />
-        <View style={styles.container}>
-        <Text style={styles.title}>Quickio</Text>
-          <Image style={styles.logo} source={require("./logo.png")} />
-          <TextInput
-            placeholder="Email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="next"
-            onSubmitEditing={() => this.passwordInput.focus()}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Password"
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="done"
-            secureTextEntry
-            style={styles.input}
-            ref={input => (this.passwordInput = input)}
-          />
-          <TouchableOpacity
-            onPress={() => navigate("Signup")}
-            style={styles.loginButton}
-          >
-            <Text style={styles.loginButtonText}>Login</Text>
-          </TouchableOpacity>
-          <Text
-            style={{
-              textDecorationLine: "underline",
-              fontWeight: "500",
-              marginBottom: 14
-            }}
-          >
-            Forgot Password?
-          </Text>
-          <Text style={{ marginBottom: 6 }}>Don't have an Account?</Text>
-          <Text
-            style={{
-              textDecorationLine: "underline",
-              fontWeight: "500",
-              marginBottom: 4
-            }}
-            onPress={() => navigate("Signup")}
-          >
-            Sign Up here
-          </Text>
-        </View>
-      </KeyboardAvoidingView>
+      <View style={styles.container}>
+        <ScrollView>
+          <StatusBar barStyle="dark-content" backgroundColor="#ccebff" />
+          <KeyboardAvoidingView style={styles.container} behavior="padding">
+            <View style={styles.container}>
+              <Text style={styles.title}>Quickio</Text>
+              <Image style={styles.logo} source={require("./logo.png")} />
+              <TextInput
+                placeholder="Email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+                returnKeyType="next"
+                onSubmitEditing={() => this.passwordInput.focus()}
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Password"
+                autoCapitalize="none"
+                autoCorrect={false}
+                returnKeyType="done"
+                secureTextEntry
+                style={styles.input}
+                ref={input => (this.passwordInput = input)}
+              />
+              <TouchableOpacity
+                onPress={() => navigate("Signup")}
+                style={styles.loginButton}
+              >
+                <Text style={styles.loginButtonText}>Login</Text>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  textDecorationLine: "underline",
+                  fontWeight: "500",
+                  marginBottom: 14
+                }}
+              >
+                Forgot Password?
+              </Text>
+              <Text style={{ marginBottom: 6 }}>Don't have an Account?</Text>
+              <Text
+                style={{
+                  textDecorationLine: "underline",
+                  fontWeight: "500",
+                  marginBottom: 4
+                }}
+                onPress={() => navigate("Signup")}
+              >
+                Sign Up here
+              </Text>
+            </View>
+          </KeyboardAvoidingView>
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -108,10 +113,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
 
-  title:{
-    fontFamily:'sans-serif-light',
-    fontWeight:"bold",
-    fontSize:36,
-    marginBottom:14
+  title: {
+    fontFamily: "sans-serif-light",
+    fontWeight: "bold",
+    fontSize: 36,
+    marginBottom: 14
   }
 });
