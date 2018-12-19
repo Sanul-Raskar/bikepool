@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
   },
   input: {
     justifyContent: "center",
-    textAlign: "center",
     alignSelf: "center",
     borderRadius: 24,
     width: 300,

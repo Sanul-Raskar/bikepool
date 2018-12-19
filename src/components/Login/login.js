@@ -10,7 +10,8 @@ import {
   StatusBar,
   ScrollView
 } from "react-native";
-
+import { StackActions, NavigationActions } from "react-navigation";
+import Home from "../Home/home";
 export default class login extends Component {
   static navigationOptions = {
     header: null
@@ -18,6 +19,12 @@ export default class login extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: "Home" })],
+      key: null
+    });
+
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -45,7 +52,7 @@ export default class login extends Component {
                 ref={input => (this.passwordInput = input)}
               />
               <TouchableOpacity
-                onPress={() => navigate("Home")}
+                onPress={() => this.props.navigation.dispatch(resetAction)}
                 style={styles.loginButton}
               >
                 <Text style={styles.loginButtonText}>Login</Text>
