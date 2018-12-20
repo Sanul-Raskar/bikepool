@@ -15,23 +15,17 @@ import {
 } from "react-native";
 import Ride from "./topTabs";
 import { createBottomTabNavigator } from "react-navigation";
-import {
-  List,
-  ListItem,
-  Left,
-  Body,
-  Right,
-} from "native-base";
+import { List, ListItem, Left, Body, Right, Separator } from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
-import SettingsScreen from "../Settings/setting";
-import LoginScreen from "../Login/login";
-import SignUpScreen from "../SignUp/signup";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import LinearGradient from "react-native-linear-gradient";
 
-HEADER_MAX_HEIGHT = 120;
-HEADER_MIN_HEIGHT = 70;
-PROFILE_IMAGE_MAX_HEIGHT = 80;
-PROFILE_IMAGE_MIN_HEIGHT = 40;
+HEADER_MAX_HEIGHT = 100;
+HEADER_MIN_HEIGHT = 60;
+PROFILE_IMAGE_MAX_HEIGHT = 100;
+PROFILE_IMAGE_MIN_HEIGHT = 60;
 
 export class Home extends Component {
   render() {
@@ -71,7 +65,7 @@ export class Rides extends Component {
   }
 }
 
-export class Settings extends Component {
+export class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = { scrollY: new Animated.Value(0) };
@@ -94,13 +88,13 @@ export class Settings extends Component {
       inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
       outputRange: [
         HEADER_MAX_HEIGHT - PROFILE_IMAGE_MAX_HEIGHT / 2,
-        HEADER_MAX_HEIGHT + 5
+        HEADER_MAX_HEIGHT + 6
       ],
       extrapolate: "clamp"
     });
 
     const headerZIndex = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+      inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT + 22],
       outputRange: [0, 1],
       extrapolate: "clamp"
     });
@@ -109,26 +103,26 @@ export class Settings extends Component {
       inputRange: [
         0,
         HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT,
-        HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT + 5 + PROFILE_IMAGE_MIN_HEIGHT,
+        HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT + 6 + PROFILE_IMAGE_MIN_HEIGHT,
         HEADER_MAX_HEIGHT -
           HEADER_MIN_HEIGHT +
-          5 +
+          6 +
           PROFILE_IMAGE_MIN_HEIGHT +
-          26
+          34
       ],
-      outputRange: [-20, -20, -20, 0],
+      outputRange: [-22, -20, -14, 10],
       extrapolate: "clamp"
     });
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: "white" }}>
         <Animated.View
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             right: 0,
-            backgroundColor: "lightskyblue",
+            backgroundColor: "black",
             height: headerHeight,
             zIndex: headerZIndex,
             alignItems: "center"
@@ -141,7 +135,16 @@ export class Settings extends Component {
               bottom: headerTitleBottom
             }}
           >
-            <Text style={{ fontSize: 14, fontWeight: "bold", color: "white" }}>
+            <Text
+              style={{
+                fontSize: 22,
+                fontWeight: "bold",
+                color: "white",
+                textShadowColor: "white",
+                textShadowOffset: { width: 0, height: 0 },
+                textShadowRadius: 0
+              }}
+            >
               Sanul Raskar
             </Text>
           </Animated.View>
@@ -151,7 +154,7 @@ export class Settings extends Component {
           onScroll={Animated.event([
             { nativeEvent: { contentOffset: { y: this.state.scrollY } } }
           ])}
-          style={{ flex: 1}}
+          style={{ flex: 1 }}
         >
           <Animated.View
             style={{
@@ -179,30 +182,72 @@ export class Settings extends Component {
             <Text
               style={{
                 fontWeight: "bold",
-                fontSize: 26,
+                fontSize: 32,
                 marginLeft: "auto",
-                marginRight: "auto"
+                marginRight: "auto",
+                color:"black"
               }}
             >
               Sanul Raskar
             </Text>
           </View>
-          <View style={{ height: 1000, backgroundColor: "white" }}>
-            <List>
-              <ListItem onPress={() => alert("Hello")}>
-                <Text>Simon Mignolet</Text>
-              </ListItem>
-              <ListItem>
-                <Body>
-                  <Text>Wi-Fi</Text>
-                </Body>
+          <View style={{ height: 30 }} />
+          <View style={{ backgroundColor: "white" }}>
+            <List style={{ backgroundColor: "white" }}>
+              <ListItem
+                onPress={() => alert("Hello")}
+                style={{ borderBottomWidth: 0 }}
+              >
+                <Left>
+                  <MaterialIcon name="edit" color="black" size={24} />
+                  <Text style={styles.listText}>Edit Profile</Text>
+                </Left>
                 <Right>
-                  <Text>GeekyAnts</Text>
-                  <Icon active name="arrow-forward" />
+                  <Icon name="ios-arrow-dropright" color="black" size={24} />
+                </Right>
+              </ListItem>
+              <ListItem style={{ borderBottomWidth: 0 }}>
+                <Body>
+                  <Text style={styles.listSubTextLabel}>Name</Text>
+                  <Text style={styles.listSubText}>Sanul Raskar</Text>
+                </Body>
+              </ListItem>
+              <ListItem style={{ borderBottomWidth: 0 }}>
+                <Body>
+                  <Text style={styles.listSubTextLabel}>Phone</Text>
+                  <Text style={styles.listSubText}>7350142164</Text>
+                </Body>
+              </ListItem>
+              <ListItem style={{ borderBottomWidth: 0 }}>
+                <Body>
+                  <Text style={styles.listSubTextLabel}>Email</Text>
+                  <Text style={styles.listSubText}>sanulraskar@gmail.com</Text>
+                </Body>
+              </ListItem>
+              <Separator bordered>
+                <Text>Favorites</Text>
+              </Separator>
+              <ListItem>
+                <Left>
+                  <MaterialIcon name="home" color="black" size={24} />
+                  <Text style={styles.listText}>Add Home</Text>
+                </Left>
+                <Right>
+                  <Icon name="ios-arrow-dropright" color="black" size={24} />
                 </Right>
               </ListItem>
               <ListItem>
-                <Text>Dejan Lovren</Text>
+                <Left>
+                  <MaterialIcon name="work" color="black" size={24} />
+                  <Text style={styles.listText}>Add Work</Text>
+                </Left>
+                <Right>
+                  <Icon name="ios-arrow-dropright" color="black" size={24} />
+                </Right>
+              </ListItem>
+              <Separator bordered />
+              <ListItem>
+                <Text style={styles.listText}>Sign Out</Text>
               </ListItem>
             </List>
           </View>
@@ -242,36 +287,55 @@ export default createBottomTabNavigator(
         )
       }
     },
-    Settings: {
-      screen: Settings,
+    Profile: {
+      screen: Profile,
       navigationOptions: {
-        tabBarLabel: "Settings",
+        tabBarLabel: "Profile",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-settings" color={tintColor} size={24} />
+          <FontAwesome5 name="user-circle" color={tintColor} size={24} />
         )
       }
     }
   },
   {
     tabBarOptions: {
-      activeTintColor: "blue",
+      activeTintColor: "black",
       inactiveTintColor: "grey"
     }
   }
 );
 
 const styles = StyleSheet.create({
+  listText: {
+    paddingLeft: 12,
+    fontSize: 18,
+    color:'black'
+  },
+
+  listSubTextLabel: {
+    paddingLeft: 12,
+    fontSize: 16,
+    color:'black'
+  },
+  listSubText: {
+    paddingLeft: 12,
+    fontSize: 14,
+    color:'black'
+  },
+
   myText: {
     margin: 60,
     justifyContent: "center",
     fontSize: 22
   },
+
   container: {
     ...StyleSheet.absoluteFillObject,
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
   },
+
   map: {
     ...StyleSheet.absoluteFillObject
   }
