@@ -10,11 +10,18 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
-  Animated
+  Animated,
+  Button
 } from "react-native";
 import Ride from "./topTabs";
 import { createBottomTabNavigator } from "react-navigation";
-import { Container, Header, Content, List, ListItem } from "native-base";
+import {
+  List,
+  ListItem,
+  Left,
+  Body,
+  Right,
+} from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import SettingsScreen from "../Settings/setting";
@@ -40,10 +47,9 @@ export class Home extends Component {
 }
 
 export class Map extends Component {
-
   render() {
     const region = {
-      latitude: 18.466400,
+      latitude: 18.4664,
       longitude: 73.866478,
       latitudeDelta: 0.0043,
       longitudeDelta: 0.0034
@@ -51,11 +57,7 @@ export class Map extends Component {
 
     return (
       <View style={styles.container}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          region={region}
-        >
+        <MapView provider={PROVIDER_GOOGLE} style={styles.map} region={region}>
           <MapView.Marker coordinate={region} pinColor="red" />
         </MapView>
       </View>
@@ -149,7 +151,7 @@ export class Settings extends Component {
           onScroll={Animated.event([
             { nativeEvent: { contentOffset: { y: this.state.scrollY } } }
           ])}
-          style={{ flex: 1 }}
+          style={{ flex: 1}}
         >
           <Animated.View
             style={{
@@ -185,13 +187,19 @@ export class Settings extends Component {
               Sanul Raskar
             </Text>
           </View>
-          <View style={{ height: 1000 }}>
+          <View style={{ height: 1000, backgroundColor: "white" }}>
             <List>
-              <ListItem>
+              <ListItem onPress={() => alert("Hello")}>
                 <Text>Simon Mignolet</Text>
               </ListItem>
               <ListItem>
-                <Text>Nathaniel Clyne</Text>
+                <Body>
+                  <Text>Wi-Fi</Text>
+                </Body>
+                <Right>
+                  <Text>GeekyAnts</Text>
+                  <Icon active name="arrow-forward" />
+                </Right>
               </ListItem>
               <ListItem>
                 <Text>Dejan Lovren</Text>
