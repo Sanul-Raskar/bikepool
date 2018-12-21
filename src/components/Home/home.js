@@ -20,7 +20,7 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import SearchBox from '../Search/search'
+import SearchBox from "../Search/search";
 import LinearGradient from "react-native-linear-gradient";
 
 HEADER_MAX_HEIGHT = 100;
@@ -54,8 +54,8 @@ export class Map extends Component {
       <View style={styles.container}>
         <MapView provider={PROVIDER_GOOGLE} style={styles.map} region={region}>
           <MapView.Marker coordinate={region} pinColor="red" />
-        </MapView> 
-        <SearchBox/>
+        </MapView>
+        <SearchBox />
       </View>
     );
   }
@@ -187,7 +187,7 @@ export class Profile extends Component {
                 fontSize: 32,
                 marginLeft: "auto",
                 marginRight: "auto",
-                color:"black"
+                color: "black"
               }}
             >
               Sanul Raskar
@@ -229,7 +229,7 @@ export class Profile extends Component {
               <Separator bordered>
                 <Text>Favorites</Text>
               </Separator>
-              <ListItem>
+              <ListItem style={{ borderBottomWidth: 0 }}>
                 <Left>
                   <MaterialIcon name="home" color="black" size={24} />
                   <Text style={styles.listText}>Add Home</Text>
@@ -239,6 +239,12 @@ export class Profile extends Component {
                 </Right>
               </ListItem>
               <ListItem>
+                <Text style={styles.listSubText}>
+                  Narveer Tanaji Housing Society Ramling-Shirur Rd Shivrashka
+                  Colony Shirur,Maharashtra 412210
+                </Text>
+              </ListItem>
+              <ListItem style={{ borderBottomWidth: 0 }}>
                 <Left>
                   <MaterialIcon name="work" color="black" size={24} />
                   <Text style={styles.listText}>Add Work</Text>
@@ -246,6 +252,12 @@ export class Profile extends Component {
                 <Right>
                   <Icon name="ios-arrow-dropright" color="black" size={24} />
                 </Right>
+              </ListItem>
+              <ListItem>
+                <Text style={styles.listSubText}>
+                  VIIT College Of Engineering,Yashodhan Society,Kapil
+                  Nagar,Kondhwa Budruk,Pune,Maharashtra 411048
+                </Text>
               </ListItem>
               <Separator bordered />
               <ListItem>
@@ -311,18 +323,18 @@ const styles = StyleSheet.create({
   listText: {
     paddingLeft: 12,
     fontSize: 18,
-    color:'black'
+    color: "black"
   },
 
   listSubTextLabel: {
     paddingLeft: 12,
     fontSize: 16,
-    color:'black'
+    color: "black"
   },
   listSubText: {
     paddingLeft: 12,
     fontSize: 14,
-    color:'black'
+    color: "black"
   },
 
   myText: {
