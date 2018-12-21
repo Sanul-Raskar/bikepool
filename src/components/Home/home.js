@@ -20,6 +20,7 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import SearchBox from '../Search/search'
 import LinearGradient from "react-native-linear-gradient";
 
 HEADER_MAX_HEIGHT = 100;
@@ -53,7 +54,8 @@ export class Map extends Component {
       <View style={styles.container}>
         <MapView provider={PROVIDER_GOOGLE} style={styles.map} region={region}>
           <MapView.Marker coordinate={region} pinColor="red" />
-        </MapView>
+        </MapView> 
+        <SearchBox/>
       </View>
     );
   }
