@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 10,
     marginTop: 10,
-    marginBottom: 0,
+    marginBottom: 2,
     backgroundColor: "#fff",
     opacity: 0.9,
     borderRadius: 7
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   secondInputWrapper: {
     marginLeft: 15,
     marginRight: 10,
-    marginTop: 0,
+    marginTop: 2,
     backgroundColor: "#fff",
     opacity: 0.9,
     borderRadius: 7
@@ -72,6 +72,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
     marginBottom: 0,
-    color: "black"
+    color: "black",
+    borderBottomWidth: 0.4,
+    borderColor: "grey",
   }
 });

@@ -21,7 +21,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import SearchBox from "../Search/search";
-import LinearGradient from "react-native-linear-gradient";
 
 HEADER_MAX_HEIGHT = 100;
 HEADER_MIN_HEIGHT = 60;
@@ -239,10 +238,12 @@ export class Profile extends Component {
                 </Right>
               </ListItem>
               <ListItem>
-                <Text style={styles.listSubText}>
-                  Narveer Tanaji Housing Society Ramling-Shirur Rd Shivrashka
-                  Colony Shirur,Maharashtra 412210
-                </Text>
+                <Body>
+                  <Text style={styles.listSubText}>
+                    Narveer Tanaji Housing Society Ramling-Shirur Rd Shivrashka
+                    Colony Shirur,Maharashtra 412210
+                  </Text>
+                </Body>
               </ListItem>
               <ListItem style={{ borderBottomWidth: 0 }}>
                 <Left>
@@ -254,10 +255,12 @@ export class Profile extends Component {
                 </Right>
               </ListItem>
               <ListItem>
-                <Text style={styles.listSubText}>
-                  VIIT College Of Engineering,Yashodhan Society,Kapil
-                  Nagar,Kondhwa Budruk,Pune,Maharashtra 411048
-                </Text>
+                <Body>
+                  <Text style={styles.listSubText}>
+                    VIIT College Of Engineering,Yashodhan Society,Kapil
+                    Nagar,Kondhwa Budruk,Pune,Maharashtra 411048
+                  </Text>
+                </Body>
               </ListItem>
               <Separator bordered />
               <ListItem>
