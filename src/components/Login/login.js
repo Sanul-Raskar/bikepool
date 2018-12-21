@@ -28,11 +28,11 @@ export default class login extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <StatusBar barStyle="dark-content" backgroundColor="#ccebff" />
+          <StatusBar barStyle="dark-content" backgroundColor="white" />
           <KeyboardAvoidingView style={styles.container} behavior="padding">
             <View style={styles.container}>
-              <Text style={styles.title}>Quickio</Text>
-              <Image style={styles.logo} source={require("./logo.png")} />
+              <Text style={styles.title}>Bikepool</Text>
+              <Image style={styles.logo} source={require("./bikepool.png")} />
               <TextInput
                 placeholder="Email"
                 keyboardType="email-address"
@@ -90,15 +90,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ccebff"
+    backgroundColor: "white"
   },
   logo: {
-    width: 260,
+    width: 200,
     height: 200,
     marginBottom: 16
   },
   input: {
-    backgroundColor: "#e6f5ff",
+    backgroundColor: "#e6e6e6",
     marginBottom: 12,
     height: 42,
     paddingHorizontal: 18,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     borderRadius: 24
   },
   loginButton: {
-    backgroundColor: "#0099ff",
+    backgroundColor: "black",
     paddingVertical: 10,
     marginBottom: 14,
     width: 300,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: "center",
     height: 30,
-    color: "#fff",
+    color: "white",
     fontWeight: "bold"
   },
 
@@ -124,6 +124,8 @@ const styles = StyleSheet.create({
     fontFamily: "sans-serif-light",
     fontWeight: "bold",
     fontSize: 36,
-    marginBottom: 14
+    color:"black",
+    marginBottom: 14,
+    marginTop: 6,
   }
 });

@@ -13,6 +13,6 @@ public class MainActivity extends ReactActivity {
     
     @Override
     protected String getMainComponentName() {
-        return "Login_Signup";
+        return "Bikepool";
     }
 }
