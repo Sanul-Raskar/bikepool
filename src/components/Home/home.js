@@ -20,7 +20,8 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import SearchBox from "../Search/search";
+/*import SearchBox from "../Search/search";*/
+/*import SearchBox from "../Search/googleAutoComplete";*/
 
 HEADER_MAX_HEIGHT = 100;
 HEADER_MIN_HEIGHT = 60;
@@ -41,20 +42,74 @@ export class Home extends Component {
 }
 
 export class Map extends Component {
-  render() {
-    const region = {
-      latitude: 18.4664,
-      longitude: 73.866478,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      latitude: 18.52043,
+      longitude: 73.856743,
       latitudeDelta: 0.0043,
-      longitudeDelta: 0.0034
+      longitudeDelta: 0.0034,
+      error: null
     };
+
+    this.getCurrentLocation = this.getCurrentLocation.bind(this);
+  }
+  getCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null
+        });
+      },
+      error => {
+        this.setState({ error: error.message });
+        alert(error.message);
+        console.log(error.message);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 10000
+      }
+    );
+  }
+
+  componentWillMount() {
+    this.getCurrentLocation();
+  }
+
+  render() {
 
     return (
       <View style={styles.container}>
-        <MapView provider={PROVIDER_GOOGLE} style={styles.map} region={region}>
-          <MapView.Marker coordinate={region} pinColor="red" />
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          region={{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            latitudeDelta: 0.0043,
+            longitudeDelta: 0.0034
+          }}
+        >
+          <MapView.Marker
+            coordinate={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+              latitudeDelta: 0.0043,
+              longitudeDelta: 0.0034
+            }}
+            pinColor="red"
+          />
         </MapView>
-        <SearchBox />
+        <TouchableOpacity style={styles.locateButton} onPress={this.getCurrentLocation} >
+          <Text>
+            <Icon name="md-locate" color="black" size={38} />
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -344,6 +399,14 @@ const styles = StyleSheet.create({
     margin: 60,
     justifyContent: "center",
     fontSize: 22
+  },
+
+  locateButton: {
+    position: "absolute",
+    bottom: 14,
+    right: 14,
+    backgroundColor:'white',
+    borderRadius:6
   },
 
   container: {
