@@ -129,6 +129,9 @@ export class Profile extends Component {
   }
 
   render() {
+
+    const { navigate } = this.props.navigation;
+
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
       outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
@@ -252,7 +255,7 @@ export class Profile extends Component {
           <View style={{ backgroundColor: "white" }}>
             <List style={{ backgroundColor: "white" }}>
               <ListItem
-                onPress={() => alert("Hello")}
+               onPress={() => navigate("EditProfile")}
                 style={{ borderBottomWidth: 0 }}
               >
                 <Left>

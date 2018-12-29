@@ -4,7 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  Dimensions
+  Dimensions,
+  Alert
 } from "react-native";
 import RNGooglePlaces from "react-native-google-places";
 import { InputGroup } from "native-base";
@@ -17,6 +18,8 @@ export default class GPlacesDemo extends Component {
         console.log(place);
         // place represents user's selection from the
         // suggestions and it is a simplified Google Place object.
+        Alert.alert('Source Coordinates','Latitude:'+place.latitude+' Longitude:'+place.longitude);
+      
       })
       .catch(error => console.log(error.message)); // error is a Javascript Error object
   }
@@ -27,6 +30,8 @@ export default class GPlacesDemo extends Component {
         console.log(place);
         // place represents user's selection from the
         // suggestions and it is a simplified Google Place object.
+        Alert.alert('Destination Coordinates','Latitude:'+place.latitude+' Longitude:'+place.longitude)
+
       })
       .catch(error => console.log(error.message)); // error is a Javascript Error object
   }
