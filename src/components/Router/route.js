@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { createStackNavigator } from "react-navigation";
+import MainScreen from "../Initial/mainScreen";
 import LoginScreen from "../Login/login";
 import SignUpScreen from "../SignUp/signup";
 import HomeScreen from "../Home/home";
 import EditProfile from "../EditProfile/editProfile";
 import EditFirstName from "../EditProfile/editFirstName";
+import EditLastName from "../EditProfile/editLastName";
 
 export default class componentName extends Component {
   render() {
@@ -13,6 +15,12 @@ export default class componentName extends Component {
 }
 const AppStackNavigator = createStackNavigator(
   {
+    MainScreen: {
+      screen: MainScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
     Login: { screen: LoginScreen },
     Signup: { screen: SignUpScreen },
     Home: {
@@ -46,9 +54,22 @@ const AppStackNavigator = createStackNavigator(
           fontWeight: "bold"
         }
       }
+    },
+    EditLastName: {
+      screen: EditLastName,
+      navigationOptions: {
+        title: "Edit Last Name",
+        headerStyle: {
+          backgroundColor: "black"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
     }
   },
   {
-    initialRouteName: "Login"
+    initialRouteName: "MainScreen"
   }
 );
