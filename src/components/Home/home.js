@@ -15,8 +15,19 @@ import {
 } from "react-native";
 import Ride from "./topTabs";
 import { createBottomTabNavigator } from "react-navigation";
-import { List, ListItem, Left, Body, Right, Separator } from "native-base";
+import {
+  List,
+  ListItem,
+  Left,
+  Body,
+  Right,
+  Separator,
+  Card,
+  CardItem,
+  Thumbnail
+} from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import ToggleSwitch from "toggle-switch-react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -28,13 +39,40 @@ PROFILE_IMAGE_MAX_HEIGHT = 100;
 PROFILE_IMAGE_MIN_HEIGHT = 60;
 
 export class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOnDefaultToggleSwitch: true
+    };
+  }
+
   render() {
     return (
       <View>
-        <Text style={styles.myText}>
-          Home. Here will be Map and App will ask user whether he want to get
-          ride or give ride.
-        </Text>
+        <Card>
+          <CardItem>
+            <Left>
+              <Text style={styles.toggleSwitchLabels}>Offer Ride</Text>
+            </Left>
+            <Body>
+              <ToggleSwitch
+                isOn={this.state.isOnDefaultToggleSwitch}
+                onColor="rgb(51, 51, 51)"
+                offColor="rgb(51, 51, 51)"
+                size="large"
+                onToggle={isOnDefaultToggleSwitch => {
+                  this.setState({ isOnDefaultToggleSwitch });
+                }}
+              />
+            </Body>
+            <Right>
+              <Text style={styles.toggleSwitchLabels}>Get Ride</Text>
+            </Right>
+          </CardItem>
+        </Card>
+        <ScrollView>
+          <SearchBox />
+        </ScrollView>
       </View>
     );
   }
@@ -70,7 +108,7 @@ export class Map extends Component {
       },
       {
         enableHighAccuracy: true,
-        timeout: 5000,
+        timeout: 7000,
         maximumAge: 10000
       }
     );
@@ -81,7 +119,6 @@ export class Map extends Component {
   }
 
   render() {
-
     return (
       <View style={styles.container}>
         <MapView
@@ -104,13 +141,15 @@ export class Map extends Component {
             pinColor="red"
           />
         </MapView>
-       
-        <TouchableOpacity style={styles.locateButton} onPress={this.getCurrentLocation} >
+
+        <TouchableOpacity
+          style={styles.locateButton}
+          onPress={this.getCurrentLocation}
+        >
           <Text>
             <Icon name="md-locate" color="black" size={38} />
           </Text>
         </TouchableOpacity>
-        <SearchBox/>
       </View>
     );
   }
@@ -129,7 +168,6 @@ export class Profile extends Component {
   }
 
   render() {
-
     const { navigate } = this.props.navigation;
 
     const headerHeight = this.state.scrollY.interpolate({
@@ -255,7 +293,7 @@ export class Profile extends Component {
           <View style={{ backgroundColor: "white" }}>
             <List style={{ backgroundColor: "white" }}>
               <ListItem
-               onPress={() => navigate("EditProfile")}
+                onPress={() => navigate("EditProfile")}
                 style={{ borderBottomWidth: 0 }}
               >
                 <Left>
@@ -382,6 +420,12 @@ export default createBottomTabNavigator(
 );
 
 const styles = StyleSheet.create({
+  toggleSwitchLabels: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "black"
+  },
+
   listText: {
     paddingLeft: 12,
     fontSize: 18,
@@ -404,13 +448,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     fontSize: 22
   },
-
   locateButton: {
     position: "absolute",
     bottom: 14,
     right: 14,
-    backgroundColor:'white',
-    borderRadius:6
+    backgroundColor: "white",
+    borderRadius: 6
   },
 
   container: {
