@@ -59,31 +59,41 @@ export default class EditProfile extends Component {
               <Text style={styles.label}>Last Name</Text>
             </ListItem>
             <ListItem>
-              <Text style={styles.info}>Raskar</Text>
+              <TouchableOpacity onPress={() => navigate("EditLastName")}>
+                <Text style={styles.info}>Raskar</Text>
+              </TouchableOpacity>
             </ListItem>
             <ListItem style={{ borderBottomWidth: 0 }}>
               <Text style={styles.label}>Phone Number</Text>
             </ListItem>
             <ListItem>
-              <Text style={styles.info}>+91 7350142164</Text>
+              <TouchableOpacity>
+                <Text style={styles.info}>+91 7350142164</Text>
+              </TouchableOpacity>
             </ListItem>
             <ListItem style={{ borderBottomWidth: 0 }}>
               <Text style={styles.label}>Email</Text>
             </ListItem>
             <ListItem>
-              <Text style={styles.info}>sanulraskar@gmail.com</Text>
+              <TouchableOpacity>
+                <Text style={styles.info}>sanulraskar@gmail.com</Text>
+              </TouchableOpacity>
             </ListItem>
             <ListItem style={{ borderBottomWidth: 0 }}>
               <Text style={styles.label}>UID Number</Text>
             </ListItem>
             <ListItem>
-              <Text style={styles.info}>9906 0457 2612</Text>
+              <TouchableOpacity>
+                <Text style={styles.info}>9906 0457 2612</Text>
+              </TouchableOpacity>
             </ListItem>
             <ListItem style={{ borderBottomWidth: 0 }}>
               <Text style={styles.label}>Password</Text>
             </ListItem>
             <ListItem>
-              <Text style={styles.info}>*************</Text>
+              <TouchableOpacity>
+                <Text style={styles.info}>*************</Text>
+              </TouchableOpacity>
             </ListItem>
           </List>
         </ScrollView>
