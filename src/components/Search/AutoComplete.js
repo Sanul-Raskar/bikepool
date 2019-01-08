@@ -78,7 +78,7 @@ export default class GPlacesDemo extends Component {
                     return "";
                   }}
                   query={{
-                    key: "AIzaSyDrBpkn1NgyVAGKUdM64ujeb-8MMfNlwrk",
+                    key: "Your Google maps API Key Here",
                     language: "en",
                     types: "(cities)" // default: 'geocode'
                   }}
@@ -149,7 +149,7 @@ export default class GPlacesDemo extends Component {
                     return "";
                   }}
                   query={{
-                    key: "AIzaSyDrBpkn1NgyVAGKUdM64ujeb-8MMfNlwrk",
+                    key: "Your Google maps API Key Here",
                     language: "en",
                     types: "(cities)" // default: 'geocode'
                   }}
