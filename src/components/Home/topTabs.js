@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import {
   StyleSheet,
-  TextInput,
   View,
-  KeyboardAvoidingView,
-  Image,
   TouchableOpacity,
-  StatusBar,
   ScrollView,
   SafeAreaView
 } from "react-native";
@@ -39,7 +35,7 @@ export class PreviousRides extends Component {
           <Card>
             <CardItem style={{ backgroundColor: "rgb(38, 38, 38)" }}>
               <Left>
-                <Thumbnail source={require("../assets/img/shubham.jpg")} />
+                <Thumbnail source={require("../../assets/img/shubham.jpg")} />
                 <Body>
                   <Text style={styles.label}>Shubham Barmecha</Text>
                   <Text style={{ color: "white" }} note>
@@ -67,11 +63,10 @@ export class PreviousRides extends Component {
               </Left>
             </CardItem>
           </Card>
-
           <Card>
             <CardItem style={{ backgroundColor: "rgb(38, 38, 38)" }}>
               <Left>
-                <Thumbnail source={require("../assets/img/kaustubh.jpg")} />
+                <Thumbnail source={require("../../assets/img/kaustubh.jpg")} />
                 <Body>
                   <Text style={styles.label}>Kaustubh Sankpal</Text>
                   <Text style={{ color: "white" }} note>
@@ -95,15 +90,14 @@ export class PreviousRides extends Component {
               </Left>
             </CardItem>
           </Card>
-
           <Card>
             <CardItem style={{ backgroundColor: "rgb(38, 38, 38)" }}>
               <Left>
-                <Thumbnail source={require("../assets/img/andy.png")} />
+                <Thumbnail source={require("../../assets/img/andy.png")} />
                 <Body>
                   <Text style={styles.label}>Aniruddha Tonge</Text>
                   <Text style={{ color: "white" }} note>
-                    You offered ride
+                    He offered ride
                   </Text>
                 </Body>
               </Left>
@@ -116,9 +110,9 @@ export class PreviousRides extends Component {
                   <Text style={styles.label}>Destination</Text>
                   <Text style={styles.subText}>Work</Text>
                   <Text style={styles.label}>Vehicle Number</Text>
-                  <Text style={styles.subText}>MH 12 EV 1058</Text>
+                  <Text style={styles.subText}>MH 12 AC 1753</Text>
                   <Text style={styles.label}>Time Stamp</Text>
-                  <Text style={styles.subText}>Mon Dec 03 2018 07:30:00</Text>
+                  <Text style={styles.subText}>Wed Dec 12 2018 07:30:00</Text>
                 </Body>
               </Left>
             </CardItem>
@@ -135,14 +129,13 @@ export class UpcomingRides extends Component {
     this.state = {};
   }
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View>
         <ScrollView>
           <Card>
             <CardItem style={{ backgroundColor: "rgb(38, 38, 38)" }}>
               <Left>
-                <Thumbnail source={require("../assets/img/vijay.jpg")} />
+                <Thumbnail source={require("../../assets/img/vijay.jpg")} />
                 <Body>
                   <Text style={styles.label}>Vijay Raskar</Text>
                   <Text style={{ color: "white" }} note>

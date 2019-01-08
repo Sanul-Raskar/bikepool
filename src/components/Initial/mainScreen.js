@@ -22,7 +22,7 @@ export default class MainScreen extends Component {
         <StatusBar barStyle="dark-content" backgroundColor="white" />
         <Image
           style={styles.logo}
-          source={require("../assets/img/bikepool.png")}
+          source={require("../../assets/img/bikepool.png")}
         />
         <TouchableOpacity
           style={styles.LoginButton}

@@ -2,16 +2,11 @@ import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
-  KeyboardAvoidingView,
   Image,
   TouchableOpacity,
-  StatusBar,
   ScrollView,
-  SafeAreaView,
-  Animated,
-  Button
+  Animated
 } from "react-native";
 import Ride from "./topTabs";
 import { createBottomTabNavigator } from "react-navigation";
@@ -23,8 +18,7 @@ import {
   Right,
   Separator,
   Card,
-  CardItem,
-  Thumbnail
+  CardItem
 } from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import ToggleSwitch from "toggle-switch-react-native";
@@ -32,7 +26,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import SearchBox from "../Search/AutoComplete";
-
+import "../global";
 HEADER_MAX_HEIGHT = 100;
 HEADER_MIN_HEIGHT = 60;
 PROFILE_IMAGE_MAX_HEIGHT = 100;
@@ -81,13 +75,16 @@ export class Home extends Component {
 export class Map extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       latitude: 18.52043,
       longitude: 73.856743,
       latitudeDelta: 0.0043,
       longitudeDelta: 0.0034,
-      error: null
+      error: null,
+      sourceLat: global.SourceLatitude,
+      sourceLng: global.SourceLongitude,
+      destinationLat: global.DestinationLatitude,
+      destinationLng: global.DestinationLongitude
     };
 
     this.getCurrentLocation = this.getCurrentLocation.bind(this);
@@ -112,6 +109,40 @@ export class Map extends Component {
         maximumAge: 10000
       }
     );
+  }
+
+  plotSourceMarker() {
+    if (isSourceMarker) {
+      console.log(this.state.sourceLat);
+      return (
+        <MapView.Marker
+          coordinate={{
+            latitude: this.state.sourceLat,
+            longitude: this.state.sourceLng,
+            latitudeDelta: 0.0043,
+            longitudeDelta: 0.0034
+          }}
+          pinColor="violet"
+        />
+      );
+    }
+  }
+
+  plotDestinationMarker() {
+    if (isDestinationMarker) {
+      console.log(this.state.destinationLat);
+      return (
+        <MapView.Marker
+          coordinate={{
+            latitude: this.state.destinationLat,
+            longitude: this.state.destinationLng,
+            latitudeDelta: 0.0043,
+            longitudeDelta: 0.0034
+          }}
+          pinColor="green"
+        />
+      );
+    }
   }
 
   componentWillMount() {
@@ -140,6 +171,9 @@ export class Map extends Component {
             }}
             pinColor="red"
           />
+
+          {this.plotSourceMarker()}
+          {this.plotDestinationMarker()}
         </MapView>
 
         <TouchableOpacity
