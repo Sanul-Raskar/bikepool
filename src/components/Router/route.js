@@ -7,6 +7,10 @@ import HomeScreen from "../Home/home";
 import EditProfile from "../EditProfile/editProfile";
 import EditFirstName from "../EditProfile/editFirstName";
 import EditLastName from "../EditProfile/editLastName";
+import EditPhoneNumber from "../EditProfile/editPhoneNumber";
+import EditEmail from "../EditProfile/editEmail";
+import EditUID from "../EditProfile/editUID";
+import EditPassword from "../EditProfile/editPassword";
 
 export default class componentName extends Component {
   render() {
@@ -59,6 +63,58 @@ const AppStackNavigator = createStackNavigator(
       screen: EditLastName,
       navigationOptions: {
         title: "Edit Last Name",
+        headerStyle: {
+          backgroundColor: "black"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    EditPhoneNumber: {
+      screen: EditPhoneNumber,
+      navigationOptions: {
+        title: "Edit Phone Number",
+        headerStyle: {
+          backgroundColor: "black"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    EditEmail: {
+      screen: EditEmail,
+      navigationOptions: {
+        title: "Edit Email",
+        headerStyle: {
+          backgroundColor: "black"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    EditUID: {
+      screen: EditUID,
+      navigationOptions: {
+        title: "Edit UID",
+        headerStyle: {
+          backgroundColor: "black"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    EditPassword: {
+      screen: EditPassword,
+      navigationOptions: {
+        title: "Edit Password",
         headerStyle: {
           backgroundColor: "black"
         },
