@@ -67,15 +67,15 @@ export default class EditProfile extends Component {
               <Text style={styles.label}>Phone Number</Text>
             </ListItem>
             <ListItem>
-              <TouchableOpacity>
-                <Text style={styles.info}>+91 7350142164</Text>
+              <TouchableOpacity onPress={() => navigate("EditPhoneNumber")}>
+                <Text style={styles.info}>7350142164</Text>
               </TouchableOpacity>
             </ListItem>
             <ListItem style={{ borderBottomWidth: 0 }}>
               <Text style={styles.label}>Email</Text>
             </ListItem>
             <ListItem>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigate("EditEmail")}>
                 <Text style={styles.info}>sanulraskar@gmail.com</Text>
               </TouchableOpacity>
             </ListItem>
@@ -83,15 +83,15 @@ export default class EditProfile extends Component {
               <Text style={styles.label}>UID Number</Text>
             </ListItem>
             <ListItem>
-              <TouchableOpacity>
-                <Text style={styles.info}>9906 0457 2612</Text>
+              <TouchableOpacity onPress={() => navigate("EditUID")}>
+                <Text style={styles.info}>123456789102</Text>
               </TouchableOpacity>
             </ListItem>
             <ListItem style={{ borderBottomWidth: 0 }}>
               <Text style={styles.label}>Password</Text>
             </ListItem>
             <ListItem>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigate("EditPassword")}>
                 <Text style={styles.info}>*************</Text>
               </TouchableOpacity>
             </ListItem>
