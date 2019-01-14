@@ -68,18 +68,6 @@ const AppStack = createStackNavigator(
         header: null
       }
     },
-    Login: {
-      screen: LoginScreen,
-      navigationOptions: {
-        header: null
-      }
-    },
-    Signup: {
-      screen: SignUpScreen,
-      navigationOptions: {
-        header: null
-      }
-    },
 
     EditProfile: {
       screen: EditProfile,
@@ -204,14 +192,40 @@ const AppStack = createStackNavigator(
   }
 );
 
-const AuthStack = createStackNavigator({
-  SignIn: {
-    screen: MainScreen,
-    navigationOptions: {
-      header: null
+const AuthStack = createStackNavigator(
+  {
+    MainScreen: {
+      screen: MainScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Login: {
+      screen: LoginScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Signup: {
+      screen: SignUpScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    App: {
+      screen: AppStack,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          backgroundColor: "black"
+        }
+      }
     }
+  },
+  {
+    initialRouteName: "MainScreen"
   }
-});
+);
 
 const SwitchNavigator = createSwitchNavigator(
   {
