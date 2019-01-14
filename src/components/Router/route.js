@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator, createSwitchNavigator } from "react-navigation";
+import {
+  ActivityIndicator,
+  AsyncStorage,
+  StatusBar,
+  StyleSheet,
+  View
+} from "react-native";
 import MainScreen from "../Initial/mainScreen";
 import LoginScreen from "../Login/login";
 import SignUpScreen from "../SignUp/signup";
@@ -11,28 +18,69 @@ import EditPhoneNumber from "../EditProfile/editPhoneNumber";
 import EditEmail from "../EditProfile/editEmail";
 import EditUID from "../EditProfile/editUID";
 import EditPassword from "../EditProfile/editPassword";
+import AddHome from "../EditProfile/addHome";
+import AddWork from "../EditProfile/addWork";
 
 export default class componentName extends Component {
   render() {
-    return <AppStackNavigator />;
+    return <SwitchNavigator />;
   }
 }
-const AppStackNavigator = createStackNavigator(
+class AuthLoadingScreen extends React.Component {
+  constructor() {
+    super();
+    this._bootstrapAsync();
+  }
+
+  // Fetch the token from storage then navigate to our appropriate place
+  _bootstrapAsync = async () => {
+    const userToken = await AsyncStorage.getItem("userToken");
+
+    // This will switch to the App screen or Auth screen and this loading
+    // screen will be unmounted and thrown away.
+    this.props.navigation.navigate(userToken ? "App" : "Auth");
+  };
+
+  // Render any loading content that you like here
+  render() {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator />
+        <StatusBar barStyle="default" />
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
+
+const AppStack = createStackNavigator(
   {
-    MainScreen: {
-      screen: MainScreen,
-      navigationOptions: {
-        header: null
-      }
-    },
-    Login: { screen: LoginScreen },
-    Signup: { screen: SignUpScreen },
     Home: {
       screen: HomeScreen,
       navigationOptions: {
         header: null
       }
     },
+    Login: {
+      screen: LoginScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Signup: {
+      screen: SignUpScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+
     EditProfile: {
       screen: EditProfile,
       navigationOptions: {
@@ -123,9 +171,55 @@ const AppStackNavigator = createStackNavigator(
           fontWeight: "bold"
         }
       }
+    },
+    AddHome: {
+      screen: AddHome,
+      navigationOptions: {
+        title: "Add Home",
+        headerStyle: {
+          backgroundColor: "black"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    AddWork: {
+      screen: AddWork,
+      navigationOptions: {
+        title: "Add Work",
+        headerStyle: {
+          backgroundColor: "black"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
     }
   },
   {
-    initialRouteName: "MainScreen"
+    initialRouteName: "Home"
+  }
+);
+
+const AuthStack = createStackNavigator({
+  SignIn: {
+    screen: MainScreen,
+    navigationOptions: {
+      header: null
+    }
+  }
+});
+
+const SwitchNavigator = createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack
+  },
+  {
+    initialRouteName: "AuthLoading"
   }
 );

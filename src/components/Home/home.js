@@ -6,7 +6,8 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Animated
+  Animated,
+  AsyncStorage
 } from "react-native";
 import Ride from "./topTabs";
 import { createBottomTabNavigator } from "react-navigation";
@@ -201,6 +202,11 @@ export class Profile extends Component {
     this.state = { scrollY: new Animated.Value(0) };
   }
 
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate("Auth");
+  };
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -302,7 +308,7 @@ export class Profile extends Component {
             }}
           >
             <Image
-              source={require("./sanul.jpeg")}
+              source={require("../../assets/img/sanul.jpeg")}
               style={{
                 flex: 1,
                 width: null,
@@ -359,7 +365,10 @@ export class Profile extends Component {
               <Separator bordered>
                 <Text>Favorites</Text>
               </Separator>
-              <ListItem style={{ borderBottomWidth: 0 }}>
+              <ListItem
+                style={{ borderBottomWidth: 0 }}
+                onPress={() => navigate("AddHome")}
+              >
                 <Left>
                   <MaterialIcon name="home" color="black" size={24} />
                   <Text style={styles.listText}>Add Home</Text>
@@ -376,7 +385,10 @@ export class Profile extends Component {
                   </Text>
                 </Body>
               </ListItem>
-              <ListItem style={{ borderBottomWidth: 0 }}>
+              <ListItem
+                style={{ borderBottomWidth: 0 }}
+                onPress={() => navigate("AddWork")}
+              >
                 <Left>
                   <MaterialIcon name="work" color="black" size={24} />
                   <Text style={styles.listText}>Add Work</Text>
@@ -394,7 +406,7 @@ export class Profile extends Component {
                 </Body>
               </ListItem>
               <Separator bordered />
-              <ListItem>
+              <ListItem onPress={this._signOutAsync}>
                 <Text style={styles.listText}>Sign Out</Text>
               </ListItem>
             </List>
