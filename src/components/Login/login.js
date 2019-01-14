@@ -7,22 +7,25 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   StatusBar,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from "react-native";
 import { StackActions, NavigationActions } from "react-navigation";
 export default class login extends Component {
   static navigationOptions = {
     header: null
   };
-
-  render() {
-    const { navigate } = this.props.navigation;
+  _signInAsync = async () => {
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: "Home" })],
       key: null
     });
-
+    await AsyncStorage.setItem("userToken", "abc");
+    this.props.navigation.dispatch(resetAction);
+  };
+  render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -49,23 +52,17 @@ export default class login extends Component {
                 ref={input => (this.passwordInput = input)}
               />
               <TouchableOpacity
-                onPress={() => this.props.navigation.dispatch(resetAction)}
                 style={styles.loginButton}
+                onPress={this._signInAsync}
               >
                 <Text style={styles.ButtonText}>Login</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() => this.props.navigation.dispatch(resetAction)}
-                style={styles.GoogleButton}
-              >
+              <TouchableOpacity style={styles.GoogleButton}>
                 <Text style={styles.ButtonText}>Login with Google</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() => this.props.navigation.dispatch(resetAction)}
-                style={styles.FaceBookButton}
-              >
+              <TouchableOpacity style={styles.FaceBookButton}>
                 <Text style={styles.ButtonText}>Login with Facebook</Text>
               </TouchableOpacity>
               <Text
