@@ -230,7 +230,15 @@ const AuthStack = createStackNavigator(
 const SwitchNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
-    App: AppStack,
+    App: {
+      screen: AppStack,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          backgroundColor: "black"
+        }
+      }
+    },
     Auth: AuthStack
   },
   {
