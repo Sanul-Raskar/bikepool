@@ -365,7 +365,10 @@ export class Profile extends Component {
               <Separator bordered>
                 <Text>Favorites</Text>
               </Separator>
-              <ListItem style={{ borderBottomWidth: 0 }}>
+              <ListItem
+                style={{ borderBottomWidth: 0 }}
+                onPress={() => navigate("AddHome")}
+              >
                 <Left>
                   <MaterialIcon name="home" color="black" size={24} />
                   <Text style={styles.listText}>Add Home</Text>
@@ -382,7 +385,10 @@ export class Profile extends Component {
                   </Text>
                 </Body>
               </ListItem>
-              <ListItem style={{ borderBottomWidth: 0 }}>
+              <ListItem
+                style={{ borderBottomWidth: 0 }}
+                onPress={() => navigate("AddWork")}
+              >
                 <Left>
                   <MaterialIcon name="work" color="black" size={24} />
                   <Text style={styles.listText}>Add Work</Text>

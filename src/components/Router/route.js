@@ -18,6 +18,8 @@ import EditPhoneNumber from "../EditProfile/editPhoneNumber";
 import EditEmail from "../EditProfile/editEmail";
 import EditUID from "../EditProfile/editUID";
 import EditPassword from "../EditProfile/editPassword";
+import AddHome from "../EditProfile/addHome";
+import AddWork from "../EditProfile/addWork";
 
 export default class componentName extends Component {
   render() {
@@ -161,6 +163,32 @@ const AppStack = createStackNavigator(
       screen: EditPassword,
       navigationOptions: {
         title: "Edit Password",
+        headerStyle: {
+          backgroundColor: "black"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    AddHome: {
+      screen: AddHome,
+      navigationOptions: {
+        title: "Add Home",
+        headerStyle: {
+          backgroundColor: "black"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    AddWork: {
+      screen: AddWork,
+      navigationOptions: {
+        title: "Add Work",
         headerStyle: {
           backgroundColor: "black"
         },
