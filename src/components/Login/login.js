@@ -18,7 +18,7 @@ export default class login extends Component {
   _signInAsync = async () => {
     const resetAction = StackActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: "Home" })],
+      actions: [NavigationActions.navigate({ routeName: "App" })],
       key: null
     });
     await AsyncStorage.setItem("userToken", "abc");

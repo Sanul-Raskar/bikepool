@@ -7,6 +7,7 @@ import {
   StatusBar,
   Image
 } from "react-native";
+import {  NavigationActions } from "react-navigation";
 
 export default class MainScreen extends Component {
   constructor(props) {
