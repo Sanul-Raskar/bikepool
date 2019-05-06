@@ -1,129 +1,93 @@
 import React, { Component } from "react";
 import {
   View,
-  TextInput,
   Text,
   StyleSheet,
   KeyboardAvoidingView,
   StatusBar,
   ScrollView
 } from "react-native";
-import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import { Fumi } from "react-native-textinput-effects";
+import FloatingLabelInput from "./formAnimation";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import DatePicker from "react-native-datepicker";
 
-export default class componentName extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { date: "2016-05-15" };
-  }
-  static navigationOptions = {
-    header: null
+export default class App extends Component {
+  state = {
+    firstname: "",
+    lastname: "",
+    email: "",
+    mobile: "",
+    password1: "",
+    password2: "",
+    birthdate:"",
+    firstnameError: false,
+    lastnameError: false,
+    emailError: false,
+    mobileError: false,
+    password1Error: false,
+    password2Error: false,
+    birthdateError: false,
+
   };
 
+  /*handleTextChange = newText => this.setState({ value: newText });*/
+
   render() {
-    var today = new Date("2016-02-29").toDateString();
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <StatusBar barStyle="dark-content" backgroundColor="#ccebff" />
+      <View style={styles.container}>
         <ScrollView>
-          <View>
-            <Text style={styles.title}>Sign Up</Text>
-            <Fumi
-              style={styles.input}
-              label={"Name"}
-              iconClass={FontAwesomeIcon}
-              iconName={"user"}
-              iconColor={"#0099ff"}
-              iconSize={28}
-            />
-            <Fumi
-              style={styles.input}
-              label={"Email"}
-              iconClass={FontAwesomeIcon}
-              iconName={"envelope"}
-              iconColor={"#0099ff"}
-              iconSize={28}
-            />
-            <DatePicker
-              style={styles.input}
-              mode="date"
-              date={this.state.date}
-              placeholder="select birthdate"
-              format="YYYY-MM-DD"
-              minDate="1900-01-01"
-              maxDate="2018-12-30"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: "absolute",
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0
-                },
-                dateInput: {
-                  marginLeft: 36
-                }
-              }}
-              onDateChange={date => {
-                this.setState({ date: date });
-              }}
-            />
-            <Fumi
-              style={styles.input}
-              label={"Phone Number"}
-              iconClass={FontAwesomeIcon}
-              iconName={"envelope"}
-              iconColor={"#0099ff"}
-              iconSize={28}
-              keyboardType="numeric"
-             // onChangeText={(text) => this.onChanged(text)}
-              value={this.state.mobileNumber}
-              maxLength={10}
-            />
-          </View>
+          <Text style={styles.heading}>Sign Up</Text>
+          <Text style={styles.subheading}>Create your Account</Text>
+          
+          <FloatingLabelInput
+            label="First Name"
+            value={this.state.firstname}
+            /*onChangeText={this.handleTextChange}*/
+          />
+          {  this.state.firstnameError && 
+          <Text style={styles.error}>
+          <Icon name="alert-circle" color="red" size={16} />
+          {" "} Use alphabets only!
+          </Text>
+          }
+
+          <FloatingLabelInput label="Last Name" value={this.state.lastname} />
+          <FloatingLabelInput label="Email" value={this.state.email} />
+          <FloatingLabelInput label="Mobile Number" value={this.state.mobile} />
         </ScrollView>
-      </KeyboardAvoidingView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ccebff",
-    justifyContent: "center",
+    flex: 1,
+    backgroundColor: "white",
+    padding: 20
+  },
+  heading: {
+    fontFamily: "sans-serif-light",
+    fontWeight: "bold",
+    fontSize: 30,
+    color: "black",
+    marginBottom: 6,
+    marginTop: 10,
     textAlign: "center"
   },
-  title: {
-    fontSize: 24,
+  subheading: {
+    fontFamily: "sans-serif-light",
     fontWeight: "bold",
-    textAlign: "center",
-    paddingTop: 10
+    fontSize: 20,
+    color: "black",
+    marginBottom: 20,
+    marginTop: 4,
+    textAlign: "center"
   },
-  input: {
-    justifyContent: "center",
-    alignSelf: "center",
-    borderRadius: 24,
-    width: 300,
-    height: 60,
-    marginTop: 30,
-    padding: 2,
-    paddingRight: 10
+  error:{
+    paddingTop: 4,
+    paddingBottom: 6,
+    fontSize:16,
+    color:"red"
   }
 });
-
-
-function onChanged(text) {
-  var newText = "";
-  var numbers = "0123456789";
-
-  for (var i = 0; i < text.length; i++) {
-    if (numbers.indexOf(text[i]) > -1) {
-      newText = newText + text[i];
-    } else {
-      alert("Invalid mobile number");
-    }
-  }
-  this.setState({ mobileNumber: newText });
-}
