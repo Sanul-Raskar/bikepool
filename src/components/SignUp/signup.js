@@ -13,30 +13,44 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import DatePicker from "react-native-datepicker";
 
 export default class App extends Component {
-  state = {
-    firstname: "",
-    lastname: "",
-    email: "",
-    mobile: "",
-    password1: "",
-    password2: "",
-    birthdate: "",
-    firstnameError: false,
-    lastnameError: false,
-    emailError: false,
-    mobileError: false,
-    password1Error: false,
-    password2Error: false,
-    birthdateError: false,
-    pass:true,
-    border_Color_firstname: "#dadce0",
-    border_Color_lastname: "#dadce0",
-    border_Color_email: "#dadce0",
-    border_Color_mobile: "#dadce0",
-    border_Color_password1: "#dadce0",
-    border_Color_password2: "#dadce0",
-    border_Color_birthdate: "#dadce0"
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstname: "",
+      lastname: "",
+      email: "",
+      mobile: "",
+      password1: "",
+      password2: "",
+      firstnameError: "",
+      lastnameError: "",
+      emailError: "",
+      mobileError: "",
+      password1Error: "",
+      password2Error: "",
+      pass: true,
+      firstname_font_color: "#1a73e8",
+      firstname_onFocus_border: "#1a73e8",
+      lastname_font_color: "#1a73e8",
+      lastname_onFocus_border: "#1a73e8",
+      email_font_color: "#1a73e8",
+      email_onFocus_border: "#1a73e8",
+      mobile_font_color: "#1a73e8",
+      mobile_onFocus_border: "#1a73e8",
+      password1_font_color: "#1a73e8",
+      password1_onFocus_border: "#1a73e8",
+      password2_font_color: "#1a73e8",
+      password2_onFocus_border: "#1a73e8",
+      border_Color_firstname: "#dadce0",
+      border_Color_lastname: "#dadce0",
+      border_Color_email: "#dadce0",
+      border_Color_mobile: "#dadce0",
+      border_Color_password1: "#dadce0",
+      border_Color_password2: "#dadce0"
+    };
+    this.validate = this.validate.bind(this);
+    this.validateFirstName = this.validateFirstName.bind(this);
+  }
 
   handleFirstNameChange = newValue => {
     this.setState({ firstname: newValue });
@@ -57,14 +71,39 @@ export default class App extends Component {
     this.setState({ password2: newValue });
   };
 
-  /*let regExp = /^[A-Za-z]+$/;
-    if (this.state.firstname.match(regExp)) {
-      alert("Your name have accepted : you can try another");
+  validateFirstName = () => {
+    let regExp = /^[A-Za-z]+$/;
+    if (this.state.firstname === "") {
+      this.setState({
+        border_Color_firstname: "red",
+        firstnameError: "Please fill this field.",
+        firstname_font_color: "red",
+        firstname_onFocus_border: "red"
+      });
+      return false;
+    } else if (this.state.firstname.match(regExp)) {
+      this.setState({
+        border_Color_firstname: "#dadce0",
+        firstnameError: "",
+        firstname_font_color: "#1a73e8",
+        firstname_onFocus_border: "#1a73e8"
+      });
+      return true;
     } else {
-      this.setState({ border_Color_firstname: "red" });
-      alert("Not accepted");
-    }*/
+      this.setState({
+        border_Color_firstname: "red",
+        firstnameError: "Alphabets only!",
+        firstname_font_color: "red",
+        firstname_onFocus_border: "red"
+      });
+      return false;
+    }
+  };
 
+  validate = () => {
+    if (this.validateFirstName()) {
+    }
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -78,11 +117,14 @@ export default class App extends Component {
             onChangeText={this.handleFirstNameChange}
             border={this.state.border_Color_firstname}
             keyboardLayout="default"
+            fontColor={this.state.firstname_font_color}
+            onFocusBorder={this.state.firstname_onFocus_border}
           />
-          {this.state.firstnameError && (
+
+          {this.state.firstnameError !== "" && (
             <Text style={styles.error}>
-              <Icon name="alert-circle" color="red" size={16} /> Use alphabets
-              only!
+              <Icon name="alert-circle" color="red" size={16} />{" "}
+              {this.state.firstnameError}
             </Text>
           )}
 
@@ -92,6 +134,8 @@ export default class App extends Component {
             border={this.state.border_Color_lastname}
             onChangeText={this.handleLastNameChange}
             keyboardLayout="default"
+            fontColor={this.state.lastname_font_color}
+            onFocusBorder={this.state.lastname_onFocus_border}
           />
           <FloatingLabelInput
             label="Email"
@@ -99,6 +143,8 @@ export default class App extends Component {
             border={this.state.border_Color_email}
             onChangeText={this.handleEmailChange}
             keyboardLayout="email-address"
+            fontColor={this.state.email_font_color}
+            onFocusBorder={this.state.email_onFocus_border}
           />
           <FloatingLabelInput
             label="Mobile Number"
@@ -106,6 +152,8 @@ export default class App extends Component {
             border={this.state.border_Color_mobile}
             onChangeText={this.handleMobileChange}
             keyboardLayout="numeric"
+            fontColor={this.state.mobile_font_color}
+            onFocusBorder={this.state.mobile_onFocus_border}
           />
 
           <FloatingLabelInput
@@ -114,16 +162,20 @@ export default class App extends Component {
             border={this.state.border_Color_password1}
             onChangeText={this.handlePassword1Change}
             keyboardLayout="default"
-            passwordSecurity = {this.state.pass}
+            passwordSecurity={this.state.pass}
+            fontColor={this.state.password1_font_color}
+            onFocusBorder={this.state.password1_onFocus_border}
           />
-         
+
           <FloatingLabelInput
             label="Confirm Password"
             value={this.state.password2}
             border={this.state.border_Color_password2}
             onChangeText={this.handlePassword2Change}
             keyboardLayout="default"
-            passwordSecurity = {this.state.pass}
+            passwordSecurity={this.state.pass}
+            fontColor={this.state.password2_font_color}
+            onFocusBorder={this.state.password2_onFocus_border}
           />
 
           <View style={styles.bottomButtons}>
@@ -139,7 +191,10 @@ export default class App extends Component {
                 Login instead
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.signUpButton}>
+            <TouchableOpacity
+              style={styles.signUpButton}
+              onPress={this.validate}
+            >
               <Text style={styles.ButtonText}>Next</Text>
             </TouchableOpacity>
           </View>

@@ -6,9 +6,7 @@ export default class FloatingLabelInput extends Component {
     super(props);
     this.state = {
       isFocused: false,
-      border_color: this.props.border,
-      keyboard:this.props.keyboardLayout,
-      password:this.props.passwordSecurity
+      border_color: this.props.border
     };
   }
 
@@ -18,21 +16,31 @@ export default class FloatingLabelInput extends Component {
     );
   }
 
-  handleFocus = () =>
-    this.setState({ isFocused: true, border_color: "#1a73e8" });
-  handleBlur = () =>
+  handleFocus = () => {
+    this.setState({ isFocused: true, border_color: this.props.onFocusBorder });
+  };
+
+  handleBlur = () => {
     this.setState({ isFocused: false, border_color: "#dadce0" });
+  };
 
   componentDidUpdate() {
     Animated.timing(this._animatedIsFocused, {
       toValue: this.state.isFocused || this.props.value !== "" ? 1 : 0,
       duration: 150
     }).start();
-
   }
 
   render() {
-    const { border,keyboardLayout,passwordSecurity, label, ...props } = this.props;
+    const {
+      border,
+      fontColor,
+      onFocusBorder,
+      keyboardLayout,
+      passwordSecurity,
+      label,
+      ...props
+    } = this.props;
     const labelStyle = {
       position: "absolute",
       left: 12,
@@ -49,7 +57,7 @@ export default class FloatingLabelInput extends Component {
       }),
       color: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
-        outputRange: ["#666666", "#1a73e8"]
+        outputRange: ["#666666", this.props.fontColor]
       })
     };
     return (
@@ -63,13 +71,13 @@ export default class FloatingLabelInput extends Component {
             color: "black",
             borderWidth: 1.5,
             borderColor: this.state.border_color,
-            borderRadius: 8
-            
+            borderRadius: 8,
+            marginBottom: 8
           }}
-          keyboardType = {this.state.keyboard}
+          keyboardType={this.props.keyboardLayout}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          secureTextEntry={this.state.password}
+          secureTextEntry={this.props.passwordSecurity}
           blurOnSubmit
         />
       </View>
