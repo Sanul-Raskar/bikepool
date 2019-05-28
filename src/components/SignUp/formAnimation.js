@@ -53,7 +53,7 @@ export default class FloatingLabelInput extends Component {
       }),
       fontSize: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
-        outputRange: [20, 16]
+        outputRange: [18, 16]
       }),
       color: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
@@ -67,7 +67,7 @@ export default class FloatingLabelInput extends Component {
           {...props}
           style={{
             height: 50,
-            fontSize: 20,
+            fontSize: 18,
             color: "black",
             borderWidth: 1.5,
             borderColor: this.state.border_color,

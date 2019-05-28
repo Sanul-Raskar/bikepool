@@ -50,6 +50,11 @@ export default class App extends Component {
     };
     this.validate = this.validate.bind(this);
     this.validateFirstName = this.validateFirstName.bind(this);
+    this.validateLastName = this.validateLastName.bind(this);
+    this.validateMobile = this.validateMobile.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
+    this.validatePassword1 = this.validatePassword1.bind(this);
+    this.validatePassword2 = this.validatePassword2.bind(this);
   }
 
   handleFirstNameChange = newValue => {
@@ -100,8 +105,159 @@ export default class App extends Component {
     }
   };
 
+  validateLastName = () => {
+    let regExp = /^[A-Za-z]+$/;
+    if (this.state.lastname === "") {
+      this.setState({
+        border_Color_lastname: "red",
+        lastnameError: "Please fill this field.",
+        lastname_font_color: "red",
+        lastname_onFocus_border: "red"
+      });
+      return false;
+    } else if (this.state.lastname.match(regExp)) {
+      this.setState({
+        border_Color_lastname: "#dadce0",
+        lastnameError: "",
+        lastname_font_color: "#1a73e8",
+        lastname_onFocus_border: "#1a73e8"
+      });
+      return true;
+    } else {
+      this.setState({
+        border_Color_lastname: "red",
+        lastnameError: "Alphabets only!",
+        lastname_font_color: "red",
+        lastname_onFocus_border: "red"
+      });
+      return false;
+    }
+  };
+
+  validateMobile = () => {
+    let regExp = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/;
+    if (this.state.mobile === "") {
+      this.setState({
+        border_Color_mobile: "red",
+        mobileError: "Please fill this field.",
+        mobile_font_color: "red",
+        mobile_onFocus_border: "red"
+      });
+      return false;
+    } else if (this.state.mobile.match(regExp)) {
+      this.setState({
+        border_Color_mobile: "#dadce0",
+        mobileError: "",
+        mobile_font_color: "#1a73e8",
+        mobile_onFocus_border: "#1a73e8"
+      });
+      return true;
+    } else {
+      this.setState({
+        border_Color_mobile: "red",
+        mobileError: "Enter valid mobile number.",
+        mobile_font_color: "red",
+        mobile_onFocus_border: "red"
+      });
+      return false;
+    }
+  };
+
+  validateEmail = () => {
+    let regExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (this.state.email === "") {
+      this.setState({
+        border_Color_email: "red",
+        emailError: "Please fill this field.",
+        email_font_color: "red",
+        email_onFocus_border: "red"
+      });
+      return false;
+    } else if (this.state.email.match(regExp)) {
+      this.setState({
+        border_Color_email: "#dadce0",
+        emailError: "",
+        email_font_color: "#1a73e8",
+        email_onFocus_border: "#1a73e8"
+      });
+      return true;
+    } else {
+      this.setState({
+        border_Color_email: "red",
+        emailError: "Invalid Email!",
+        email_font_color: "red",
+        email_onFocus_border: "red"
+      });
+      return false;
+    }
+  };
+
+  validatePassword1 = () => {
+    let regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (this.state.password1 === "") {
+      this.setState({
+        border_Color_password1: "red",
+        password1Error: "Please fill this field.",
+        password1_font_color: "red",
+        password1_onFocus_border: "red"
+      });
+      return false;
+    } else if (this.state.password1.match(regExp)) {
+      this.setState({
+        border_Color_password1: "#dadce0",
+        password1Error: "",
+        password1_font_color: "#1a73e8",
+        password1_onFocus_border: "#1a73e8"
+      });
+      return true;
+    } else {
+      this.setState({
+        border_Color_password1: "red",
+        password1Error:
+          "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
+        password1_font_color: "red",
+        password1_onFocus_border: "red"
+      });
+      return false;
+    }
+  };
+
+  validatePassword2 = () => {
+    if (this.state.password2 === "") {
+      this.setState({
+        border_Color_password2: "red",
+        password2Error: "Please fill this field.",
+        password2_font_color: "red",
+        password2_onFocus_border: "red"
+      });
+      return false;
+    } else if (this.state.password1 == this.state.password2) {
+      this.setState({
+        border_Color_password1: "#dadce0",
+        password1Error: "",
+        password1_font_color: "#1a73e8",
+        password1_onFocus_border: "#1a73e8"
+      });
+      return true;
+    } else {
+      this.setState({
+        border_Color_password2: "red",
+        password2Error: "Passwords do not match!",
+        password1_font_color: "red",
+        password1_onFocus_border: "red"
+      });
+      return false;
+    }
+  };
+
   validate = () => {
-    if (this.validateFirstName()) {
+    if (
+      this.validateFirstName() &&
+      this.validateLastName() &&
+      this.validateMobile() &&
+      this.validateEmail()
+    ) {
+      //submit form
     }
   };
   render() {
@@ -137,6 +293,13 @@ export default class App extends Component {
             fontColor={this.state.lastname_font_color}
             onFocusBorder={this.state.lastname_onFocus_border}
           />
+          {this.state.lastnameError !== "" && (
+            <Text style={styles.error}>
+              <Icon name="alert-circle" color="red" size={16} />{" "}
+              {this.state.lastnameError}
+            </Text>
+          )}
+
           <FloatingLabelInput
             label="Email"
             value={this.state.email}
@@ -146,6 +309,13 @@ export default class App extends Component {
             fontColor={this.state.email_font_color}
             onFocusBorder={this.state.email_onFocus_border}
           />
+
+          {this.state.emailError !== "" && (
+            <Text style={styles.error}>
+              <Icon name="alert-circle" color="red" size={16} />{" "}
+              {this.state.emailError}
+            </Text>
+          )}
           <FloatingLabelInput
             label="Mobile Number"
             value={this.state.mobile}
@@ -155,6 +325,13 @@ export default class App extends Component {
             fontColor={this.state.mobile_font_color}
             onFocusBorder={this.state.mobile_onFocus_border}
           />
+
+          {this.state.mobileError !== "" && (
+            <Text style={styles.error}>
+              <Icon name="alert-circle" color="red" size={16} />{" "}
+              {this.state.mobileError}
+            </Text>
+          )}
 
           <FloatingLabelInput
             label="Password"
@@ -167,6 +344,13 @@ export default class App extends Component {
             onFocusBorder={this.state.password1_onFocus_border}
           />
 
+          {this.state.password1Error !== "" && (
+            <Text style={styles.error}>
+              <Icon name="alert-circle" color="red" size={16} />{" "}
+              {this.state.password1Error}
+            </Text>
+          )}
+
           <FloatingLabelInput
             label="Confirm Password"
             value={this.state.password2}
@@ -178,17 +362,28 @@ export default class App extends Component {
             onFocusBorder={this.state.password2_onFocus_border}
           />
 
+          {this.state.password2Error !== "" && (
+            <Text style={styles.error}>
+              <Icon name="alert-circle" color="red" size={16} />{" "}
+              {this.state.password2Error}
+            </Text>
+          )}
+
           <View style={styles.bottomButtons}>
             <TouchableOpacity>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 18,
                   color: "#1a73e8",
                   marginBottom: 50,
-                  marginTop: 60
+                  marginTop: 60,
+                  borderColor: "#1a73e8",
+                  borderRadius: 10,
+                  borderWidth: 2,
+                  padding: 10
                 }}
               >
-                Login instead
+                Cancel
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -213,7 +408,7 @@ const styles = StyleSheet.create({
   heading: {
     fontFamily: "sans-serif-light",
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 26,
     color: "black",
     marginBottom: 6,
     marginTop: 10,
@@ -222,7 +417,7 @@ const styles = StyleSheet.create({
   subheading: {
     fontFamily: "sans-serif-light",
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
     color: "black",
     marginBottom: 20,
     marginTop: 4,
@@ -236,16 +431,15 @@ const styles = StyleSheet.create({
   },
   signUpButton: {
     backgroundColor: "#1a73e8",
-    paddingVertical: 10,
     marginBottom: 50,
     borderRadius: 10,
-    width: 100,
-    marginTop: 50
+    marginTop: 60
   },
   ButtonText: {
-    fontSize: 20,
-    textAlign: "center",
-    color: "white"
+    fontSize: 18,
+    color: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 18
   },
   bottomButtons: {
     flex: 1,
