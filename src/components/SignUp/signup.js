@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Picker
 } from "react-native";
-import FloatingLabelInput from "./formAnimation";
+import FloatingLabelInput from "../FormAnimation/formAnimation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import DatePicker from "react-native-datepicker";
 
@@ -29,7 +29,6 @@ export default class App extends Component {
       mobileError: "",
       password1Error: "",
       password2Error: "",
-      pass: true,
       birthdate: "",
       gender: "",
       today: "",
@@ -455,7 +454,7 @@ export default class App extends Component {
             border={this.state.border_Color_password1}
             onChangeText={this.handlePassword1Change}
             keyboardLayout="default"
-            passwordSecurity={this.state.pass}
+            passwordSecurity={true}
             fontColor={this.state.password1_font_color}
             onFocusBorder={this.state.password1_onFocus_border}
           />
