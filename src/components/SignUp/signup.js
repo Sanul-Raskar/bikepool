@@ -12,6 +12,8 @@ import {
 import FloatingLabelInput from "../FormAnimation/formAnimation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import DatePicker from "react-native-datepicker";
+import RNPasswordStrengthMeter from "react-native-password-strength-meter";
+import { BarPasswordStrengthDisplay } from "react-native-password-strength-meter";
 
 export default class App extends Component {
   constructor(props) {
@@ -69,6 +71,7 @@ export default class App extends Component {
     this.validatePassword1 = this.validatePassword1.bind(this);
     this.validatePassword2 = this.validatePassword2.bind(this);
     this.getcurrentDate = this.getcurrentDate.bind(this);
+    this.onChangePasswordMeter = this.onChangePasswordMeter.bind(this);
   }
 
   handleFirstNameChange = newValue => {
@@ -288,6 +291,15 @@ export default class App extends Component {
       //submit form
     }
   };
+
+  onChangePasswordMeter = (
+    password,
+    score,
+    { label, labelColor, activeBarColor }
+  ) => {
+    console.log(password, score, { label, labelColor, activeBarColor });
+  };
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -459,6 +471,8 @@ export default class App extends Component {
             onFocusBorder={this.state.password1_onFocus_border}
           />
 
+          <BarPasswordStrengthDisplay password={this.state.password1} />
+          <Text> {""}</Text>
           {this.state.password1Error !== "" && (
             <Text style={styles.error}>
               <Icon name="alert-circle" color="red" size={16} />{" "}
