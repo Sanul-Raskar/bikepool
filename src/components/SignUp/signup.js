@@ -290,6 +290,8 @@ export default class App extends Component {
     }
   };
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -496,6 +498,7 @@ export default class App extends Component {
                   borderWidth: 2,
                   padding: 10
                 }}
+                onPress={() => navigate("MainScreen")}
               >
                 Cancel
               </Text>
