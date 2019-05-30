@@ -7,7 +7,7 @@ import {
   StatusBar,
   Image
 } from "react-native";
-import {  NavigationActions } from "react-navigation";
+import { NavigationActions } from "react-navigation";
 
 export default class MainScreen extends Component {
   constructor(props) {
@@ -25,18 +25,21 @@ export default class MainScreen extends Component {
           style={styles.logo}
           source={require("../../assets/img/bikepool.png")}
         />
-        <TouchableOpacity
-          style={styles.LoginButton}
-          onPress={() => navigate("Login")}
-        >
-          <Text style={styles.loginButtonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.SignUpButton}
-          onPress={() => navigate("Signup")}
-        >
-          <Text style={styles.signupButtonText}>Sign Up</Text>
-        </TouchableOpacity>
+
+        <View style={styles.bottomButtons}>
+          <TouchableOpacity
+            style={styles.Buttons}
+            onPress={() => navigate("Login")}
+          >
+            <Text style={styles.ButtonText}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.Buttons}
+            onPress={() => navigate("Signup")}
+          >
+            <Text style={styles.ButtonText}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -47,44 +50,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    padding: 22
   },
   logo: {
     width: 200,
     height: 200,
     marginBottom: 0.5
   },
-  LoginButton: {
-    position: "absolute",
-    bottom: 30,
-    left: 12,
-    backgroundColor: "black",
-    paddingVertical: 10,
-    width: 160,
-    borderRadius: 24
+  Buttons: {
+    backgroundColor: "#1a73e8",
+    marginBottom: 18,
+    borderRadius: 10,
+    marginHorizontal: 30
   },
-  loginButtonText: {
+  ButtonText: {
     fontSize: 18,
-    textAlign: "center",
-    height: 30,
     color: "white",
-    fontWeight: "bold"
-  },
-  SignUpButton: {
-    position: "absolute",
-    bottom: 30,
-    right: 12,
-    backgroundColor: "black",
-    paddingVertical: 10,
-    width: 160,
-    borderRadius: 24
-  },
-  signupButtonText: {
-    fontSize: 18,
-    textAlign: "center",
-    height: 30,
-    color: "white",
-    fontWeight: "bold"
+    paddingVertical: 12,
+    paddingHorizontal: 20
   },
   title: {
     position: "absolute",
@@ -95,5 +79,12 @@ const styles = StyleSheet.create({
     color: "black",
     marginBottom: 0.5,
     marginTop: 2
+  },
+  bottomButtons: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    position: "absolute",
+    bottom: 6
   }
 });
