@@ -6,7 +6,8 @@ import {
   KeyboardAvoidingView,
   StatusBar,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Picker
 } from "react-native";
 import FloatingLabelInput from "./formAnimation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -29,6 +30,9 @@ export default class App extends Component {
       password1Error: "",
       password2Error: "",
       pass: true,
+      birthdate: "",
+      gender: "",
+      today: "",
       firstname_font_color: "#1a73e8",
       firstname_onFocus_border: "#1a73e8",
       lastname_font_color: "#1a73e8",
@@ -37,6 +41,12 @@ export default class App extends Component {
       email_onFocus_border: "#1a73e8",
       mobile_font_color: "#1a73e8",
       mobile_onFocus_border: "#1a73e8",
+
+      birthdate_font_color: "#1a73e8",
+      birthdate_onFocus_border: "#1a73e8",
+      gender_font_color: "#1a73e8",
+      gender_onFocus_border: "#1a73e8",
+
       password1_font_color: "#1a73e8",
       password1_onFocus_border: "#1a73e8",
       password2_font_color: "#1a73e8",
@@ -45,6 +55,10 @@ export default class App extends Component {
       border_Color_lastname: "#dadce0",
       border_Color_email: "#dadce0",
       border_Color_mobile: "#dadce0",
+
+      border_Color_birthdate: "#dadce0",
+      border_Color_gender: "#dadce0",
+
       border_Color_password1: "#dadce0",
       border_Color_password2: "#dadce0"
     };
@@ -55,6 +69,7 @@ export default class App extends Component {
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword1 = this.validatePassword1.bind(this);
     this.validatePassword2 = this.validatePassword2.bind(this);
+    this.getcurrentDate = this.getcurrentDate.bind(this);
   }
 
   handleFirstNameChange = newValue => {
@@ -74,6 +89,18 @@ export default class App extends Component {
   };
   handlePassword2Change = newValue => {
     this.setState({ password2: newValue });
+  };
+
+  componentDidMount() {
+    this.getcurrentDate();
+  }
+
+  getcurrentDate = () => {
+    let date = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+    let Today = "" + year + "-" + month + "-" + date + "";
+    this.setState({ today: Today });
   };
 
   validateFirstName = () => {
@@ -233,18 +260,18 @@ export default class App extends Component {
       return false;
     } else if (this.state.password1 == this.state.password2) {
       this.setState({
-        border_Color_password1: "#dadce0",
-        password1Error: "",
-        password1_font_color: "#1a73e8",
-        password1_onFocus_border: "#1a73e8"
+        border_Color_password2: "#dadce0",
+        password2Error: "",
+        password2_font_color: "#1a73e8",
+        password2_onFocus_border: "#1a73e8"
       });
       return true;
     } else {
       this.setState({
         border_Color_password2: "red",
         password2Error: "Passwords do not match!",
-        password1_font_color: "red",
-        password1_onFocus_border: "red"
+        password2_font_color: "red",
+        password2_onFocus_border: "red"
       });
       return false;
     }
@@ -255,7 +282,9 @@ export default class App extends Component {
       this.validateFirstName() &&
       this.validateLastName() &&
       this.validateMobile() &&
-      this.validateEmail()
+      this.validateEmail() &&
+      this.validatePassword1() &&
+      this.validatePassword2()
     ) {
       //submit form
     }
@@ -332,6 +361,91 @@ export default class App extends Component {
               {this.state.mobileError}
             </Text>
           )}
+
+          <Text
+            style={{
+              fontSize: 16,
+              marginTop: 2,
+              color: "#666666",
+              zIndex: 10,
+              backgroundColor: "white",
+              width: 80,
+              marginLeft: 8
+            }}
+          >
+            Birth date
+          </Text>
+
+          <DatePicker
+            style={styles.datePicker}
+            date={this.state.birthdate}
+            mode="date"
+            showIcon={false}
+            placeholder="Select Date (YYYY-MM-DD)"
+            format="YYYY-MM-DD"
+            minDate="1950-01-01"
+            maxDate={this.state.today}
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            onDateChange={date => {
+              this.setState({ birthdate: date });
+            }}
+            customStyles={{
+              dateInput: {
+                borderColor: this.state.border_Color_birthdate,
+                borderWidth: 1.5,
+                borderRadius: 8,
+                height: 50,
+                marginBottom: 8
+              }
+            }}
+          />
+
+          <Text
+            style={{
+              fontSize: 16,
+              marginTop: 8,
+              color: "#666666",
+              zIndex: 10,
+              backgroundColor: "white",
+              width: 60,
+              marginBottom: 0,
+              marginLeft: 8
+            }}
+          >
+            Gender
+          </Text>
+
+          <View
+            style={{
+              borderWidth: 1.5,
+              borderRadius: 8,
+              marginBottom: 8,
+              borderColor: "#dadce0",
+              marginTop: -8
+            }}
+          >
+            <Picker
+              selectedValue={this.state.gender}
+              style={{
+                height: 50,
+                width: "100%",
+                borderColor: "#dadce0",
+                borderWidth: 1.5,
+                borderRadius: 8,
+                marginTop: 0,
+                color: "#666666"
+              }}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ gender: itemValue })
+              }
+            >
+              <Picker.Item label="Select" value="" />
+              <Picker.Item label="Male" value="male" />
+              <Picker.Item label="Female" value="female" />
+              <Picker.Item label="Other" value="other" />
+            </Picker>
+          </View>
 
           <FloatingLabelInput
             label="Password"
@@ -445,5 +559,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between"
+  },
+  datePicker: {
+    width: "100%"
   }
 });
