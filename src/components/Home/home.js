@@ -22,11 +22,9 @@ import {
   CardItem
 } from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import ToggleSwitch from "toggle-switch-react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import SearchBox from "../Search/AutoComplete";
 import "../global";
 HEADER_MAX_HEIGHT = 100;
 HEADER_MIN_HEIGHT = 60;
@@ -34,42 +32,6 @@ PROFILE_IMAGE_MAX_HEIGHT = 100;
 PROFILE_IMAGE_MIN_HEIGHT = 60;
 
 export class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const { navigate } = this.props.navigation;
-
-    return (
-      <View style={{ flex: 1, backgroundColor: "#f2f2f2", padding: 22 }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "white",
-            width: "100%",
-            borderRadius: 10,
-            borderColor: "#dadce0",
-            borderWidth: 2
-          }}
-        >
-          <List>
-            <ListItem onPress={() => navigate("RideDetails")}>
-              <Left>
-                <Text style={{ paddingLeft: 14, fontSize: 20 }}>Where To?</Text>
-              </Left>
-              <Right>
-                <MaterialIcon name="directions-bike" color="black" size={24} />
-              </Right>
-            </ListItem>
-          </List>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
-
-export class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -83,9 +45,9 @@ export class Map extends Component {
       destinationLat: global.DestinationLatitude,
       destinationLng: global.DestinationLongitude
     };
-
     this.getCurrentLocation = this.getCurrentLocation.bind(this);
   }
+
   getCurrentLocation() {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -97,7 +59,7 @@ export class Map extends Component {
       },
       error => {
         this.setState({ error: error.message });
-        alert(error.message);
+        //alert(error.message);
         console.log(error.message);
       },
       {
@@ -147,40 +109,80 @@ export class Map extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
-      <View style={styles.container}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          region={{
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
-            latitudeDelta: 0.0043,
-            longitudeDelta: 0.0034
-          }}
-        >
-          <MapView.Marker
-            coordinate={{
+      <View style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            region={{
               latitude: this.state.latitude,
               longitude: this.state.longitude,
               latitudeDelta: 0.0043,
               longitudeDelta: 0.0034
             }}
-            pinColor="red"
-          />
+          >
+            <MapView.Marker
+              coordinate={{
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                latitudeDelta: 0.0043,
+                longitudeDelta: 0.0034
+              }}
+              pinColor="red"
+            />
 
-          {this.plotSourceMarker()}
-          {this.plotDestinationMarker()}
-        </MapView>
+            {this.plotSourceMarker()}
+            {this.plotDestinationMarker()}
+          </MapView>
 
-        <TouchableOpacity
-          style={styles.locateButton}
-          onPress={this.getCurrentLocation}
-        >
-          <Text>
-            <Icon name="md-locate" color="black" size={38} />
-          </Text>
-        </TouchableOpacity>
+          <View
+            style={{
+              padding: 22,
+              position: "absolute",
+              top: 0,
+              width: "100%"
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                backgroundColor: "white",
+                width: "100%",
+                borderRadius: 10,
+                borderColor: "#dadce0",
+                borderWidth: 2
+              }}
+            >
+              <List>
+                <ListItem onPress={() => navigate("RideDetails")}>
+                  <Left>
+                    <Text style={{ paddingLeft: 14, fontSize: 20 }}>
+                      Where To?
+                    </Text>
+                  </Left>
+                  <Right>
+                    <MaterialIcon
+                      name="directions-bike"
+                      color="black"
+                      size={24}
+                    />
+                  </Right>
+                </ListItem>
+              </List>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={styles.locateButton}
+            onPress={this.getCurrentLocation}
+          >
+            <Text>
+              <Icon name="md-locate" color="black" size={38} />
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -421,15 +423,6 @@ export default createBottomTabNavigator(
         tabBarLabel: "Home",
         tabBarIcon: ({ tintColor }) => (
           <Icon name="md-home" color={tintColor} size={24} />
-        )
-      }
-    },
-    Map: {
-      screen: Map,
-      navigationOptions: {
-        tabBarLabel: "Maps",
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-map" color={tintColor} size={24} />
         )
       }
     },
