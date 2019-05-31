@@ -20,6 +20,7 @@ import EditUID from "../EditProfile/editUID";
 import EditPassword from "../EditProfile/editPassword";
 import AddHome from "../EditProfile/addHome";
 import AddWork from "../EditProfile/addWork";
+import RideDetails from "../Ride/Ride";
 
 export default class componentName extends Component {
   render() {
@@ -181,6 +182,19 @@ const AppStack = createStackNavigator(
           backgroundColor: "black"
         },
         headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    RideDetails: {
+      screen: RideDetails,
+      navigationOptions: {
+        title: "Ride Details",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
         headerTitleStyle: {
           fontWeight: "bold"
         }

@@ -36,38 +36,34 @@ PROFILE_IMAGE_MIN_HEIGHT = 60;
 export class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isOnDefaultToggleSwitch: true
-    };
+    this.state = {};
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
-      <View>
-        <Card>
-          <CardItem>
-            <Left>
-              <Text style={styles.toggleSwitchLabels}>Offer Ride</Text>
-            </Left>
-            <Body>
-              <ToggleSwitch
-                isOn={this.state.isOnDefaultToggleSwitch}
-                onColor="rgb(51, 51, 51)"
-                offColor="rgb(51, 51, 51)"
-                size="large"
-                onToggle={isOnDefaultToggleSwitch => {
-                  this.setState({ isOnDefaultToggleSwitch });
-                }}
-              />
-            </Body>
-            <Right>
-              <Text style={styles.toggleSwitchLabels}>Get Ride</Text>
-            </Right>
-          </CardItem>
-        </Card>
-        <ScrollView>
-          <SearchBox />
-        </ScrollView>
+      <View style={{ flex: 1, backgroundColor: "#f2f2f2", padding: 22 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "white",
+            width: "100%",
+            borderRadius: 10,
+            borderColor: "#dadce0",
+            borderWidth: 2
+          }}
+        >
+          <List>
+            <ListItem onPress={() => navigate("RideDetails")}>
+              <Left>
+                <Text style={{ paddingLeft: 14, fontSize: 20 }}>Where To?</Text>
+              </Left>
+              <Right>
+                <MaterialIcon name="directions-bike" color="black" size={24} />
+              </Right>
+            </ListItem>
+          </List>
+        </TouchableOpacity>
       </View>
     );
   }

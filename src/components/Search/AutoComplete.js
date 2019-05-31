@@ -48,7 +48,7 @@ export default class GPlacesDemo extends Component {
     };
 
     return (
-      <View style={{ width: screenWidth }}>
+      <View style={{ width: screenWidth, backgroundColor: "white" }}>
         <ScrollView>
           <View style={styles.inputWrapper}>
             <InputGroup>
@@ -188,12 +188,24 @@ export default class GPlacesDemo extends Component {
               </InputGroup>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={styles.FindButton}
-            onPress={() => this.source_destination_coordinates()}
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: 20
+            }}
           >
-            <Text style={styles.ButtonText}>Find Ride</Text>
-          </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.CancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.FindButton}
+              onPress={() => this.source_destination_coordinates()}
+            >
+              <Text style={styles.ButtonText}>Find Ride</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     );
@@ -203,25 +215,25 @@ export default class GPlacesDemo extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: "#fff"
   },
 
   inputWrapper: {
-    marginLeft: 15,
-    marginRight: 10,
+    marginHorizontal: 20,
     marginTop: 10,
     marginBottom: 2,
     backgroundColor: "#fff",
-    borderRadius: 7
+    borderRadius: 10,
+    borderColor: "#dadce0",
+    borderWidth: 2
   },
   secondInputWrapper: {
-    marginLeft: 15,
-    marginRight: 10,
+    marginHorizontal: 20,
     marginTop: 14,
     backgroundColor: "#fff",
-    borderRadius: 7
+    borderRadius: 10,
+    borderColor: "#dadce0",
+    borderWidth: 2
   },
   inputSearch: {
     fontSize: 14,
@@ -240,17 +252,26 @@ const styles = StyleSheet.create({
     borderColor: "grey"
   },
   FindButton: {
-    backgroundColor: "black",
-    paddingVertical: 10,
-    margin: 30,
-    width: 300,
-    borderRadius: 24
+    backgroundColor: "#1a73e8",
+    marginBottom: 20,
+    borderRadius: 10,
+    marginTop: 10
   },
   ButtonText: {
-    fontSize: 22,
-    textAlign: "center",
-    height: 30,
+    fontSize: 18,
     color: "white",
-    fontWeight: "bold"
+    paddingVertical: 10,
+    paddingHorizontal: 18
+  },
+
+  CancelButtonText: {
+    fontSize: 18,
+    color: "#1a73e8",
+    marginBottom: 20,
+    marginTop: 10,
+    borderColor: "#1a73e8",
+    borderRadius: 10,
+    borderWidth: 2,
+    padding: 10
   }
 });
