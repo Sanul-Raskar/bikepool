@@ -21,6 +21,7 @@ import EditPassword from "../EditProfile/editPassword";
 import AddHome from "../EditProfile/addHome";
 import AddWork from "../EditProfile/addWork";
 import RideDetails from "../Ride/Ride";
+import FeedBack from "../Feedback/Feedback";
 
 export default class componentName extends Component {
   render() {
@@ -191,6 +192,19 @@ const AppStack = createStackNavigator(
       screen: RideDetails,
       navigationOptions: {
         title: "Ride Details",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    FeedBack: {
+      screen: FeedBack,
+      navigationOptions: {
+        title: "Feedback",
         headerStyle: {
           backgroundColor: "white"
         },
