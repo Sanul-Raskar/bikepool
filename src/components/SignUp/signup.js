@@ -3,8 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  KeyboardAvoidingView,
-  StatusBar,
   ScrollView,
   TouchableOpacity,
   Picker
@@ -12,7 +10,6 @@ import {
 import FloatingLabelInput from "../FormAnimation/formAnimation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import DatePicker from "react-native-datepicker";
-import RNPasswordStrengthMeter from "react-native-password-strength-meter";
 import { BarPasswordStrengthDisplay } from "react-native-password-strength-meter";
 
 export default class App extends Component {
@@ -280,15 +277,18 @@ export default class App extends Component {
   };
 
   validate = () => {
+    
     if (
-      this.validateFirstName() &&
-      this.validateLastName() &&
-      this.validateMobile() &&
-      this.validateEmail() &&
-      this.validatePassword1() &&
+      this.validateFirstName() &
+      this.validateLastName() &
+      this.validateMobile() &
+      this.validateEmail() &
+      this.validatePassword1() &
       this.validatePassword2()
-    ) {
+    ) 
+    {
       //submit form
+      alert("Submit Form");
     }
   };
 
