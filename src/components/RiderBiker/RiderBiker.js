@@ -6,8 +6,7 @@ export default class RiderBiker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
-      FoundBikers:[
+      FoundBikers: [
         {
           id: 1,
           Name: "Sanul Raskar",
@@ -36,8 +35,20 @@ export default class RiderBiker extends Component {
     };
   }
 
-  GetItem = item => {
-    Alert.alert(item);
+  GetItem = (name,source,destination) => {
+    Alert.alert(
+      "Are you sure ? ",
+      "" + name + "\n" + source + "\n" + destination + "\n",
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Yes", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
   };
 
   RenderItem = ({ item }) => (
@@ -64,7 +75,7 @@ export default class RiderBiker extends Component {
               borderRadius: 10,
               marginTop: 2
             }}
-            onPress={this.GetItem.bind(this, item.Name)}
+            onPress={this.GetItem.bind(this, item.Name,item.Source,item.Destination)}
           >
             <Text
               style={{
