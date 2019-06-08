@@ -60,6 +60,8 @@ export default class App extends Component {
       border_Color_password1: "#dadce0",
       border_Color_password2: "#dadce0"
     };
+    
+    /*
     this.validate = this.validate.bind(this);
     this.validateFirstName = this.validateFirstName.bind(this);
     this.validateLastName = this.validateLastName.bind(this);
@@ -69,6 +71,7 @@ export default class App extends Component {
     this.validatePassword2 = this.validatePassword2.bind(this);
     this.getcurrentDate = this.getcurrentDate.bind(this);
     this.onChangePasswordMeter = this.onChangePasswordMeter.bind(this);
+    */
   }
 
   handleFirstNameChange = newValue => {

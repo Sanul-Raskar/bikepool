@@ -18,8 +18,6 @@ import {
   Body,
   Right,
   Separator,
-  Card,
-  CardItem
 } from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -45,10 +43,11 @@ export class Home extends Component {
       destinationLat: global.DestinationLatitude,
       destinationLng: global.DestinationLongitude
     };
-    this.getCurrentLocation = this.getCurrentLocation.bind(this);
+    /*this.getCurrentLocation = this.getCurrentLocation.bind(this);*/
   }
 
-  getCurrentLocation() {
+
+  getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -70,7 +69,7 @@ export class Home extends Component {
     );
   }
 
-  plotSourceMarker() {
+  plotSourceMarker = () => {
     if (isSourceMarker) {
       console.log(this.state.sourceLat);
       return (
@@ -87,7 +86,7 @@ export class Home extends Component {
     }
   }
 
-  plotDestinationMarker() {
+  plotDestinationMarker = () => {
     if (isDestinationMarker) {
       console.log(this.state.destinationLat);
       return (
@@ -410,7 +409,6 @@ export class Profile extends Component {
               </ListItem>
             </List>
           </View>
-          <View style={{ height: 100, backgroundColor: "white" }} />
         </ScrollView>
       </View>
     );
@@ -465,14 +463,15 @@ const styles = StyleSheet.create({
 
   listText: {
     paddingLeft: 12,
-    fontSize: 22,
+    fontSize: 18,
     color: "#1a73e8"
   },
 
   listSubTextLabel: {
     paddingLeft: 12,
-    fontSize: 18,
-    color: "black"
+    fontSize: 16,
+    color: "black",
+    fontWeight:"bold"
   },
   listSubText: {
     paddingLeft: 12,
