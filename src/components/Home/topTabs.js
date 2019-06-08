@@ -182,13 +182,13 @@ const TopNavigator = createMaterialTopTabNavigator(
   },
   {
     tabBarOptions: {
-      activeTintColor: "black",
-      inactiveTintColor: "gray",
+      activeTintColor: "#1a73e8",
+      inactiveTintColor: "#dadce0",
       style: {
         backgroundColor: "white"
       },
-      indicatorStyle: { backgroundColor: "black" },
-      pressColor: "gray"
+      indicatorStyle: { backgroundColor: "#1a73e8" },
+      pressColor: "#dadce0"
     }
   }
 );
