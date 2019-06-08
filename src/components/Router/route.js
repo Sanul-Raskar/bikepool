@@ -22,7 +22,7 @@ import AddHome from "../EditProfile/addHome";
 import AddWork from "../EditProfile/addWork";
 import RideDetails from "../Ride/Ride";
 import FeedBack from "../Feedback/Feedback";
-import RiderBiker from "../RiderBiker/RiderBiker"
+import RiderBiker from "../RiderBiker/RiderBiker";
 
 export default class componentName extends Component {
   render() {
@@ -77,9 +77,9 @@ const AppStack = createStackNavigator(
       navigationOptions: {
         title: "Edit Account",
         headerStyle: {
-          backgroundColor: "black"
+          backgroundColor: "white"
         },
-        headerTintColor: "#fff",
+        headerTintColor: "#1a73e8",
         headerTitleStyle: {
           fontWeight: "bold"
         }
@@ -168,9 +168,9 @@ const AppStack = createStackNavigator(
       navigationOptions: {
         title: "Add Home",
         headerStyle: {
-          backgroundColor: "black"
+          backgroundColor: "white"
         },
-        headerTintColor: "#fff",
+        headerTintColor: "#1a73e8",
         headerTitleStyle: {
           fontWeight: "bold"
         }
@@ -181,9 +181,9 @@ const AppStack = createStackNavigator(
       navigationOptions: {
         title: "Add Work",
         headerStyle: {
-          backgroundColor: "black"
+          backgroundColor: "white"
         },
-        headerTintColor: "#fff",
+        headerTintColor: "#1a73e8",
         headerTitleStyle: {
           fontWeight: "bold"
         }
