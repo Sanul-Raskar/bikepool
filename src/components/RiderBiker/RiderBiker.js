@@ -1,11 +1,24 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, FlatList, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+  StyleSheet
+} from "react-native";
 import { Card, CardItem, Body, Left, Right, Thumbnail } from "native-base";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 export default class RiderBiker extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      latitude: 18.52043,
+      longitude: 73.856743,
+      latitudeDelta: 0.0043,
+      longitudeDelta: 0.0034,
+
       FoundBikers: [
         {
           id: 1,
@@ -35,7 +48,7 @@ export default class RiderBiker extends Component {
     };
   }
 
-  GetItem = (name,source,destination) => {
+  GetItem = (name, source, destination) => {
     Alert.alert(
       "Are you sure ? ",
       "" + name + "\n" + source + "\n" + destination + "\n",
@@ -75,7 +88,12 @@ export default class RiderBiker extends Component {
               borderRadius: 10,
               marginTop: 2
             }}
-            onPress={this.GetItem.bind(this, item.Name,item.Source,item.Destination)}
+            onPress={this.GetItem.bind(
+              this,
+              item.Name,
+              item.Source,
+              item.Destination
+            )}
           >
             <Text
               style={{
@@ -107,9 +125,20 @@ export default class RiderBiker extends Component {
   render() {
     return (
       <View style={{ flex: 1, padding: 4, backgroundColor: "white" }}>
-        <Text> textInComponent </Text>
+        <View style={styles.container}>
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            region={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+              latitudeDelta: 0.0043,
+              longitudeDelta: 0.0034
+            }}
+          />
+        </View>
         <View
-          style={{ marginTop: 5, position: "absolute", bottom: 5, left: 10 }}
+          style={{ marginTop: 5, position: "absolute", bottom: 25, left: 10 }}
         >
           <Text style={{ textAlign: "center", marginVertical: 4 }}>
             {" "}
@@ -128,3 +157,16 @@ export default class RiderBiker extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  map: {
+    ...StyleSheet.absoluteFillObject
+  }
+});
