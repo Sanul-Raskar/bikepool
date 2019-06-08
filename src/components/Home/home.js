@@ -250,6 +250,18 @@ export class Profile extends Component {
       extrapolate: "clamp"
     });
 
+    const smallTitle = {
+      fontSize: 22,
+      fontWeight: "bold",
+      textShadowColor: "white",
+      textShadowOffset: { width: 0, height: 0 },
+      textShadowRadius: 0,
+      color: this.state.scrollY.interpolate({
+        inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+        outputRange: ["white", "black"]
+      })
+    };
+
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <Animated.View
@@ -258,7 +270,7 @@ export class Profile extends Component {
             top: 0,
             left: 0,
             right: 0,
-            backgroundColor: "black",
+            backgroundColor: "white",
             height: headerHeight,
             zIndex: headerZIndex,
             alignItems: "center"
@@ -271,18 +283,7 @@ export class Profile extends Component {
               bottom: headerTitleBottom
             }}
           >
-            <Text
-              style={{
-                fontSize: 22,
-                fontWeight: "bold",
-                color: "white",
-                textShadowColor: "white",
-                textShadowOffset: { width: 0, height: 0 },
-                textShadowRadius: 0
-              }}
-            >
-              Sanul Raskar
-            </Text>
+            <Animated.Text style={smallTitle}>Sanul Raskar</Animated.Text>
           </Animated.View>
         </Animated.View>
         <ScrollView
@@ -297,8 +298,8 @@ export class Profile extends Component {
               height: profileImageHeight,
               width: profileImageHeight,
               borderRadius: PROFILE_IMAGE_MAX_HEIGHT / 2,
-              borderColor: "white",
-              borderWidth: 3,
+              borderColor: "black",
+              borderWidth: 1,
               overflow: "hidden",
               marginTop: profileImageMarginTop,
               marginLeft: "auto",
@@ -335,26 +336,26 @@ export class Profile extends Component {
                 style={{ borderBottomWidth: 0 }}
               >
                 <Left>
-                  <MaterialIcon name="edit" color="black" size={24} />
+                  <MaterialIcon name="edit" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Edit Profile</Text>
                 </Left>
                 <Right>
-                  <Icon name="ios-arrow-dropright" color="black" size={24} />
+                  <Icon name="ios-arrow-dropright" color="#1a73e8" size={24} />
                 </Right>
               </ListItem>
-              <ListItem style={{ borderBottomWidth: 0 }}>
+              <ListItem>
                 <Body>
                   <Text style={styles.listSubTextLabel}>Name</Text>
                   <Text style={styles.listSubText}>Sanul Raskar</Text>
                 </Body>
               </ListItem>
-              <ListItem style={{ borderBottomWidth: 0 }}>
+              <ListItem>
                 <Body>
                   <Text style={styles.listSubTextLabel}>Phone</Text>
                   <Text style={styles.listSubText}>7350142164</Text>
                 </Body>
               </ListItem>
-              <ListItem style={{ borderBottomWidth: 0 }}>
+              <ListItem>
                 <Body>
                   <Text style={styles.listSubTextLabel}>Email</Text>
                   <Text style={styles.listSubText}>sanulraskar@gmail.com</Text>
@@ -368,11 +369,11 @@ export class Profile extends Component {
                 onPress={() => navigate("AddHome")}
               >
                 <Left>
-                  <MaterialIcon name="home" color="black" size={24} />
+                  <MaterialIcon name="home" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Add Home</Text>
                 </Left>
                 <Right>
-                  <Icon name="ios-arrow-dropright" color="black" size={24} />
+                  <Icon name="ios-arrow-dropright" color="#1a73e8" size={24} />
                 </Right>
               </ListItem>
               <ListItem>
@@ -388,11 +389,11 @@ export class Profile extends Component {
                 onPress={() => navigate("AddWork")}
               >
                 <Left>
-                  <MaterialIcon name="work" color="black" size={24} />
+                  <MaterialIcon name="work" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Add Work</Text>
                 </Left>
                 <Right>
-                  <Icon name="ios-arrow-dropright" color="black" size={24} />
+                  <Icon name="ios-arrow-dropright" color="#1a73e8" size={24} />
                 </Right>
               </ListItem>
               <ListItem>
@@ -409,6 +410,7 @@ export class Profile extends Component {
               </ListItem>
             </List>
           </View>
+          <View style={{ height: 100, backgroundColor: "white" }} />
         </ScrollView>
       </View>
     );
@@ -449,7 +451,7 @@ export default createBottomTabNavigator(
   {
     tabBarOptions: {
       activeTintColor: "#1a73e8",
-      inactiveTintColor: "#6a707c",
+      inactiveTintColor: "#6a707c"
     }
   }
 );
@@ -463,18 +465,18 @@ const styles = StyleSheet.create({
 
   listText: {
     paddingLeft: 12,
-    fontSize: 18,
-    color: "black"
+    fontSize: 22,
+    color: "#1a73e8"
   },
 
   listSubTextLabel: {
     paddingLeft: 12,
-    fontSize: 16,
+    fontSize: 18,
     color: "black"
   },
   listSubText: {
     paddingLeft: 12,
-    fontSize: 14,
+    fontSize: 16,
     color: "black"
   },
 
