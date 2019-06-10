@@ -26,6 +26,7 @@ import RiderBiker from "../RiderBiker/RiderBiker";
 import ViewProfile from "../Profile/ViewProfile";
 import ChangePassword from '../Profile/ChangePassword';
 import SavedHome from "../Profile/SavedHome";
+import SavedWork from "../Profile/SavedWork"
 import Loader from "../RiderBiker/Loader";
 
 export default class componentName extends Component {
@@ -262,6 +263,19 @@ const AppStack = createStackNavigator(
       screen: SavedHome,
       navigationOptions: {
         title: "Home Location",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    SavedWork: {
+      screen: SavedWork,
+      navigationOptions: {
+        title: "Work Location",
         headerStyle: {
           backgroundColor: "white"
         },

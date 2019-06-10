@@ -418,7 +418,7 @@ export class Settings extends Component {
                 </Right>
               </ListItem>
 
-              <ListItem onPress={() => navigate("AddWork")}>
+              <ListItem onPress={() => navigate("SavedWork")}>
                 <Left>
                   <MaterialIcon name="work" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Add Work</Text>
