@@ -308,7 +308,7 @@ export default class App extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>Sign Up</Text>
           <Text style={styles.subheading}>Create your Account</Text>
 
