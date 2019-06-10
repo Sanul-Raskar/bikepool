@@ -11,7 +11,7 @@ import MainScreen from "../Initial/mainScreen";
 import LoginScreen from "../Login/login";
 import SignUpScreen from "../SignUp/signup";
 import HomeScreen from "../Home/home";
-import EditProfile from "../EditProfile/editProfile";
+import EditProfile from "../EditProfile/EditProfile";
 import EditFirstName from "../EditProfile/editFirstName";
 import EditLastName from "../EditProfile/editLastName";
 import EditPhoneNumber from "../EditProfile/editPhoneNumber";
@@ -75,7 +75,7 @@ const AppStack = createStackNavigator(
     EditProfile: {
       screen: EditProfile,
       navigationOptions: {
-        title: "Edit Account",
+        title: "Edit Profile",
         headerStyle: {
           backgroundColor: "white"
         },
@@ -227,7 +227,7 @@ const AppStack = createStackNavigator(
           fontWeight: "bold"
         }
       }
-    }
+    },
   },
   {
     initialRouteName: "Home"
