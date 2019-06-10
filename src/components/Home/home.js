@@ -339,7 +339,7 @@ export class Profile extends Component {
                   <Text style={styles.listText}>Edit Profile</Text>
                 </Left>
                 <Right>
-                  <Icon name="ios-arrow-dropright" color="#1a73e8" size={24} />
+                  <MaterialIcon name="navigate-next" color="#1a73e8" size={24} />
                 </Right>
               </ListItem>
               <ListItem>
@@ -372,7 +372,7 @@ export class Profile extends Component {
                   <Text style={styles.listText}>Add Home</Text>
                 </Left>
                 <Right>
-                  <Icon name="ios-arrow-dropright" color="#1a73e8" size={24} />
+                <MaterialIcon name="navigate-next" color="#1a73e8" size={24} />
                 </Right>
               </ListItem>
               <ListItem>
@@ -392,7 +392,7 @@ export class Profile extends Component {
                   <Text style={styles.listText}>Add Work</Text>
                 </Left>
                 <Right>
-                  <Icon name="ios-arrow-dropright" color="#1a73e8" size={24} />
+                <MaterialIcon name="navigate-next" color="#1a73e8" size={24} />
                 </Right>
               </ListItem>
               <ListItem>
