@@ -5,7 +5,8 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Picker
+  Picker,
+  StatusBar
 } from "react-native";
 import FloatingLabelInput from "../FormAnimation/formAnimation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -308,6 +309,7 @@ export default class App extends Component {
 
     return (
       <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>Sign Up</Text>
           <Text style={styles.subheading}>Create your Account</Text>

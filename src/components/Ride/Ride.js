@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet, ScrollView,StatusBar } from "react-native";
 import ToggleSwitch from "toggle-switch-react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
@@ -17,6 +17,7 @@ export default class Ride extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <View
           style={{ paddingHorizontal: 22, borderRadius: 10, marginTop: 10 }}
         >

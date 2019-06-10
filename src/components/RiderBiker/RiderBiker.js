@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
-  StyleSheet
+  StyleSheet,
+  StatusBar
 } from "react-native";
 import { Card, CardItem, Body, Left, Right, Thumbnail } from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
@@ -125,6 +126,7 @@ export default class RiderBiker extends Component {
   render() {
     return (
       <View style={{ flex: 1, padding: 4, backgroundColor: "white" }}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <View style={styles.container}>
           <MapView
             provider={PROVIDER_GOOGLE}

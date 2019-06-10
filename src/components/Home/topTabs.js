@@ -4,7 +4,8 @@ import {
   View,
   ScrollView,
   SafeAreaView,
-  FlatList
+  FlatList,
+  StatusBar
 } from "react-native";
 import { createMaterialTopTabNavigator } from "react-navigation";
 import { Card, CardItem, Thumbnail, Text, Left, Body } from "native-base";
@@ -13,6 +14,7 @@ export default class topTabs extends Component {
   render() {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <TopNavigator />
       </SafeAreaView>
     );

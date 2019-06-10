@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  StatusBar
 } from "react-native";
 import FloatingLabelInput from "../FormAnimation/formAnimation";
 
@@ -43,6 +44,7 @@ export default class ChangePassword extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <FloatingLabelInput
             label="Old Password"

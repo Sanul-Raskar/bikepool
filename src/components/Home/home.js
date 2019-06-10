@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   ScrollView,
   Animated,
-  AsyncStorage
+  AsyncStorage,
+  StatusBar
 } from "react-native";
 import Ride from "./topTabs";
 import { createBottomTabNavigator } from "react-navigation";
-import { List, ListItem, Left, Body, Right, Separator } from "native-base";
+import { List, ListItem, Left, Right, Separator } from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
@@ -36,7 +37,6 @@ export class Home extends Component {
       destinationLat: global.DestinationLatitude,
       destinationLng: global.DestinationLongitude
     };
-    /*this.getCurrentLocation = this.getCurrentLocation.bind(this);*/
   }
 
   getCurrentLocation = () => {
@@ -50,7 +50,6 @@ export class Home extends Component {
       },
       error => {
         this.setState({ error: error.message });
-        //alert(error.message);
         console.log(error.message);
       },
       {
@@ -104,6 +103,7 @@ export class Home extends Component {
 
     return (
       <View style={{ flex: 1 }}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <View style={styles.container}>
           <MapView
             provider={PROVIDER_GOOGLE}
@@ -255,6 +255,7 @@ export class Settings extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <Animated.View
           style={{
             position: "absolute",
@@ -323,7 +324,7 @@ export class Settings extends Component {
               Sanul Raskar
             </Text>
           </View>
-          <View style={{ height: 30 }} />
+          <View style={{ height: 20 }} />
           <View style={{ backgroundColor: "white" }}>
             <List style={{ backgroundColor: "white" }}>
               <Separator bordered>

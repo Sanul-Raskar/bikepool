@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, Image, ScrollView, TouchableOpacity,StatusBar } from "react-native";
 import { AirbnbRating } from "react-native-ratings";
 import FloatingLabelInput from "./formAnimation";
 
@@ -63,6 +63,7 @@ export default class Feedback extends Component {
           padding: 22
         }}
       >
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView>
           <Text
             style={{ textAlign: "center", fontSize: 18, marginVertical: 2 }}

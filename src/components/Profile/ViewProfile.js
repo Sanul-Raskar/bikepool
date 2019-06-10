@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet ,StatusBar} from "react-native";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Foundation from "react-native-vector-icons/Foundation";
 
@@ -19,6 +19,7 @@ export default class ViewProfile extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.title}>
             <MaterialIcon name="person" color="#1a73e8" size={30} />
