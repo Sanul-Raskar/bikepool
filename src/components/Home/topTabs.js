@@ -96,7 +96,7 @@ export class PreviousRides extends Component {
             data={this.state.PreviousRides}
             renderItem={this.RenderItem}
             keyExtractor={item => item.id}
-            style={{padding:10}}
+            style={{ padding: 10 }}
           />
         </ScrollView>
       </View>
@@ -163,7 +163,7 @@ export class UpcomingRides extends Component {
             data={this.state.UpcomingRides}
             renderItem={this.RenderItem}
             keyExtractor={item => item.id}
-            style={{padding:10}}
+            style={{ padding: 10 }}
           />
         </ScrollView>
       </View>
