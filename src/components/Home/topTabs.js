@@ -90,12 +90,13 @@ export class PreviousRides extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, padding: 20, backgroundColor: "white" }}>
-        <ScrollView>
+      <View style={{ flex: 1, backgroundColor: "white" }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <FlatList
             data={this.state.PreviousRides}
             renderItem={this.RenderItem}
             keyExtractor={item => item.id}
+            style={{padding:10}}
           />
         </ScrollView>
       </View>
@@ -156,12 +157,13 @@ export class UpcomingRides extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, padding: 20, backgroundColor: "white" }}>
-        <ScrollView>
+      <View style={{ flex: 1, backgroundColor: "white" }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <FlatList
             data={this.state.UpcomingRides}
             renderItem={this.RenderItem}
             keyExtractor={item => item.id}
+            style={{padding:10}}
           />
         </ScrollView>
       </View>
