@@ -387,22 +387,18 @@ export class Settings extends Component {
                 </Right>
               </ListItem>
               <ListItem>
-              <Left>
-                <MaterialIcon
-                  name="delete"
-                  color="red"
-                  size={24}
-                />
-                <Text style={styles.listText}>Delete My Account</Text>
-              </Left>
-              <Right>
-                <MaterialIcon
-                  name="navigate-next"
-                  color="#1a73e8"
-                  size={24}
-                />
-              </Right>
-            </ListItem>
+                <Left>
+                  <MaterialIcon name="delete" color="red" size={24} />
+                  <Text style={styles.listText}>Delete My Account</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
+              </ListItem>
 
               <Separator bordered>
                 <Text>Favorites</Text>
@@ -496,7 +492,7 @@ export default createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: "Rides",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-car" color={tintColor} size={24} />
+          <FontAwesome5 name="motorcycle" color={tintColor} size={24} />
         )
       }
     },
