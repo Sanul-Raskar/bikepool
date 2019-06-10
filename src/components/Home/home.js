@@ -11,14 +11,7 @@ import {
 } from "react-native";
 import Ride from "./topTabs";
 import { createBottomTabNavigator } from "react-navigation";
-import {
-  List,
-  ListItem,
-  Left,
-  Body,
-  Right,
-  Separator,
-} from "native-base";
+import { List, ListItem, Left, Body, Right, Separator } from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
@@ -46,7 +39,6 @@ export class Home extends Component {
     /*this.getCurrentLocation = this.getCurrentLocation.bind(this);*/
   }
 
-
   getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -67,7 +59,7 @@ export class Home extends Component {
         maximumAge: 10000
       }
     );
-  }
+  };
 
   plotSourceMarker = () => {
     if (isSourceMarker) {
@@ -84,7 +76,7 @@ export class Home extends Component {
         />
       );
     }
-  }
+  };
 
   plotDestinationMarker = () => {
     if (isDestinationMarker) {
@@ -101,7 +93,7 @@ export class Home extends Component {
         />
       );
     }
-  }
+  };
 
   componentWillMount() {
     this.getCurrentLocation();
@@ -193,7 +185,7 @@ export class Rides extends Component {
   }
 }
 
-export class Profile extends Component {
+export class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = { scrollY: new Animated.Value(0) };
@@ -291,6 +283,7 @@ export class Profile extends Component {
             { nativeEvent: { contentOffset: { y: this.state.scrollY } } }
           ])}
           style={{ flex: 1 }}
+          showsVerticalScrollIndicator={false}
         >
           <Animated.View
             style={{
@@ -306,7 +299,10 @@ export class Profile extends Component {
             }}
           >
             <Image
-              source={require("../../assets/img/sanul.jpeg")}
+              source={{
+                uri:
+                  "https://facebook.github.io/react-native/docs/assets/favicon.png"
+              }}
               style={{
                 flex: 1,
                 width: null,
@@ -330,82 +326,150 @@ export class Profile extends Component {
           <View style={{ height: 30 }} />
           <View style={{ backgroundColor: "white" }}>
             <List style={{ backgroundColor: "white" }}>
-              <ListItem
-                onPress={() => navigate("EditProfile")}
-                style={{ borderBottomWidth: 0 }}
-              >
+              <Separator bordered>
+                <Text>Profile</Text>
+              </Separator>
+
+              <ListItem>
+                <Left>
+                  <MaterialIcon
+                    name="account-circle"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                  <Text style={styles.listText}>View Profile</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
+              </ListItem>
+              <ListItem onPress={() => navigate("EditProfile")}>
                 <Left>
                   <MaterialIcon name="edit" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Edit Profile</Text>
                 </Left>
                 <Right>
-                  <MaterialIcon name="navigate-next" color="#1a73e8" size={24} />
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
                 </Right>
               </ListItem>
               <ListItem>
-                <Body>
-                  <Text style={styles.listSubTextLabel}>Name</Text>
-                  <Text style={styles.listSubText}>Sanul Raskar</Text>
-                </Body>
+                <Left>
+                  <MaterialIcon name="vpn-key" color="#1a73e8" size={24} />
+                  <Text style={styles.listText}>Change Password</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
               </ListItem>
               <ListItem>
-                <Body>
-                  <Text style={styles.listSubTextLabel}>Phone</Text>
-                  <Text style={styles.listSubText}>7350142164</Text>
-                </Body>
+                <Left>
+                  <FontAwesome5 name="motorcycle" color="#1a73e8" size={24} />
+                  <Text style={styles.listText}>Bike Information</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
               </ListItem>
               <ListItem>
-                <Body>
-                  <Text style={styles.listSubTextLabel}>Email</Text>
-                  <Text style={styles.listSubText}>sanulraskar@gmail.com</Text>
-                </Body>
-              </ListItem>
+              <Left>
+                <MaterialIcon
+                  name="delete"
+                  color="red"
+                  size={24}
+                />
+                <Text style={styles.listText}>Delete My Account</Text>
+              </Left>
+              <Right>
+                <MaterialIcon
+                  name="navigate-next"
+                  color="#1a73e8"
+                  size={24}
+                />
+              </Right>
+            </ListItem>
+
               <Separator bordered>
                 <Text>Favorites</Text>
               </Separator>
-              <ListItem
-                style={{ borderBottomWidth: 0 }}
-                onPress={() => navigate("AddHome")}
-              >
+              <ListItem onPress={() => navigate("AddHome")}>
                 <Left>
                   <MaterialIcon name="home" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Add Home</Text>
                 </Left>
                 <Right>
-                <MaterialIcon name="navigate-next" color="#1a73e8" size={24} />
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
                 </Right>
               </ListItem>
-              <ListItem>
-                <Body>
-                  <Text style={styles.listSubText}>
-                    Narveer Tanaji Housing Society Ramling-Shirur Rd Shivrashka
-                    Colony Shirur,Maharashtra 412210
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem
-                style={{ borderBottomWidth: 0 }}
-                onPress={() => navigate("AddWork")}
-              >
+
+              <ListItem onPress={() => navigate("AddWork")}>
                 <Left>
                   <MaterialIcon name="work" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Add Work</Text>
                 </Left>
                 <Right>
-                <MaterialIcon name="navigate-next" color="#1a73e8" size={24} />
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
+              </ListItem>
+
+              <Separator bordered>
+                <Text>App</Text>
+              </Separator>
+              <ListItem>
+                <Left>
+                  <MaterialIcon name="info" color="#1a73e8" size={24} />
+                  <Text style={styles.listText}>About</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
                 </Right>
               </ListItem>
               <ListItem>
-                <Body>
-                  <Text style={styles.listSubText}>
-                    VIIT College Of Engineering,Yashodhan Society,Kapil
-                    Nagar,Kondhwa Budruk,Pune,Maharashtra 411048
-                  </Text>
-                </Body>
+                <Left>
+                  <MaterialIcon name="feedback" color="#1a73e8" size={24} />
+                  <Text style={styles.listText}>App Feedback</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
               </ListItem>
               <Separator bordered />
               <ListItem onPress={this._signOutAsync}>
-                <Text style={styles.listText}>Sign Out</Text>
+                <Left>
+                  <FontAwesome5 name="sign-out-alt" color="red" size={24} />
+                  <Text style={styles.listText}>Sign Out</Text>
+                </Left>
               </ListItem>
             </List>
           </View>
@@ -436,12 +500,12 @@ export default createBottomTabNavigator(
         )
       }
     },
-    Profile: {
-      screen: Profile,
+    Settings: {
+      screen: Settings,
       navigationOptions: {
-        tabBarLabel: "Profile",
+        tabBarLabel: "Settings",
         tabBarIcon: ({ tintColor }) => (
-          <FontAwesome5 name="user-circle" color={tintColor} size={24} />
+          <Icon name="md-settings" color={tintColor} size={24} />
         )
       }
     }
@@ -463,15 +527,20 @@ const styles = StyleSheet.create({
 
   listText: {
     paddingLeft: 12,
-    fontSize: 18,
-    color: "#1a73e8"
+    fontSize: 16,
+    color: "black"
   },
 
+  listTextDanger: {
+    paddingLeft: 12,
+    fontSize: 18,
+    color: "red"
+  },
   listSubTextLabel: {
     paddingLeft: 12,
     fontSize: 16,
     color: "black",
-    fontWeight:"bold"
+    fontWeight: "bold"
   },
   listSubText: {
     paddingLeft: 12,
