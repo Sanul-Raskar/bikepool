@@ -404,7 +404,7 @@ export class Settings extends Component {
               <Separator bordered>
                 <Text>Favorites</Text>
               </Separator>
-              <ListItem onPress={() => navigate("AddHome")}>
+              <ListItem onPress={() => navigate("SavedHome")}>
                 <Left>
                   <MaterialIcon name="home" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Add Home</Text>
@@ -461,6 +461,29 @@ export class Settings extends Component {
                   />
                 </Right>
               </ListItem>
+
+              <Separator bordered>
+              <Text>dev screens</Text>
+            </Separator>
+              <ListItem onPress={() => navigate("Loader")}>
+              <Left>
+               
+                <Text style={styles.listText}>Loader</Text>
+              </Left>
+            </ListItem>
+            <ListItem onPress={() => navigate("RiderBiker")}>
+              <Left>
+               
+                <Text style={styles.listText}>BikerRider</Text>
+              </Left>
+            </ListItem>
+            <ListItem onPress={() => navigate("FeedBack")}>
+              <Left>
+               
+                <Text style={styles.listText}>Feedback</Text>
+              </Left>
+            </ListItem>
+
               <Separator bordered />
               <ListItem onPress={this._signOutAsync}>
                 <Left>
