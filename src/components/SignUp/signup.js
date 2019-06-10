@@ -61,7 +61,7 @@ export default class App extends Component {
       border_Color_password1: "#dadce0",
       border_Color_password2: "#dadce0"
     };
-    
+
     /*
     this.validate = this.validate.bind(this);
     this.validateFirstName = this.validateFirstName.bind(this);
@@ -281,7 +281,6 @@ export default class App extends Component {
   };
 
   validate = () => {
-    
     if (
       this.validateFirstName() &
       this.validateLastName() &
@@ -289,8 +288,7 @@ export default class App extends Component {
       this.validateEmail() &
       this.validatePassword1() &
       this.validatePassword2()
-    ) 
-    {
+    ) {
       //submit form
       alert("Submit Form");
     }
@@ -309,7 +307,7 @@ export default class App extends Component {
 
     return (
       <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
+        <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>Sign Up</Text>
           <Text style={styles.subheading}>Create your Account</Text>
