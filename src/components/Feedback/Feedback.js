@@ -64,7 +64,7 @@ export default class Feedback extends Component {
         }}
       >
       <StatusBar barStyle="dark-content" backgroundColor="white" />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Text
             style={{ textAlign: "center", fontSize: 18, marginVertical: 2 }}
           >
