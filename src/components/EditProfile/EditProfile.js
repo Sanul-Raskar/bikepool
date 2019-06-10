@@ -19,10 +19,10 @@ export default class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      lastname: "",
-      email: "",
-      mobile: "",
+      firstname: "Sanul",
+      lastname: "Raskar",
+      email: "sanulraskar@gmail.com",
+      mobile: "7350142164",
       password1: "",
       password2: "",
       firstnameError: "",
@@ -31,7 +31,7 @@ export default class EditProfile extends Component {
       mobileError: "",
       password1Error: "",
       password2Error: "",
-      birthdate: "",
+      birthdate: "1998/05/19",
       gender: "",
       today: "",
       firstname_font_color: "#1a73e8",
