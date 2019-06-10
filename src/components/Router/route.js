@@ -23,6 +23,7 @@ import AddWork from "../EditProfile/addWork";
 import RideDetails from "../Ride/Ride";
 import FeedBack from "../Feedback/Feedback";
 import RiderBiker from "../RiderBiker/RiderBiker";
+import ViewProfile from "../Profile/ViewProfile";
 
 export default class componentName extends Component {
   render() {
@@ -219,6 +220,19 @@ const AppStack = createStackNavigator(
       screen: RiderBiker,
       navigationOptions: {
         title: "Select your Ride",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    ViewProfile: {
+      screen: ViewProfile,
+      navigationOptions: {
+        title: "Profile",
         headerStyle: {
           backgroundColor: "white"
         },
