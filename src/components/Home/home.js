@@ -330,7 +330,7 @@ export class Settings extends Component {
                 <Text>Profile</Text>
               </Separator>
 
-              <ListItem>
+              <ListItem onPress={() => navigate("ViewProfile")}>
                 <Left>
                   <MaterialIcon
                     name="account-circle"
@@ -360,7 +360,7 @@ export class Settings extends Component {
                   />
                 </Right>
               </ListItem>
-              <ListItem>
+              <ListItem onPress={() => navigate("ChangePassword")}>
                 <Left>
                   <MaterialIcon name="vpn-key" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Change Password</Text>
