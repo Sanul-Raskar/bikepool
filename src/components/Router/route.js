@@ -24,10 +24,12 @@ import RideDetails from "../Ride/Ride";
 import FeedBack from "../Feedback/Feedback";
 import RiderBiker from "../RiderBiker/RiderBiker";
 import ViewProfile from "../Profile/ViewProfile";
-import ChangePassword from '../Profile/ChangePassword';
+import ChangePassword from "../Profile/ChangePassword";
 import SavedHome from "../Profile/SavedHome";
-import SavedWork from "../Profile/SavedWork"
+import SavedWork from "../Profile/SavedWork";
 import Loader from "../RiderBiker/Loader";
+import AddPlaces from "../SignUp/AddPlaces";
+import AddHomeWork from '../SignUp/AddHomeWork'
 
 export default class componentName extends Component {
   render() {
@@ -291,6 +293,18 @@ const AppStack = createStackNavigator(
         header: null
       }
     },
+    AddPlaces: {
+      screen: AddPlaces,
+      navigationOptions: {
+        header: null
+      }
+    },
+    AddHomeWork: {
+      screen: AddHomeWork,
+      navigationOptions: {
+        header: null
+      }
+    }
   },
   {
     initialRouteName: "Home"
