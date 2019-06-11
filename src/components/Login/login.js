@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
     paddingVertical: 10,
-    paddingHorizontal: 18
+    paddingHorizontal: 18,
+    textAlign:"center"
   },
   title: {
     fontFamily: "sans-serif-light",
@@ -150,7 +151,8 @@ const styles = StyleSheet.create({
     borderColor: "#1a73e8",
     borderRadius: 10,
     borderWidth: 2,
-    padding: 10
+    padding: 10,
+    textAlign:"center"
   },
   subheading: {
     fontFamily: "sans-serif-light",

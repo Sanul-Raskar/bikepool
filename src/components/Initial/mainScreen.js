@@ -68,8 +68,9 @@ const styles = StyleSheet.create({
   ButtonText: {
     fontSize: 18,
     color: "white",
-    paddingVertical: 12,
-    paddingHorizontal: 20
+    paddingVertical: 10,
+    paddingHorizontal: 22,
+    textAlign: "center"
   },
   title: {
     position: "absolute",

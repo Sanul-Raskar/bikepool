@@ -47,7 +47,8 @@ export default class AddPlaces extends Component {
                   borderWidth: 2,
                   padding: 10,
                   marginTop: 70,
-                  marginBottom: 10
+                  marginBottom: 10,
+                  textAlign:"center"
                 }}
                 onPress={() => navigate("Bike")}
               >
@@ -88,7 +89,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
     paddingVertical: 10,
-    paddingHorizontal: 18
+    paddingHorizontal: 18,
+    textAlign:"center"
   },
   bottomButtons: {
     flex: 1,
