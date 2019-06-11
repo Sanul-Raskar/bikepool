@@ -24,6 +24,7 @@ export default class MainScreen extends Component {
         <Image
           style={styles.logo}
           source={require("../../assets/img/bikepool.png")}
+          resizeMode="contain"
         />
 
         <View style={styles.bottomButtons}>
@@ -77,8 +78,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 36,
     color: "black",
-    marginBottom: 0.5,
-    marginTop: 2
+    marginBottom: 10
   },
   bottomButtons: {
     flex: 1,
