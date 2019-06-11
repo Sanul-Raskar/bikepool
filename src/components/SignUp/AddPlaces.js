@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Dimensions
+  Dimensions,
 } from "react-native";
 
 export default class AddPlaces extends Component {
@@ -22,21 +22,17 @@ export default class AddPlaces extends Component {
 
     return (
       <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.center}>
-            <Text
-              style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}
-            >
-              Add your favourite places
-            </Text>
             <Image
               resizeMode="contain"
               source={require("../../assets/img/addPlaces.jpg")}
-              style={{ width: width, height: 300 }}
+              style={{ width: width, height: 300}}
             />
             <Text style={{ textAlign: "center" }}>
               Save your Home and Work so that we can quickly suggest you while
-              searching for your ride. {"\n"} You can skip this step now and save your favourite places later in the profile.
+              searching for your ride. {"\n\n"} You can skip this step now and save your favourite places later in the profile.
             </Text>
           </View>
 
@@ -53,6 +49,7 @@ export default class AddPlaces extends Component {
                   marginTop: 70,
                   marginBottom: 10
                 }}
+                onPress={() => navigate("Bike")}
               >
                 Skip
               </Text>
@@ -74,7 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    padding: 22
+    paddingHorizontal: 22,
   },
   center: {
     flex: 1,
