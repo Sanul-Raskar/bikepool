@@ -521,7 +521,8 @@ export default class App extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.signUpButton}
-              onPress={this.validate}
+              /*onPress={this.validate}*/
+              onPress={() => navigate("AddPlaces")}
             >
               <Text style={styles.ButtonText}>Next</Text>
             </TouchableOpacity>
