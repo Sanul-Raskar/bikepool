@@ -36,7 +36,7 @@ export default class AddPlaces extends Component {
             />
             <Text style={{ textAlign: "center" }}>
               Save your Home and Work so that we can quickly suggest you while
-              searching for your ride
+              searching for your ride. {"\n"} You can skip this step now and save your favourite places later in the profile.
             </Text>
           </View>
 
