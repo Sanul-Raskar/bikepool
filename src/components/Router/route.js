@@ -29,7 +29,10 @@ import SavedHome from "../Profile/SavedHome";
 import SavedWork from "../Profile/SavedWork";
 import Loader from "../RiderBiker/Loader";
 import AddPlaces from "../SignUp/AddPlaces";
-import AddHomeWork from '../SignUp/AddHomeWork'
+import AddHomeWork from "../SignUp/AddHomeWork";
+import Bike from "../SignUp/Bike";
+import AddBikeInfo from "../SignUp/AddBikeInfo";
+import AccountCreated from "../SignUp/AccountCreated"
 
 export default class componentName extends Component {
   render() {
@@ -292,18 +295,6 @@ const AppStack = createStackNavigator(
       navigationOptions: {
         header: null
       }
-    },
-    AddPlaces: {
-      screen: AddPlaces,
-      navigationOptions: {
-        header: null
-      }
-    },
-    AddHomeWork: {
-      screen: AddHomeWork,
-      navigationOptions: {
-        header: null
-      }
     }
   },
   {
@@ -327,6 +318,64 @@ const AuthStack = createStackNavigator(
     },
     Signup: {
       screen: SignUpScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    AddPlaces: {
+      screen: AddPlaces,
+      navigationOptions: {
+        title: "Add Favourite Places",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    AddHomeWork: {
+      screen: AddHomeWork,
+      navigationOptions: {
+        title: "Add Home & Work",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    Bike: {
+      screen: Bike,
+      navigationOptions: {
+        title: "",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    AddBikeInfo: {
+      screen: AddBikeInfo,
+      navigationOptions: {
+        title: "Add Bike Information",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    AccountCreated: {
+      screen: AccountCreated,
       navigationOptions: {
         header: null
       }
