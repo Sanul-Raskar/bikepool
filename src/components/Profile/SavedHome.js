@@ -28,7 +28,7 @@ export default class SavedHome extends Component {
               source={require("../../assets/img/home.jpg")}
               style={styles.image}
             />
-            <Text>Looks like you haven't save any location.</Text>
+            <Text>Looks like you haven't saved any location.</Text>
             <Text style={{textAlign:"center"}}>
               You can quickly use saved location {"\n"} while booking your ride.
             </Text>
