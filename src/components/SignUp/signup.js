@@ -290,7 +290,8 @@ export default class App extends Component {
       this.validatePassword2()
     ) {
       //submit form
-      alert("Submit Form");
+      this.props.navigation.navigate("AddPlaces")
+      //alert("Submit Form");
     }
   };
 
@@ -489,7 +490,7 @@ export default class App extends Component {
             border={this.state.border_Color_password2}
             onChangeText={this.handlePassword2Change}
             keyboardLayout="default"
-            passwordSecurity={this.state.pass}
+            passwordSecurity={true}
             fontColor={this.state.password2_font_color}
             onFocusBorder={this.state.password2_onFocus_border}
           />
@@ -522,8 +523,8 @@ export default class App extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.signUpButton}
-              /*onPress={this.validate}*/
-              onPress={() => navigate("AddPlaces")}
+              onPress={this.validate}
+              /*onPress={() => navigate("AddPlaces")}*/
             >
               <Text style={styles.ButtonText}>Next</Text>
             </TouchableOpacity>
