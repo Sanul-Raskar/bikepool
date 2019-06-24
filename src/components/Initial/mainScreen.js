@@ -36,7 +36,7 @@ export default class MainScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.Buttons}
-            onPress={() => navigate("Signup")}
+            onPress={() => navigate("SignUpWizard")}
           >
             <Text style={styles.ButtonText}>Sign Up</Text>
           </TouchableOpacity>

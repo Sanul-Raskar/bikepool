@@ -26,7 +26,8 @@ import AddPlaces from "../SignUp/AddPlaces";
 import AddHomeWork from "../SignUp/AddHomeWork";
 import Bike from "../SignUp/Bike";
 import AddBikeInfo from "../SignUp/AddBikeInfo";
-import AccountCreated from "../SignUp/AccountCreated"
+import AccountCreated from "../SignUp/AccountCreated";
+import SignUpWizard from "../SignUp/SignUpWizard";
 
 export default class componentName extends Component {
   render() {
@@ -238,10 +239,10 @@ const AuthStack = createStackNavigator(
         header: null
       }
     },
-    AddPlaces: {
-      screen: AddPlaces,
+    SignUpWizard: {
+      screen: SignUpWizard,
       navigationOptions: {
-        title: "Add Favourite Places",
+        title: "Sign Up",
         headerStyle: {
           backgroundColor: "white"
         },
@@ -249,45 +250,30 @@ const AuthStack = createStackNavigator(
         headerTitleStyle: {
           fontWeight: "bold"
         }
+      }
+    },
+    AddPlaces: {
+      screen: AddPlaces,
+      navigationOptions: {
+        header: null
       }
     },
     AddHomeWork: {
       screen: AddHomeWork,
       navigationOptions: {
-        title: "Add Home & Work",
-        headerStyle: {
-          backgroundColor: "white"
-        },
-        headerTintColor: "#1a73e8",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
+        header: null
       }
     },
     Bike: {
       screen: Bike,
       navigationOptions: {
-        title: "",
-        headerStyle: {
-          backgroundColor: "white"
-        },
-        headerTintColor: "#1a73e8",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
+        header: null
       }
     },
     AddBikeInfo: {
       screen: AddBikeInfo,
       navigationOptions: {
-        title: "Add Bike Information",
-        headerStyle: {
-          backgroundColor: "white"
-        },
-        headerTintColor: "#1a73e8",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
+        header: null
       }
     },
     AccountCreated: {

@@ -290,7 +290,7 @@ export default class App extends Component {
       this.validatePassword2()
     ) {
       //submit form
-      this.props.navigation.navigate("AddPlaces")
+      this.props.navigation.navigate("AddPlaces");
       //alert("Submit Form");
     }
   };
@@ -303,6 +303,21 @@ export default class App extends Component {
     console.log(password, score, { label, labelColor, activeBarColor });
   };
 
+  nextPreprocess = () => {
+    // Save step state for use in other steps of the wizard
+    this.props.saveState(0, {
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      email: this.state.email,
+      mobile: this.state.mobile,
+      password: this.state.password1,
+      birthdate: this.state.birthdate,
+      gender: this.state.gender
+    });
+    // Go to next step
+    this.props.nextFn();
+  }
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -310,7 +325,6 @@ export default class App extends Component {
       <View style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.heading}>Sign Up</Text>
           <Text style={styles.subheading}>Create your Account</Text>
 
           <FloatingLabelInput
@@ -514,7 +528,7 @@ export default class App extends Component {
                   borderRadius: 10,
                   borderWidth: 2,
                   padding: 10,
-                  textAlign:"center"
+                  textAlign: "center"
                 }}
                 onPress={() => navigate("MainScreen")}
               >
@@ -523,8 +537,8 @@ export default class App extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.signUpButton}
-              onPress={this.validate}
-              /*onPress={() => navigate("AddPlaces")}*/
+               onPress={this.nextPreprocess}
+             /* onPress={() => navigate("AddPlaces")}*/
             >
               <Text style={styles.ButtonText}>Next</Text>
             </TouchableOpacity>
@@ -576,7 +590,7 @@ const styles = StyleSheet.create({
     color: "white",
     paddingVertical: 10,
     paddingHorizontal: 18,
-    textAlign:"center"
+    textAlign: "center"
   },
   bottomButtons: {
     flex: 1,

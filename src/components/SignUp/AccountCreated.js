@@ -5,8 +5,8 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
-  StyleSheet,
-  Dimensions
+  Dimensions,
+  StyleSheet
 } from "react-native";
 import Spinner from "react-native-spinkit";
 
@@ -14,22 +14,27 @@ export default class AccountCreated extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      creatingView: false,
       successView: true,
       failureView: false,
+      creatingView: false,
       isVisible: true,
-      size: 150,
+      size: 100,
       color: "#1a73e8",
       type: "WanderingCubes"
     };
   }
 
+  nextPreprocess = () => {
+    // Go to next step
+    this.props.nextFn();
+  };
+
   render() {
     let { height, width } = Dimensions.get("window");
     const { navigate } = this.props.navigation;
-    //#d85a5b
+
     return (
-      <View style={styles.container}>
+      <View style={{ flex: 1, height: height }}>
         {this.state.creatingView && (
           <View style={styles.wrapper}>
             <Spinner
@@ -40,7 +45,7 @@ export default class AccountCreated extends Component {
               color={this.state.color}
             />
             <Text
-              style={{ textAlign: "center", fontSize: 22, fontWeight: "600" }}
+              style={{ textAlign: "center", fontSize: 20, fontWeight: "600" }}
             >
               Creating Account. Please wait....
             </Text>
@@ -49,36 +54,35 @@ export default class AccountCreated extends Component {
 
         {this.state.successView && (
           <View style={{ flex: 1 }}>
-            <StatusBar barStyle="light-content" backgroundColor="#63a6ff" />
+            <StatusBar barStyle="dark-content" backgroundColor="white" />
             <View
               style={{
                 flex: 1,
                 backgroundColor: "#63a6ff",
-                justifyContent: "center",
                 alignItems: "center"
               }}
             >
               <Image
                 resizeMode="contain"
                 source={require("../../assets/img/accountCreated.jpg")}
-                style={{ width: width, height: 300 }}
+                style={{ width: width, height: 300, marginTop: 10 }}
               />
               <Text
                 style={{
                   textAlign: "center",
-                  fontSize: 22,
+                  fontSize: 18,
                   fontWeight: "600",
                   color: "white"
                 }}
               >
                 Account Created Successfully
               </Text>
-              <TouchableOpacity onPress={() => navigate("MainScreen")}>
+              <TouchableOpacity onPress={this.nextPreprocess}>
                 <Text
                   style={{
                     fontSize: 18,
                     color: "white",
-                    marginBottom: 50,
+                    marginBottom: 10,
                     marginTop: 30,
                     borderColor: "white",
                     borderRadius: 10,
@@ -96,19 +100,18 @@ export default class AccountCreated extends Component {
 
         {this.state.failureView && (
           <View style={{ flex: 1 }}>
-            <StatusBar barStyle="light-content" backgroundColor="#d85a5b" />
+            <StatusBar barStyle="dark-content" backgroundColor="white" />
             <View
               style={{
                 flex: 1,
                 backgroundColor: "#d85a5b",
-                justifyContent: "center",
                 alignItems: "center"
               }}
             >
               <Image
                 resizeMode="contain"
                 source={require("../../assets/img/accountFailure.jpg")}
-                style={{ width: width, height: 300 }}
+                style={{ width: width, height: 300, marginTop: 10 }}
               />
               <Text
                 style={{
@@ -117,20 +120,21 @@ export default class AccountCreated extends Component {
                   color: "white"
                 }}
               >
-                There was an error while creating your account.{"\n"} Please try
-                again later.
+                There was an error while creating your account.Please try again
+                later.
               </Text>
-              <TouchableOpacity onPress={() => navigate("MainScreen")}>
+              <TouchableOpacity onPress={this.nextPreprocess}>
                 <Text
                   style={{
                     color: "white",
-                    marginBottom: 50,
+                    marginBottom: 10,
                     marginTop: 30,
                     borderColor: "white",
                     borderRadius: 10,
                     borderWidth: 2,
                     padding: 10,
-                    textAlign: "center"
+                    textAlign: "center",
+                    fontSize: 18
                   }}
                 >
                   Done
