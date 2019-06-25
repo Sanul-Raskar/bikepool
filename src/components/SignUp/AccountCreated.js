@@ -14,9 +14,9 @@ export default class AccountCreated extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      successView: true,
+      successView: false,
       failureView: false,
-      creatingView: false,
+      creatingView: true,
       isVisible: true,
       size: 100,
       color: "#1a73e8",
@@ -28,6 +28,70 @@ export default class AccountCreated extends Component {
     // Go to next step
     this.props.nextFn();
   };
+
+  getAllData = () => {
+    let data = this.props.getState();
+    console.log(data);
+
+    let Firstname = data[0].firstname;
+    let Lastname = data[0].lastname;
+    let Email = data[0].email;
+    let Mobile = data[0].mobile;
+    let Password = data[0].password;
+    let Birthdate = data[0].birthdate;
+    let Gender = data[0].gender;
+
+    let WorkLat = data[1].WorkLat;
+    let WorkLng = data[1].WorkLng;
+    let HomeLat = data[1].HomeLat;
+    let HomeLng = data[1].HomeLng;
+
+    let Manufacturer = data[2].manufacturer;
+    let Modal = data[2].modal;
+    let bikeColor = data[2].bikeColor;
+    let DrivingLicense = data[2].drivingLicense;
+    let VehicleLicense = data[2].vehicleLicense;
+
+    fetch("https://sanultemp.000webhostapp.com/user_registration.php", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        firstname: Firstname,
+        lastname: Lastname,
+        email: Email,
+        password: Password
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        console.log(responseJson);
+        if (responseJson == "Success") {
+          console.log("Execute SuccessView");
+          this.setState({
+            creatingView: false,
+            successView: true,
+            failureView: false
+          });
+        } else {
+          console.log("Execute FailureView");
+          this.setState({
+            creatingView: false,
+            successView: false,
+            failureView: true
+          });
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+  componentDidMount() {
+    this.getAllData();
+  }
 
   render() {
     let { height, width } = Dimensions.get("window");
@@ -59,13 +123,14 @@ export default class AccountCreated extends Component {
               style={{
                 flex: 1,
                 backgroundColor: "#63a6ff",
-                alignItems: "center"
+                alignItems: "center",
+                justifyContent: "center"
               }}
             >
               <Image
                 resizeMode="contain"
                 source={require("../../assets/img/accountCreated.jpg")}
-                style={{ width: width, height: 300, marginTop: 10 }}
+                style={{ width: width, height: 300, marginTop: -30 }}
               />
               <Text
                 style={{
@@ -105,13 +170,14 @@ export default class AccountCreated extends Component {
               style={{
                 flex: 1,
                 backgroundColor: "#d85a5b",
-                alignItems: "center"
+                alignItems: "center",
+                justifyContent: "center"
               }}
             >
               <Image
                 resizeMode="contain"
                 source={require("../../assets/img/accountFailure.jpg")}
-                style={{ width: width, height: 300, marginTop: 10 }}
+                style={{ width: width, height: 300, marginTop: -30 }}
               />
               <Text
                 style={{
