@@ -42,10 +42,8 @@ export default class AddPlaces extends Component {
     this.props.saveState(1, {
       WorkLat: this.state.WorkLat,
       WorkLng: this.state.WorkLng,
-      WorkDescription: this.state.WorkDescription,
       HomeLat: this.state.HomeLat,
       HomeLng: this.state.HomeLng,
-      HomeDescription: this.state.HomeDescription
     });
 
     // Go to next step
