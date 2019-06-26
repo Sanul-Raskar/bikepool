@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
   KeyboardAvoidingView,
   TouchableOpacity,
@@ -11,7 +10,29 @@ import {
   AsyncStorage
 } from "react-native";
 import { StackActions, NavigationActions } from "react-navigation";
+import FloatingLabelInput from "../FormAnimation/formAnimation";
+
 export default class login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      email_font_color: "#1a73e8",
+      email_onFocus_border: "#1a73e8",
+      border_Color_email: "#dadce0",
+
+      password_font_color: "#1a73e8",
+      password_onFocus_border: "#1a73e8",
+      border_Color_password: "#dadce0"
+    };
+  }
+  handleEmailChange = newValue => {
+    this.setState({ email: newValue });
+  };
+  handlePasswordChange = newValue => {
+    this.setState({ password: newValue });
+  };
   static navigationOptions = {
     header: null
   };
@@ -33,58 +54,57 @@ export default class login extends Component {
           <KeyboardAvoidingView style={styles.container} behavior="padding">
             <View style={styles.container}>
               <Text style={styles.title}>Login</Text>
-              <TextInput
-                placeholder="Email"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-                returnKeyType="next"
-                onSubmitEditing={() => this.passwordInput.focus()}
-                style={styles.input}
-              />
-              <TextInput
-                placeholder="Password"
-                autoCapitalize="none"
-                autoCorrect={false}
-                returnKeyType="done"
-                secureTextEntry
-                style={styles.input}
-                ref={input => (this.passwordInput = input)}
-              />
-              <TouchableOpacity
-                style={styles.loginButton}
-                onPress={this._signInAsync}
-              >
-                <Text style={styles.ButtonText}>Login</Text>
-              </TouchableOpacity>
+              <Text style={styles.subheading}>Login with your Bikepool account</Text>
 
-              <TouchableOpacity style={styles.GoogleButton}>
-                <Text style={styles.ButtonText}>Login with Google</Text>
-              </TouchableOpacity>
+              <FloatingLabelInput
+                label="Email"
+                value={this.state.email}
+                onChangeText={this.handleEmailChange}
+                border={this.state.border_Color_email}
+                keyboardLayout="email-address"
+                fontColor={this.state.email_font_color}
+                onFocusBorder={this.state.email_onFocus_border}
+              />
 
-              <TouchableOpacity style={styles.FaceBookButton}>
-                <Text style={styles.ButtonText}>Login with Facebook</Text>
-              </TouchableOpacity>
+              <FloatingLabelInput
+                label="Password"
+                value={this.state.password}
+                onChangeText={this.handlePasswordChange}
+                border={this.state.border_Color_password}
+                keyboardLayout="default"
+                passwordSecurity={true}
+                fontColor={this.state.password_font_color}
+                onFocusBorder={this.state.password_onFocus_border}
+              />
+              
               <Text
                 style={{
-                  textDecorationLine: "underline",
-                  fontWeight: "500",
-                  marginBottom: 14
+                  marginBottom: 16,
+                  fontSize: 18,
+                  color:"#1a73e8"
                 }}
               >
                 Forgot Password?
               </Text>
-              <Text style={{ marginBottom: 6 }}>Don't have an Account?</Text>
-              <Text
+
+              <View
                 style={{
-                  textDecorationLine: "underline",
-                  fontWeight: "500",
-                  marginBottom: 4
+                  flex: 1,
+                  flexDirection: "row",
+                  justifyContent: "space-between"
                 }}
-                onPress={() => navigate("Signup")}
               >
-                Sign Up here
-              </Text>
+                <TouchableOpacity onPress={() => navigate("Signup")}>
+                  <Text style={styles.signupButtonText}>Create Account</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.loginButton}
+                  onPress={this._signInAsync}
+                >
+                  <Text style={styles.ButtonText}>Login</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -96,57 +116,51 @@ export default class login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    padding: 6
   },
-  logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 16
-  },
-  input: {
-    backgroundColor: "#e6e6e6",
-    marginBottom: 14,
-    height: 42,
-    paddingHorizontal: 18,
-    width: 300,
-    borderRadius: 24
-  },
+
   loginButton: {
-    backgroundColor: "black",
-    paddingVertical: 10,
+    backgroundColor: "#1a73e8",
     marginBottom: 50,
-    width: 300,
-    borderRadius: 24
+    borderRadius: 10,
+    marginTop: 20
   },
-  GoogleButton: {
-    backgroundColor: "rgb(211, 72, 54)",
-    paddingVertical: 10,
-    marginBottom: 14,
-    width: 300,
-    borderRadius: 24
-  },
-  FaceBookButton: {
-    backgroundColor: "rgb(60,90,153)",
-    paddingVertical: 10,
-    marginBottom: 14,
-    width: 300,
-    borderRadius: 24
-  },
+
   ButtonText: {
-    fontSize: 22,
-    textAlign: "center",
-    height: 30,
+    fontSize: 18,
     color: "white",
-    fontWeight: "bold"
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    textAlign:"center"
   },
   title: {
     fontFamily: "sans-serif-light",
     fontWeight: "bold",
-    fontSize: 36,
+    fontSize: 26,
+    color: "black",
+    marginBottom: 14,
+    textAlign: "center"
+  },
+
+  signupButtonText: {
+    fontSize: 18,
+    color: "#1a73e8",
+    marginBottom: 50,
+    marginTop: 20,
+    borderColor: "#1a73e8",
+    borderRadius: 10,
+    borderWidth: 2,
+    padding: 10,
+    textAlign:"center"
+  },
+  subheading: {
+    fontFamily: "sans-serif-light",
+    fontWeight: "bold",
+    fontSize: 18,
     color: "black",
     marginBottom: 20,
-    marginTop: 20
-  }
+    marginTop: 4,
+    textAlign: "center"
+  },
 });

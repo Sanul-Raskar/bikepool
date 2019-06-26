@@ -3,9 +3,10 @@ import {
   View,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
-  Dimensions,
-  ScrollView
+  ScrollView,
+  StatusBar
 } from "react-native";
 import { InputGroup } from "native-base";
 var {
@@ -24,11 +25,10 @@ export default class AddWork extends Component {
   }
 
   render() {
-    const screenWidth = Dimensions.get("window").width;
-
     return (
-      <View style={{ width: screenWidth }}>
-        <ScrollView>
+      <View style={{ flex: 1, backgroundColor: "white", padding: 10 }}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.inputWrapper}>
             <TouchableOpacity>
               <InputGroup>
@@ -66,7 +66,6 @@ export default class AddWork extends Component {
                     },
                     textInputContainer: {
                       fontSize: 14,
-                      marginLeft: 10,
                       marginBottom: 8,
                       marginTop: 8,
                       backgroundColor: "white",
@@ -92,8 +91,24 @@ export default class AddWork extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.container}>
-            <TouchableOpacity style={styles.saveButton}>
-              <Text style={styles.saveButtonText}>Save</Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#1a73e8",
+                marginBottom: 50,
+                borderRadius: 10,
+                marginTop: 30
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  color: "white",
+                  paddingVertical: 10,
+                  paddingHorizontal: 18
+                }}
+              >
+                Save
+              </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -105,8 +120,9 @@ export default class AddWork extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 30,
-    alignItems: "center"
+    marginTop: 20,
+    alignItems: "center",
+    backgroundColor: "white"
   },
   inputWrapper: {
     marginLeft: 15,
@@ -114,29 +130,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 2,
     backgroundColor: "#fff",
-    borderRadius: 7
+    borderRadius: 7,
+    borderColor: "#dadce0",
+    borderWidth: 2
   },
   textInput: {
     borderBottomWidth: 2,
     borderBottomColor: "black",
-    width: 280,
     marginLeft: "auto",
     marginRight: "auto",
     fontSize: 20
-  },
-  saveButton: {
-    backgroundColor: "black",
-    paddingVertical: 10,
-    marginBottom: 14,
-    width: 300,
-    borderRadius: 24,
-    marginTop: 30
-  },
-  saveButtonText: {
-    fontSize: 22,
-    textAlign: "center",
-    height: 30,
-    color: "white",
-    fontWeight: "bold"
   }
 });

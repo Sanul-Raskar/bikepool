@@ -7,26 +7,16 @@ import {
   TouchableOpacity,
   ScrollView,
   Animated,
-  AsyncStorage
+  AsyncStorage,
+  StatusBar
 } from "react-native";
 import Ride from "./topTabs";
 import { createBottomTabNavigator } from "react-navigation";
-import {
-  List,
-  ListItem,
-  Left,
-  Body,
-  Right,
-  Separator,
-  Card,
-  CardItem
-} from "native-base";
+import { List, ListItem, Left, Right, Separator } from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import ToggleSwitch from "toggle-switch-react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import SearchBox from "../Search/AutoComplete";
 import "../global";
 HEADER_MAX_HEIGHT = 100;
 HEADER_MIN_HEIGHT = 60;
@@ -34,46 +24,6 @@ PROFILE_IMAGE_MAX_HEIGHT = 100;
 PROFILE_IMAGE_MIN_HEIGHT = 60;
 
 export class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOnDefaultToggleSwitch: true
-    };
-  }
-
-  render() {
-    return (
-      <View>
-        <Card>
-          <CardItem>
-            <Left>
-              <Text style={styles.toggleSwitchLabels}>Offer Ride</Text>
-            </Left>
-            <Body>
-              <ToggleSwitch
-                isOn={this.state.isOnDefaultToggleSwitch}
-                onColor="rgb(51, 51, 51)"
-                offColor="rgb(51, 51, 51)"
-                size="large"
-                onToggle={isOnDefaultToggleSwitch => {
-                  this.setState({ isOnDefaultToggleSwitch });
-                }}
-              />
-            </Body>
-            <Right>
-              <Text style={styles.toggleSwitchLabels}>Get Ride</Text>
-            </Right>
-          </CardItem>
-        </Card>
-        <ScrollView>
-          <SearchBox />
-        </ScrollView>
-      </View>
-    );
-  }
-}
-
-export class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,10 +37,9 @@ export class Map extends Component {
       destinationLat: global.DestinationLatitude,
       destinationLng: global.DestinationLongitude
     };
-
-    this.getCurrentLocation = this.getCurrentLocation.bind(this);
   }
-  getCurrentLocation() {
+
+  getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -101,7 +50,6 @@ export class Map extends Component {
       },
       error => {
         this.setState({ error: error.message });
-        alert(error.message);
         console.log(error.message);
       },
       {
@@ -110,9 +58,9 @@ export class Map extends Component {
         maximumAge: 10000
       }
     );
-  }
+  };
 
-  plotSourceMarker() {
+  plotSourceMarker = () => {
     if (isSourceMarker) {
       console.log(this.state.sourceLat);
       return (
@@ -127,9 +75,9 @@ export class Map extends Component {
         />
       );
     }
-  }
+  };
 
-  plotDestinationMarker() {
+  plotDestinationMarker = () => {
     if (isDestinationMarker) {
       console.log(this.state.destinationLat);
       return (
@@ -144,47 +92,88 @@ export class Map extends Component {
         />
       );
     }
-  }
+  };
 
   componentWillMount() {
     this.getCurrentLocation();
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
-      <View style={styles.container}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          region={{
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
-            latitudeDelta: 0.0043,
-            longitudeDelta: 0.0034
-          }}
-        >
-          <MapView.Marker
-            coordinate={{
+      <View style={{ flex: 1 }}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
+        <View style={styles.container}>
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            region={{
               latitude: this.state.latitude,
               longitude: this.state.longitude,
               latitudeDelta: 0.0043,
               longitudeDelta: 0.0034
             }}
-            pinColor="red"
-          />
+          >
+            <MapView.Marker
+              coordinate={{
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                latitudeDelta: 0.0043,
+                longitudeDelta: 0.0034
+              }}
+              pinColor="red"
+            />
 
-          {this.plotSourceMarker()}
-          {this.plotDestinationMarker()}
-        </MapView>
+            {this.plotSourceMarker()}
+            {this.plotDestinationMarker()}
+          </MapView>
 
-        <TouchableOpacity
-          style={styles.locateButton}
-          onPress={this.getCurrentLocation}
-        >
-          <Text>
-            <Icon name="md-locate" color="black" size={38} />
-          </Text>
-        </TouchableOpacity>
+          <View
+            style={{
+              padding: 22,
+              position: "absolute",
+              top: 0,
+              width: "100%"
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                backgroundColor: "white",
+                width: "100%",
+                borderRadius: 10,
+                borderColor: "#dadce0",
+                borderWidth: 2
+              }}
+            >
+              <List>
+                <ListItem onPress={() => navigate("RideDetails")}>
+                  <Left>
+                    <Text style={{ paddingLeft: 14, fontSize: 20 }}>
+                      Where To?
+                    </Text>
+                  </Left>
+                  <Right>
+                    <MaterialIcon
+                      name="directions-bike"
+                      color="black"
+                      size={24}
+                    />
+                  </Right>
+                </ListItem>
+              </List>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={styles.locateButton}
+            onPress={this.getCurrentLocation}
+          >
+            <Text>
+              <Icon name="md-locate" color="black" size={38} />
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -196,7 +185,7 @@ export class Rides extends Component {
   }
 }
 
-export class Profile extends Component {
+export class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = { scrollY: new Animated.Value(0) };
@@ -252,15 +241,28 @@ export class Profile extends Component {
       extrapolate: "clamp"
     });
 
+    const smallTitle = {
+      fontSize: 22,
+      fontWeight: "bold",
+      textShadowColor: "white",
+      textShadowOffset: { width: 0, height: 0 },
+      textShadowRadius: 0,
+      color: this.state.scrollY.interpolate({
+        inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
+        outputRange: ["white", "black"]
+      })
+    };
+
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <Animated.View
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             right: 0,
-            backgroundColor: "black",
+            backgroundColor: "white",
             height: headerHeight,
             zIndex: headerZIndex,
             alignItems: "center"
@@ -273,18 +275,7 @@ export class Profile extends Component {
               bottom: headerTitleBottom
             }}
           >
-            <Text
-              style={{
-                fontSize: 22,
-                fontWeight: "bold",
-                color: "white",
-                textShadowColor: "white",
-                textShadowOffset: { width: 0, height: 0 },
-                textShadowRadius: 0
-              }}
-            >
-              Sanul Raskar
-            </Text>
+            <Animated.Text style={smallTitle}>Sanul Raskar</Animated.Text>
           </Animated.View>
         </Animated.View>
         <ScrollView
@@ -293,14 +284,15 @@ export class Profile extends Component {
             { nativeEvent: { contentOffset: { y: this.state.scrollY } } }
           ])}
           style={{ flex: 1 }}
+          showsVerticalScrollIndicator={false}
         >
           <Animated.View
             style={{
               height: profileImageHeight,
               width: profileImageHeight,
               borderRadius: PROFILE_IMAGE_MAX_HEIGHT / 2,
-              borderColor: "white",
-              borderWidth: 3,
+              borderColor: "black",
+              borderWidth: 1,
               overflow: "hidden",
               marginTop: profileImageMarginTop,
               marginLeft: "auto",
@@ -308,7 +300,10 @@ export class Profile extends Component {
             }}
           >
             <Image
-              source={require("../../assets/img/sanul.jpeg")}
+              source={{
+                uri:
+                  "https://facebook.github.io/react-native/docs/assets/favicon.png"
+              }}
               style={{
                 flex: 1,
                 width: null,
@@ -329,85 +324,172 @@ export class Profile extends Component {
               Sanul Raskar
             </Text>
           </View>
-          <View style={{ height: 30 }} />
+          <View style={{ height: 20 }} />
           <View style={{ backgroundColor: "white" }}>
             <List style={{ backgroundColor: "white" }}>
-              <ListItem
-                onPress={() => navigate("EditProfile")}
-                style={{ borderBottomWidth: 0 }}
-              >
+              <Separator bordered>
+                <Text>Profile</Text>
+              </Separator>
+
+              <ListItem onPress={() => navigate("ViewProfile")}>
                 <Left>
-                  <MaterialIcon name="edit" color="black" size={24} />
+                  <MaterialIcon
+                    name="account-circle"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                  <Text style={styles.listText}>View Profile</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
+              </ListItem>
+              <ListItem onPress={() => navigate("EditProfile")}>
+                <Left>
+                  <MaterialIcon name="edit" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Edit Profile</Text>
                 </Left>
                 <Right>
-                  <Icon name="ios-arrow-dropright" color="black" size={24} />
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
                 </Right>
               </ListItem>
-              <ListItem style={{ borderBottomWidth: 0 }}>
-                <Body>
-                  <Text style={styles.listSubTextLabel}>Name</Text>
-                  <Text style={styles.listSubText}>Sanul Raskar</Text>
-                </Body>
+              <ListItem onPress={() => navigate("ChangePassword")}>
+                <Left>
+                  <MaterialIcon name="vpn-key" color="#1a73e8" size={24} />
+                  <Text style={styles.listText}>Change Password</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
               </ListItem>
-              <ListItem style={{ borderBottomWidth: 0 }}>
-                <Body>
-                  <Text style={styles.listSubTextLabel}>Phone</Text>
-                  <Text style={styles.listSubText}>7350142164</Text>
-                </Body>
+              <ListItem>
+                <Left>
+                  <FontAwesome5 name="motorcycle" color="#1a73e8" size={24} />
+                  <Text style={styles.listText}>Bike Information</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
               </ListItem>
-              <ListItem style={{ borderBottomWidth: 0 }}>
-                <Body>
-                  <Text style={styles.listSubTextLabel}>Email</Text>
-                  <Text style={styles.listSubText}>sanulraskar@gmail.com</Text>
-                </Body>
+              <ListItem>
+                <Left>
+                  <MaterialIcon name="delete" color="red" size={24} />
+                  <Text style={styles.listText}>Delete My Account</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
               </ListItem>
+
               <Separator bordered>
                 <Text>Favorites</Text>
               </Separator>
-              <ListItem
-                style={{ borderBottomWidth: 0 }}
-                onPress={() => navigate("AddHome")}
-              >
+              <ListItem onPress={() => navigate("SavedHome")}>
                 <Left>
-                  <MaterialIcon name="home" color="black" size={24} />
+                  <MaterialIcon name="home" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Add Home</Text>
                 </Left>
                 <Right>
-                  <Icon name="ios-arrow-dropright" color="black" size={24} />
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
                 </Right>
               </ListItem>
-              <ListItem>
-                <Body>
-                  <Text style={styles.listSubText}>
-                    Narveer Tanaji Housing Society Ramling-Shirur Rd Shivrashka
-                    Colony Shirur,Maharashtra 412210
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem
-                style={{ borderBottomWidth: 0 }}
-                onPress={() => navigate("AddWork")}
-              >
+
+              <ListItem onPress={() => navigate("SavedWork")}>
                 <Left>
-                  <MaterialIcon name="work" color="black" size={24} />
+                  <MaterialIcon name="work" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Add Work</Text>
                 </Left>
                 <Right>
-                  <Icon name="ios-arrow-dropright" color="black" size={24} />
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
+              </ListItem>
+
+              <Separator bordered>
+                <Text>App</Text>
+              </Separator>
+              <ListItem>
+                <Left>
+                  <MaterialIcon name="info" color="#1a73e8" size={24} />
+                  <Text style={styles.listText}>About</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
                 </Right>
               </ListItem>
               <ListItem>
-                <Body>
-                  <Text style={styles.listSubText}>
-                    VIIT College Of Engineering,Yashodhan Society,Kapil
-                    Nagar,Kondhwa Budruk,Pune,Maharashtra 411048
-                  </Text>
-                </Body>
+                <Left>
+                  <MaterialIcon name="feedback" color="#1a73e8" size={24} />
+                  <Text style={styles.listText}>App Feedback</Text>
+                </Left>
+                <Right>
+                  <MaterialIcon
+                    name="navigate-next"
+                    color="#1a73e8"
+                    size={24}
+                  />
+                </Right>
               </ListItem>
+
+              <Separator bordered>
+              <Text>dev screens</Text>
+            </Separator>
+              <ListItem onPress={() => navigate("Loader")}>
+              <Left>
+               
+                <Text style={styles.listText}>Loader</Text>
+              </Left>
+            </ListItem>
+            <ListItem onPress={() => navigate("RiderBiker")}>
+              <Left>
+               
+                <Text style={styles.listText}>BikerRider</Text>
+              </Left>
+            </ListItem>
+            <ListItem onPress={() => navigate("FeedBack")}>
+              <Left>
+               
+                <Text style={styles.listText}>Feedback</Text>
+              </Left>
+            </ListItem>
+
               <Separator bordered />
               <ListItem onPress={this._signOutAsync}>
-                <Text style={styles.listText}>Sign Out</Text>
+                <Left>
+                  <FontAwesome5 name="sign-out-alt" color="red" size={24} />
+                  <Text style={styles.listText}>Sign Out</Text>
+                </Left>
               </ListItem>
             </List>
           </View>
@@ -428,39 +510,30 @@ export default createBottomTabNavigator(
         )
       }
     },
-    Map: {
-      screen: Map,
-      navigationOptions: {
-        tabBarLabel: "Maps",
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-map" color={tintColor} size={24} />
-        )
-      }
-    },
 
     Rides: {
       screen: Rides,
       navigationOptions: {
         tabBarLabel: "Rides",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-car" color={tintColor} size={24} />
+          <FontAwesome5 name="motorcycle" color={tintColor} size={24} />
         )
       }
     },
-    Profile: {
-      screen: Profile,
+    Settings: {
+      screen: Settings,
       navigationOptions: {
-        tabBarLabel: "Profile",
+        tabBarLabel: "Settings",
         tabBarIcon: ({ tintColor }) => (
-          <FontAwesome5 name="user-circle" color={tintColor} size={24} />
+          <Icon name="md-settings" color={tintColor} size={24} />
         )
       }
     }
   },
   {
     tabBarOptions: {
-      activeTintColor: "black",
-      inactiveTintColor: "grey"
+      activeTintColor: "#1a73e8",
+      inactiveTintColor: "#6a707c"
     }
   }
 );
@@ -474,18 +547,24 @@ const styles = StyleSheet.create({
 
   listText: {
     paddingLeft: 12,
-    fontSize: 18,
-    color: "black"
-  },
-
-  listSubTextLabel: {
-    paddingLeft: 12,
     fontSize: 16,
     color: "black"
   },
+
+  listTextDanger: {
+    paddingLeft: 12,
+    fontSize: 18,
+    color: "red"
+  },
+  listSubTextLabel: {
+    paddingLeft: 12,
+    fontSize: 16,
+    color: "black",
+    fontWeight: "bold"
+  },
   listSubText: {
     paddingLeft: 12,
-    fontSize: 14,
+    fontSize: 16,
     color: "black"
   },
 

@@ -1,26 +1,28 @@
 import React, { Component } from "react";
 import {
-  View,
-  Text,
   StyleSheet,
-  ScrollView,
+  View,
   TouchableOpacity,
+  ScrollView,
+  Text,
+  Image,
   Picker,
   StatusBar
 } from "react-native";
 import FloatingLabelInput from "../FormAnimation/formAnimation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import DatePicker from "react-native-datepicker";
-import { BarPasswordStrengthDisplay } from "react-native-password-strength-meter";
 
-export default class App extends Component {
+PROFILE_IMAGE_MAX_HEIGHT = 100;
+PROFILE_IMAGE_MIN_HEIGHT = 60;
+export default class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      lastname: "",
-      email: "",
-      mobile: "",
+      firstname: "Sanul",
+      lastname: "Raskar",
+      email: "sanulraskar@gmail.com",
+      mobile: "7350142164",
       password1: "",
       password2: "",
       firstnameError: "",
@@ -29,11 +31,9 @@ export default class App extends Component {
       mobileError: "",
       password1Error: "",
       password2Error: "",
-      birthdate: "",
+      birthdate: "1998/05/19",
       gender: "",
       today: "",
-      birthdateError: "",
-      genderError: "",
       firstname_font_color: "#1a73e8",
       firstname_onFocus_border: "#1a73e8",
       lastname_font_color: "#1a73e8",
@@ -42,8 +42,12 @@ export default class App extends Component {
       email_onFocus_border: "#1a73e8",
       mobile_font_color: "#1a73e8",
       mobile_onFocus_border: "#1a73e8",
+
       birthdate_font_color: "#1a73e8",
+      birthdate_onFocus_border: "#1a73e8",
       gender_font_color: "#1a73e8",
+      gender_onFocus_border: "#1a73e8",
+
       password1_font_color: "#1a73e8",
       password1_onFocus_border: "#1a73e8",
       password2_font_color: "#1a73e8",
@@ -52,8 +56,10 @@ export default class App extends Component {
       border_Color_lastname: "#dadce0",
       border_Color_email: "#dadce0",
       border_Color_mobile: "#dadce0",
+
       border_Color_birthdate: "#dadce0",
       border_Color_gender: "#dadce0",
+
       border_Color_password1: "#dadce0",
       border_Color_password2: "#dadce0"
     };
@@ -76,18 +82,6 @@ export default class App extends Component {
   };
   handlePassword2Change = newValue => {
     this.setState({ password2: newValue });
-  };
-
-  componentDidMount() {
-    this.getcurrentDate();
-  }
-
-  getcurrentDate = () => {
-    let date = new Date().getDate();
-    let month = new Date().getMonth() + 1;
-    let year = new Date().getFullYear();
-    let Today = "" + year + "-" + month + "-" + date + "";
-    this.setState({ today: Today });
   };
 
   validateFirstName = () => {
@@ -264,42 +258,6 @@ export default class App extends Component {
     }
   };
 
-  validateBirthdate = () => {
-    if (this.state.birthdate === "") {
-      this.setState({
-        border_Color_birthdate: "red",
-        birthdateError: "Please select birthdate",
-        birthdate_font_color: "red"
-      });
-      return false;
-    } else {
-      this.setState({
-        border_Color_birthdate: "#dadce0",
-        birthdateError: "",
-        birthdate_font_color: "#1a73e8"
-      });
-      return true;
-    }
-  };
-
-  validateGender = () => {
-    if (this.state.gender === "" || this.state.gender === "Select") {
-      this.setState({
-        border_Color_gender: "red",
-        genderError: "Please select gender",
-        gender_font_color: "red"
-      });
-      return false;
-    } else {
-      this.setState({
-        border_Color_gender: "#dadce0",
-        genderError: "",
-        gender_font_color: "#1a73e8"
-      });
-      return true;
-    }
-  };
-
   validate = () => {
     if (
       this.validateFirstName() &
@@ -307,46 +265,36 @@ export default class App extends Component {
       this.validateMobile() &
       this.validateEmail() &
       this.validatePassword1() &
-      this.validatePassword2() &
-      this.validateGender() &
-      this.validateBirthdate()
+      this.validatePassword2()
     ) {
-      this.nextPreprocess();
+      //submit form
+      alert("Update Form");
     }
-  };
-
-  onChangePasswordMeter = (
-    password,
-    score,
-    { label, labelColor, activeBarColor }
-  ) => {
-    console.log(password, score, { label, labelColor, activeBarColor });
-  };
-
-  nextPreprocess = () => {
-    // Save step state for use in other steps of the wizard
-    this.props.saveState(0, {
-      firstname: this.state.firstname,
-      lastname: this.state.lastname,
-      email: this.state.email,
-      mobile: this.state.mobile,
-      password: this.state.password1,
-      birthdate: this.state.birthdate,
-      gender: this.state.gender
-    });
-    // Go to next step
-    this.props.nextFn();
   };
 
   render() {
     const { navigate } = this.props.navigation;
-
     return (
       <View style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor="white" />
+      <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.subheading}>Create your Account</Text>
-
+          <Image
+            style={{
+              height: 100,
+              width: 100,
+              borderRadius: PROFILE_IMAGE_MAX_HEIGHT / 2,
+              borderColor: "white",
+              borderWidth: 3,
+              overflow: "hidden",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginVertical: 16
+            }}
+            source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
+            />
+          <TouchableOpacity style={{ marginBottom: 10 }}>
+            <Text style={{ textAlign: "center" }}>Edit Image</Text>
+          </TouchableOpacity>
           <FloatingLabelInput
             label="First Name"
             value={this.state.firstname}
@@ -417,7 +365,7 @@ export default class App extends Component {
             style={{
               fontSize: 16,
               marginTop: 2,
-              color: this.state.birthdate_font_color,
+              color: "#666666",
               zIndex: 10,
               backgroundColor: "white",
               width: 80,
@@ -452,18 +400,11 @@ export default class App extends Component {
             }}
           />
 
-          {this.state.birthdateError !== "" && (
-            <Text style={styles.error}>
-              <Icon name="alert-circle" color="red" size={16} />{" "}
-              {this.state.birthdateError}
-            </Text>
-          )}
-
           <Text
             style={{
               fontSize: 16,
               marginTop: 8,
-              color: this.state.gender_font_color,
+              color: "#666666",
               zIndex: 10,
               backgroundColor: "white",
               width: 60,
@@ -504,49 +445,8 @@ export default class App extends Component {
               <Picker.Item label="Other" value="other" />
             </Picker>
           </View>
-          {this.state.genderError !== "" && (
-            <Text style={styles.error}>
-              <Icon name="alert-circle" color="red" size={16} />{" "}
-              {this.state.genderError}
-            </Text>
-          )}
-          <FloatingLabelInput
-            label="Password"
-            value={this.state.password1}
-            border={this.state.border_Color_password1}
-            onChangeText={this.handlePassword1Change}
-            keyboardLayout="default"
-            passwordSecurity={true}
-            fontColor={this.state.password1_font_color}
-            onFocusBorder={this.state.password1_onFocus_border}
-          />
 
-          <BarPasswordStrengthDisplay password={this.state.password1} />
-          <Text> {""}</Text>
-          {this.state.password1Error !== "" && (
-            <Text style={styles.error}>
-              <Icon name="alert-circle" color="red" size={16} />{" "}
-              {this.state.password1Error}
-            </Text>
-          )}
-
-          <FloatingLabelInput
-            label="Confirm Password"
-            value={this.state.password2}
-            border={this.state.border_Color_password2}
-            onChangeText={this.handlePassword2Change}
-            keyboardLayout="default"
-            passwordSecurity={true}
-            fontColor={this.state.password2_font_color}
-            onFocusBorder={this.state.password2_onFocus_border}
-          />
-
-          {this.state.password2Error !== "" && (
-            <Text style={styles.error}>
-              <Icon name="alert-circle" color="red" size={16} />{" "}
-              {this.state.password2Error}
-            </Text>
-          )}
+          
 
           <View style={styles.bottomButtons}>
             <TouchableOpacity>
@@ -560,9 +460,10 @@ export default class App extends Component {
                   borderRadius: 10,
                   borderWidth: 2,
                   padding: 10,
-                  textAlign: "center"
+                  textAlign:"center"
+
                 }}
-                onPress={() => navigate("MainScreen")}
+                onPress={() => this.props.navigation.goBack()}
               >
                 Cancel
               </Text>
@@ -571,7 +472,7 @@ export default class App extends Component {
               style={styles.signUpButton}
               onPress={this.validate}
             >
-              <Text style={styles.ButtonText}>Next</Text>
+              <Text style={styles.ButtonText}>Update</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -621,7 +522,7 @@ const styles = StyleSheet.create({
     color: "white",
     paddingVertical: 10,
     paddingHorizontal: 18,
-    textAlign: "center"
+    textAlign:"center"
   },
   bottomButtons: {
     flex: 1,

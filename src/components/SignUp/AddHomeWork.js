@@ -2,77 +2,62 @@ import React, { Component } from "react";
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   Text,
-  Dimensions,
-  ScrollView
+  TouchableOpacity,
+  ScrollView,
+  StatusBar
 } from "react-native";
+
+import { InputGroup } from "native-base";
 var {
   GooglePlacesAutocomplete
 } = require("react-native-google-places-autocomplete");
-import { InputGroup } from "native-base";
-import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-import "../global";
 
-export default class GPlacesDemo extends Component {
+export default class AddHomeWork extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSourcePlacesList: false,
-      showDestinationPlacesList: false,
-      sourceLat: 0,
-      sourceLng: 0,
-      destinationLat: 0,
-      destinationLng: 0
+      showPlacesList: false,
+      WorkLat: 0,
+      WorkLng: 0,
+      WorkDescription: "",
+      HomeLat: 0,
+      HomeLng: 0,
+      HomeDescription: ""
     };
-  }
-
-  source_destination_coordinates() {
-    global.isSourceMarker = true;
-    global.isDestinationMarker = true;
-    global.SourceLatitude = this.state.sourceLat;
-    global.SourceLongitude = this.state.sourceLng;
-    global.DestinationLatitude = this.state.destinationLat;
-    global.DestinationLongitude = this.state.destinationLat;
   }
 
   render() {
-    const screenWidth = Dimensions.get("window").width;
-    const homePlace = {
-      description: "Home",
-      geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }
-    };
-    const workPlace = {
-      description: "Work",
-      geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }
-    };
+    const { navigate } = this.props.navigation;
 
     return (
-      <View style={{ width: screenWidth, backgroundColor: "white" }}>
-        <ScrollView>
+      <View style={{ flex: 1, backgroundColor: "white", padding: 22 }}>
+        <StatusBar barStyle="dark-content" backgroundColor="white" />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text
+            style={{ textAlign: "center", fontSize: 20, fontWeight: "bold" }}
+          >
+            Add Home
+          </Text>
           <View style={styles.inputWrapper}>
-            <InputGroup>
-              <MaterialIcon name="search" size={18} color="black" />
-              <Text style={styles.label}>Source</Text>
-            </InputGroup>
             <TouchableOpacity>
               <InputGroup>
                 <GooglePlacesAutocomplete
-                  listViewDisplayed={this.state.showSourcePlacesList}
+                  listViewDisplayed={this.state.showPlacesList}
                   textInputProps={{
-                    onFocus: () =>
-                      this.setState({ showSourcePlacesList: true }),
-                    onBlur: () => this.setState({ showSourcePlacesList: false })
+                    onFocus: () => this.setState({ showPlacesList: true }),
+                    onBlur: () => this.setState({ showPlacesList: false })
                   }}
-                  placeholder="Choose pick-off location"
+                  placeholder="Search for your Home"
                   minLength={2}
                   autoFocus={false}
                   returnKeyType={"default"}
                   fetchDetails={true}
                   onPress={(data, details = null) => {
-                    this.setState({ sourceLat: details.geometry.location.lat });
-                    this.setState({ sourceLng: details.geometry.location.lng });
-                    console.log(this.state.sourceLat);
+                    this.setState({ HomeLat: details.geometry.location.lat });
+                    this.setState({ HomeLng: details.geometry.location.lng });
+                    console.log(this.state.HomeLat);
+                    console.log(this.state.HomeLng);
                   }}
                   getDefaultValue={() => {
                     return "";
@@ -91,7 +76,6 @@ export default class GPlacesDemo extends Component {
                     },
                     textInputContainer: {
                       fontSize: 14,
-                      marginLeft: 10,
                       marginBottom: 8,
                       marginTop: 8,
                       backgroundColor: "white",
@@ -111,39 +95,36 @@ export default class GPlacesDemo extends Component {
                     "locality",
                     "administrative_area_level_3"
                   ]}
-                  predefinedPlaces={[homePlace, workPlace]}
-                  predefinedPlacesAlwaysVisible={true}
+                  predefinedPlacesAlwaysVisible={false}
                 />
               </InputGroup>
             </TouchableOpacity>
           </View>
-
-          <View style={styles.secondInputWrapper}>
-            <InputGroup>
-              <MaterialIcon name="search" size={18} color="black" />
-              <Text style={styles.label}>Destination</Text>
-            </InputGroup>
+          <View style={{ height: 50 }} />
+          <Text
+            style={{ textAlign: "center", fontSize: 20, fontWeight: "bold" }}
+          >
+            {"\n"}Add Work
+          </Text>
+          <View style={styles.inputWrapper}>
             <TouchableOpacity>
               <InputGroup>
                 <GooglePlacesAutocomplete
-                  listViewDisplayed={this.state.showDestinationPlacesList}
+                  listViewDisplayed={this.state.showPlacesList}
                   textInputProps={{
-                    onFocus: () =>
-                      this.setState({ showDestinationPlacesList: true }),
-                    onBlur: () =>
-                      this.setState({ showDestinationPlacesList: false })
+                    onFocus: () => this.setState({ showPlacesList: true }),
+                    onBlur: () => this.setState({ showPlacesList: false })
                   }}
-                  placeholder="Choose drop-off location"
+                  placeholder="Search for your Work"
                   minLength={2}
                   autoFocus={false}
+                  returnKeyType={"default"}
                   fetchDetails={true}
                   onPress={(data, details = null) => {
-                    this.setState({
-                      destinationLat: details.geometry.location.lat
-                    });
-                    this.setState({
-                      destinationLng: details.geometry.location.lng
-                    });
+                    this.setState({ WorkLat: details.geometry.location.lat });
+                    this.setState({ WorkLng: details.geometry.location.lng });
+                    console.log(this.state.WorkLat);
+                    console.log(this.state.WorkLng);
                   }}
                   getDefaultValue={() => {
                     return "";
@@ -162,7 +143,6 @@ export default class GPlacesDemo extends Component {
                     },
                     textInputContainer: {
                       fontSize: 14,
-                      marginLeft: 10,
                       marginBottom: 8,
                       marginTop: 8,
                       backgroundColor: "white",
@@ -170,7 +150,7 @@ export default class GPlacesDemo extends Component {
                       borderTopWidth: 0
                     }
                   }}
-                  currentLocation={false}
+                  currentLocation={true}
                   currentLocationLabel="Current location"
                   nearbyPlacesAPI="GooglePlacesSearch"
                   GoogleReverseGeocodingQuery={{}}
@@ -182,28 +162,32 @@ export default class GPlacesDemo extends Component {
                     "locality",
                     "administrative_area_level_3"
                   ]}
-                  predefinedPlaces={[homePlace, workPlace]}
-                  predefinedPlacesAlwaysVisible={true}
+                  predefinedPlacesAlwaysVisible={false}
                 />
               </InputGroup>
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              padding: 20
-            }}
-          >
-            <TouchableOpacity>
-              <Text style={styles.CancelButtonText}>Cancel</Text>
+
+          <View style={styles.bottomButtons}>
+            <TouchableOpacity onPress={() => navigate("AddPlaces")}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  color: "#1a73e8",
+                  marginBottom: 50,
+                  marginTop: 60,
+                  borderColor: "#1a73e8",
+                  borderRadius: 10,
+                  borderWidth: 2,
+                  padding: 10
+                }}
+                onPress={() => navigate("Bike")}
+              >
+                Skip
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.FindButton}
-              onPress={() => this.source_destination_coordinates()}
-            >
-              <Text style={styles.ButtonText}>Find Ride</Text>
+            <TouchableOpacity style={styles.SaveButton}>
+              <Text style={styles.ButtonText}>Next</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -215,65 +199,40 @@ export default class GPlacesDemo extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    marginTop: 20,
+    alignItems: "center",
+    backgroundColor: "white"
   },
-
   inputWrapper: {
-    marginHorizontal: 20,
     marginTop: 10,
     marginBottom: 2,
     backgroundColor: "#fff",
-    borderRadius: 10,
+    borderRadius: 7,
     borderColor: "#dadce0",
     borderWidth: 2
   },
-  secondInputWrapper: {
-    marginHorizontal: 20,
-    marginTop: 14,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    borderColor: "#dadce0",
-    borderWidth: 2
+  textInput: {
+    borderBottomWidth: 2,
+    borderBottomColor: "black",
+    marginLeft: "auto",
+    marginRight: "auto",
+    fontSize: 20
   },
-  inputSearch: {
-    fontSize: 14,
-    marginLeft: 10,
-    marginBottom: 8,
-    marginTop: 8
-  },
-  label: {
-    fontSize: 14,
-    fontStyle: "italic",
-    marginLeft: 10,
-    marginTop: 10,
-    marginBottom: 0,
-    color: "black",
-    borderBottomWidth: 0.4,
-    borderColor: "grey"
-  },
-  FindButton: {
+  SaveButton: {
     backgroundColor: "#1a73e8",
-    marginBottom: 20,
+    marginBottom: 50,
     borderRadius: 10,
-    marginTop: 10
+    marginTop: 60
   },
   ButtonText: {
     fontSize: 18,
     color: "white",
     paddingVertical: 10,
-    paddingHorizontal: 18,
-    textAlign:"center"
+    paddingHorizontal: 18
   },
-
-  CancelButtonText: {
-    fontSize: 18,
-    color: "#1a73e8",
-    marginBottom: 20,
-    marginTop: 10,
-    borderColor: "#1a73e8",
-    borderRadius: 10,
-    borderWidth: 2,
-    padding: 10,
-    textAlign:"center"
+  bottomButtons: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between"
   }
 });

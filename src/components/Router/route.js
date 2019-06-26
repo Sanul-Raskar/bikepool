@@ -11,15 +11,23 @@ import MainScreen from "../Initial/mainScreen";
 import LoginScreen from "../Login/login";
 import SignUpScreen from "../SignUp/signup";
 import HomeScreen from "../Home/home";
-import EditProfile from "../EditProfile/editProfile";
-import EditFirstName from "../EditProfile/editFirstName";
-import EditLastName from "../EditProfile/editLastName";
-import EditPhoneNumber from "../EditProfile/editPhoneNumber";
-import EditEmail from "../EditProfile/editEmail";
-import EditUID from "../EditProfile/editUID";
-import EditPassword from "../EditProfile/editPassword";
+import EditProfile from "../EditProfile/EditProfile";
 import AddHome from "../EditProfile/addHome";
 import AddWork from "../EditProfile/addWork";
+import RideDetails from "../Ride/Ride";
+import FeedBack from "../Feedback/Feedback";
+import RiderBiker from "../RiderBiker/RiderBiker";
+import ViewProfile from "../Profile/ViewProfile";
+import ChangePassword from "../Profile/ChangePassword";
+import SavedHome from "../Profile/SavedHome";
+import SavedWork from "../Profile/SavedWork";
+import Loader from "../RiderBiker/Loader";
+import AddPlaces from "../SignUp/AddPlaces";
+import AddHomeWork from "../SignUp/AddHomeWork";
+import Bike from "../SignUp/Bike";
+import AddBikeInfo from "../SignUp/AddBikeInfo";
+import AccountCreated from "../SignUp/AccountCreated";
+import SignUpWizard from "../SignUp/SignUpWizard";
 
 export default class componentName extends Component {
   render() {
@@ -72,89 +80,11 @@ const AppStack = createStackNavigator(
     EditProfile: {
       screen: EditProfile,
       navigationOptions: {
-        title: "Edit Account",
+        title: "Edit Profile",
         headerStyle: {
-          backgroundColor: "black"
+          backgroundColor: "white"
         },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditFirstName: {
-      screen: EditFirstName,
-      navigationOptions: {
-        title: "Edit First Name",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditLastName: {
-      screen: EditLastName,
-      navigationOptions: {
-        title: "Edit Last Name",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditPhoneNumber: {
-      screen: EditPhoneNumber,
-      navigationOptions: {
-        title: "Edit Phone Number",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditEmail: {
-      screen: EditEmail,
-      navigationOptions: {
-        title: "Edit Email",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditUID: {
-      screen: EditUID,
-      navigationOptions: {
-        title: "Edit UID",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditPassword: {
-      screen: EditPassword,
-      navigationOptions: {
-        title: "Edit Password",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
+        headerTintColor: "#1a73e8",
         headerTitleStyle: {
           fontWeight: "bold"
         }
@@ -165,9 +95,9 @@ const AppStack = createStackNavigator(
       navigationOptions: {
         title: "Add Home",
         headerStyle: {
-          backgroundColor: "black"
+          backgroundColor: "white"
         },
-        headerTintColor: "#fff",
+        headerTintColor: "#1a73e8",
         headerTitleStyle: {
           fontWeight: "bold"
         }
@@ -178,12 +108,109 @@ const AppStack = createStackNavigator(
       navigationOptions: {
         title: "Add Work",
         headerStyle: {
-          backgroundColor: "black"
+          backgroundColor: "white"
         },
-        headerTintColor: "#fff",
+        headerTintColor: "#1a73e8",
         headerTitleStyle: {
           fontWeight: "bold"
         }
+      }
+    },
+    RideDetails: {
+      screen: RideDetails,
+      navigationOptions: {
+        title: "Ride Details",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    FeedBack: {
+      screen: FeedBack,
+      navigationOptions: {
+        title: "Feedback",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    RiderBiker: {
+      screen: RiderBiker,
+      navigationOptions: {
+        title: "Select your Ride",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    ViewProfile: {
+      screen: ViewProfile,
+      navigationOptions: {
+        title: "Profile",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    ChangePassword: {
+      screen: ChangePassword,
+      navigationOptions: {
+        title: "Change Password",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    SavedHome: {
+      screen: SavedHome,
+      navigationOptions: {
+        title: "Home Location",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    SavedWork: {
+      screen: SavedWork,
+      navigationOptions: {
+        title: "Work Location",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    Loader: {
+      screen: Loader,
+      navigationOptions: {
+        header: null
       }
     }
   },
@@ -212,6 +239,49 @@ const AuthStack = createStackNavigator(
         header: null
       }
     },
+    SignUpWizard: {
+      screen: SignUpWizard,
+      navigationOptions: {
+        title: "Sign Up",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    AddPlaces: {
+      screen: AddPlaces,
+      navigationOptions: {
+        header: null
+      }
+    },
+    AddHomeWork: {
+      screen: AddHomeWork,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Bike: {
+      screen: Bike,
+      navigationOptions: {
+        header: null
+      }
+    },
+    AddBikeInfo: {
+      screen: AddBikeInfo,
+      navigationOptions: {
+        header: null
+      }
+    },
+    AccountCreated: {
+      screen: AccountCreated,
+      navigationOptions: {
+        header: null
+      }
+    },
     App: {
       screen: AppStack,
       navigationOptions: {
@@ -230,7 +300,15 @@ const AuthStack = createStackNavigator(
 const SwitchNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
-    App: AppStack,
+    App: {
+      screen: AppStack,
+      navigationOptions: {
+        header: null,
+        headerStyle: {
+          backgroundColor: "black"
+        }
+      }
+    },
     Auth: AuthStack
   },
   {
