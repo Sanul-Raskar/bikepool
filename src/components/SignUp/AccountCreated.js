@@ -25,14 +25,13 @@ export default class AccountCreated extends Component {
   }
 
   nextPreprocess = () => {
-    // Go to next step
     this.props.nextFn();
   };
 
   getAllData = () => {
     let data = this.props.getState();
     console.log(data);
-
+    /*
     let Firstname = data[0].firstname;
     let Lastname = data[0].lastname;
     let Email = data[0].email;
@@ -51,6 +50,25 @@ export default class AccountCreated extends Component {
     let bikeColor = data[2].bikeColor;
     let DrivingLicense = data[2].drivingLicense;
     let VehicleLicense = data[2].vehicleLicense;
+*/
+    dataObj = {
+      firstname: data[0].firstname,
+      lastname: data[0].lastname,
+      email: data[0].email,
+      mobile: data[0].mobile,
+      birthdate: data[0].birthdate,
+      gender: data[0].gender,
+      password: data[0].password,
+      worklat: data[1].WorkLat,
+      worklng: data[1].WorkLng,
+      homelat: data[1].HomeLat,
+      homelng: data[1].HomeLng,
+      manufacturer: data[2].manufacturer,
+      modal: data[2].modal,
+      bikecolor: data[2].bikeColor,
+      drivinglicense: data[2].drivingLicense,
+      vehiclelicense: data[2].vehicleLicense
+    };
 
     fetch("https://sanultemp.000webhostapp.com/user_registration.php", {
       method: "POST",
@@ -58,12 +76,7 @@ export default class AccountCreated extends Component {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        firstname: Firstname,
-        lastname: Lastname,
-        email: Email,
-        password: Password
-      })
+      body: JSON.stringify(dataObj)
     })
       .then(response => response.json())
       .then(responseJson => {
