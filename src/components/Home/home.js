@@ -93,10 +93,11 @@ export class Home extends Component {
       );
     }
   };
-
+/*
   componentWillMount() {
     this.getCurrentLocation();
   }
+*/
 
   render() {
     const { navigate } = this.props.navigation;

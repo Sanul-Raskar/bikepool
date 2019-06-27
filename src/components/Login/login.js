@@ -39,44 +39,6 @@ export default class login extends Component {
     header: null
   };
 
-  verifyEmailPassword = () => {
-    let flag = false;
-    dataObj = {
-      email: this.state.email,
-      password: this.state.password
-    };
-
-    fetch("https://sanultemp.000webhostapp.com/login.php", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(dataObj)
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log(responseJson);
-        if (responseJson == "Success") {
-          console.log("Login Success");
-          this.setState({
-            error: ""
-          });
-          flag = true;
-          console.log("1:" + flag);
-        } else {
-          console.log("Login Failure");
-          this.setState({
-            error: "Invalid Email or Password"
-          });
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    console.log("2:" + flag);
-    return flag;
-  };
   _signInAsync = () => {
     dataObj = {
       email: this.state.email,
