@@ -93,7 +93,7 @@ export class Home extends Component {
       );
     }
   };
-/*
+  /*
   componentWillMount() {
     this.getCurrentLocation();
   }
@@ -104,7 +104,7 @@ export class Home extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
+        <StatusBar barStyle="dark-content" backgroundColor="white" />
         <View style={styles.container}>
           <MapView
             provider={PROVIDER_GOOGLE}
@@ -155,11 +155,7 @@ export class Home extends Component {
                     </Text>
                   </Left>
                   <Right>
-                    <MaterialIcon
-                      name="directions-bike"
-                      color="black"
-                      size={24}
-                    />
+                    <FontAwesome5 name="motorcycle" color="black" size={24} />
                   </Right>
                 </ListItem>
               </List>
@@ -256,7 +252,7 @@ export class Settings extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
+        <StatusBar barStyle="dark-content" backgroundColor="white" />
         <Animated.View
           style={{
             position: "absolute",
@@ -464,26 +460,23 @@ export class Settings extends Component {
               </ListItem>
 
               <Separator bordered>
-              <Text>dev screens</Text>
-            </Separator>
+                <Text>dev screens</Text>
+              </Separator>
               <ListItem onPress={() => navigate("Loader")}>
-              <Left>
-               
-                <Text style={styles.listText}>Loader</Text>
-              </Left>
-            </ListItem>
-            <ListItem onPress={() => navigate("RiderBiker")}>
-              <Left>
-               
-                <Text style={styles.listText}>BikerRider</Text>
-              </Left>
-            </ListItem>
-            <ListItem onPress={() => navigate("FeedBack")}>
-              <Left>
-               
-                <Text style={styles.listText}>Feedback</Text>
-              </Left>
-            </ListItem>
+                <Left>
+                  <Text style={styles.listText}>Loader</Text>
+                </Left>
+              </ListItem>
+              <ListItem onPress={() => navigate("RiderBiker")}>
+                <Left>
+                  <Text style={styles.listText}>BikerRider</Text>
+                </Left>
+              </ListItem>
+              <ListItem onPress={() => navigate("FeedBack")}>
+                <Left>
+                  <Text style={styles.listText}>Feedback</Text>
+                </Left>
+              </ListItem>
 
               <Separator bordered />
               <ListItem onPress={this._signOutAsync}>
