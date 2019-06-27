@@ -20,7 +20,8 @@ export default class AddPlaces extends Component {
     this.state = {
       infoView: true,
       addLocationsView: false,
-      showPlacesList: false,
+      showHomePlacesList: false,
+      showWorkPlacesList: false,
       WorkLat: 0,
       WorkLng: 0,
       WorkDescription: "",
@@ -43,7 +44,7 @@ export default class AddPlaces extends Component {
       WorkLat: this.state.WorkLat,
       WorkLng: this.state.WorkLng,
       HomeLat: this.state.HomeLat,
-      HomeLng: this.state.HomeLng,
+      HomeLng: this.state.HomeLng
     });
 
     // Go to next step
@@ -119,10 +120,12 @@ export default class AddPlaces extends Component {
                 <TouchableOpacity>
                   <InputGroup>
                     <GooglePlacesAutocomplete
-                      listViewDisplayed={this.state.showPlacesList}
+                      listViewDisplayed={this.state.showHomePlacesList}
                       textInputProps={{
-                        onFocus: () => this.setState({ showPlacesList: true }),
-                        onBlur: () => this.setState({ showPlacesList: false })
+                        onFocus: () =>
+                          this.setState({ showHomePlacesList: true }),
+                        onBlur: () =>
+                          this.setState({ showHomePlacesList: false })
                       }}
                       placeholder="Search for your Home"
                       minLength={2}
@@ -136,8 +139,9 @@ export default class AddPlaces extends Component {
                         this.setState({
                           HomeLng: details.geometry.location.lng
                         });
-                        console.log(this.state.HomeLat);
-                        console.log(this.state.HomeLng);
+                        console.log("Home Lat" + this.state.HomeLat);
+                        console.log("Home Lng" + this.state.HomeLng);
+                        console.log(data);
                       }}
                       getDefaultValue={() => {
                         return "";
@@ -152,7 +156,7 @@ export default class AddPlaces extends Component {
                           fontWeight: "bold"
                         },
                         predefinedPlacesDescription: {
-                          color: "#1faadb"
+                          color: "#1a73e8"
                         },
                         textInputContainer: {
                           fontSize: 14,
@@ -194,31 +198,34 @@ export default class AddPlaces extends Component {
                 <TouchableOpacity>
                   <InputGroup>
                     <GooglePlacesAutocomplete
-                      listViewDisplayed={this.state.showPlacesList}
+                      listViewDisplayed={this.state.showWorkPlacesList}
                       textInputProps={{
-                        onFocus: () => this.setState({ showPlacesList: true }),
-                        onBlur: () => this.setState({ showPlacesList: false })
+                        onFocus: () =>
+                          this.setState({ showWorkPlacesList: true }),
+                        onBlur: () =>
+                          this.setState({ showWorkPlacesList: false })
                       }}
                       placeholder="Search for your Work"
                       minLength={2}
                       autoFocus={false}
                       returnKeyType={"default"}
                       fetchDetails={true}
-                      onPress={(data, details = null) => {
+                      onPress={(data, details=null) => {
                         this.setState({
                           WorkLat: details.geometry.location.lat
                         });
                         this.setState({
                           WorkLng: details.geometry.location.lng
                         });
-                        console.log(this.state.WorkLat);
-                        console.log(this.state.WorkLng);
+                        console.log("Work Lat" + this.state.WorkLat);
+                        console.log("Work Lng" + this.state.WorkLng);
+                        console.log(data);
                       }}
                       getDefaultValue={() => {
                         return "";
                       }}
                       query={{
-                        key: "Your Google maps API Key Here",
+                        key: "Your Google maps API Key Heres",
                         language: "en",
                         types: "(cities)" // default: 'geocode'
                       }}
@@ -227,7 +234,7 @@ export default class AddPlaces extends Component {
                           fontWeight: "bold"
                         },
                         predefinedPlacesDescription: {
-                          color: "#1faadb"
+                          color: "#1a73e8"
                         },
                         textInputContainer: {
                           fontSize: 14,
