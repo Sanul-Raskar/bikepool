@@ -31,26 +31,6 @@ export default class AccountCreated extends Component {
   getAllData = () => {
     let data = this.props.getState();
     console.log(data);
-    /*
-    let Firstname = data[0].firstname;
-    let Lastname = data[0].lastname;
-    let Email = data[0].email;
-    let Mobile = data[0].mobile;
-    let Password = data[0].password;
-    let Birthdate = data[0].birthdate;
-    let Gender = data[0].gender;
-
-    let WorkLat = data[1].WorkLat;
-    let WorkLng = data[1].WorkLng;
-    let HomeLat = data[1].HomeLat;
-    let HomeLng = data[1].HomeLng;
-
-    let Manufacturer = data[2].manufacturer;
-    let Modal = data[2].modal;
-    let bikeColor = data[2].bikeColor;
-    let DrivingLicense = data[2].drivingLicense;
-    let VehicleLicense = data[2].vehicleLicense;
-*/
     dataObj = {
       firstname: data[0].firstname,
       lastname: data[0].lastname,
