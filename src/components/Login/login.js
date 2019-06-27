@@ -39,45 +39,47 @@ export default class login extends Component {
     header: null
   };
 
-  _signInAsync = () => {
+  _signInAsync = async () => {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: "App" })],
+      key: null
+    });
+
     dataObj = {
       email: this.state.email,
       password: this.state.password
     };
 
-    fetch("https://sanultemp.000webhostapp.com/login.php", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(dataObj)
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log(responseJson);
-        if (responseJson == "Success") {
-          console.log("Login Success");
-          this.setState({
-            error: ""
-          });
-          const resetAction = StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: "App" })],
-            key: null
-          });
-          AsyncStorage.setItem("userToken", "abc");
-          this.props.navigation.dispatch(resetAction);
-        } else {
-          console.log("Login Failure");
-          this.setState({
-            error: "Invalid Email or Password"
-          });
+    try {
+      let response = await fetch(
+        "https://sanultemp.000webhostapp.com/login.php",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(dataObj)
         }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+      );
+      let responseJson = await response.json();
+      if (responseJson == "Success") {
+        console.log("Login Success");
+        this.setState({
+          error: ""
+        });
+        await AsyncStorage.setItem("userToken", "abc");
+        this.props.navigation.dispatch(resetAction);
+      } else {
+        console.log("Login Failure");
+        this.setState({
+          error: "Invalid Email or Password"
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   render() {
     const { navigate } = this.props.navigation;

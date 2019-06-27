@@ -28,7 +28,7 @@ export default class AccountCreated extends Component {
     this.props.nextFn();
   };
 
-  getAllData = () => {
+  getAllData = async () => {
     let data = this.props.getState();
     console.log(data);
     dataObj = {
@@ -50,6 +50,41 @@ export default class AccountCreated extends Component {
       vehiclelicense: data[2].vehicleLicense
     };
 
+    try {
+      let response = await fetch(
+        "https://sanultemp.000webhostapp.com/user_registration.php",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(dataObj)
+        }
+      );
+
+      let responseJson = await response.json();
+      if (responseJson == "Success") {
+        console.log("Execute SuccessView");
+        this.setState({
+          creatingView: false,
+          successView: true,
+          failureView: false
+        });
+      } else {
+        console.log("Execute FailureView");
+        this.setState({
+          creatingView: false,
+          successView: false,
+          failureView: true
+        });
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    /*
     fetch("https://sanultemp.000webhostapp.com/user_registration.php", {
       method: "POST",
       headers: {
@@ -80,8 +115,9 @@ export default class AccountCreated extends Component {
       })
       .catch(error => {
         console.error(error);
-      });
+      });*/
   };
+
   componentDidMount() {
     this.getAllData();
   }
