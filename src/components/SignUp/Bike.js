@@ -9,6 +9,8 @@ import {
   ScrollView
 } from "react-native";
 import FloatingLabelInput from "../FormAnimation/formAnimation";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 
 export default class Bike extends Component {
   constructor(props) {
@@ -18,9 +20,7 @@ export default class Bike extends Component {
       bikeInfoView: false,
 
       manufacturerSelected: false,
-      manufacturer: "",
-      modal: "",
-      bikeColor: "",
+
       Colors: ["White", "Black", "Light Blue", "Red"],
       bike: [
         {
@@ -40,15 +40,27 @@ export default class Bike extends Component {
         }
       ],
       drivingLicense: "",
+      vehicleLicense: "",
+      manufacturer: "",
+      modal: "",
+      bikeColor: "",
+      manufacturerError: "",
+      modalError: "",
+      bikeColorError: "",
+      drivingLicenseError: "",
+      vehicleLicenseError: "",
+
       drivingLicense_font_color: "#1a73e8",
       drivingLicense_onFocus_border: "#1a73e8",
       border_Color_drivingLicense: "#dadce0",
-      vehicleLicense: "",
+
       vehicleLicense_font_color: "#1a73e8",
       vehicleLicense_onFocus_border: "#1a73e8",
       border_Color_vehicleLicense: "#dadce0",
-      drivingLicenseError: "",
-      vehicleLicenseError: ""
+
+      manufacturer_font_color: "#1a73e8",
+      modal_font_color: "#1a73e8",
+      bikeColor_font_color: "#1a73e8"
     };
   }
   toggleView = () => {
@@ -56,6 +68,109 @@ export default class Bike extends Component {
       askBikeView: !this.state.askBikeView,
       bikeInfoView: !this.state.bikeInfoView
     });
+  };
+
+  validateManufacturer = () => {
+    if (
+      this.state.manufacturer === "" ||
+      this.state.manufacturer === "Select"
+    ) {
+      this.setState({
+        manufacturerError: "Required",
+        manufacturer_font_color: "red"
+      });
+      return false;
+    } else {
+      this.setState({
+        manufacturerError: "",
+        manufacturer_font_color: "#1a73e8"
+      });
+      return true;
+    }
+  };
+
+  validateModal = () => {
+    if (this.state.modal === "" || this.state.modal === "Select") {
+      this.setState({
+        modalError: "Required",
+        modal_font_color: "red"
+      });
+      return false;
+    } else {
+      this.setState({
+        modalError: "",
+        modal_font_color: "#1a73e8"
+      });
+      return true;
+    }
+  };
+
+  validateColor = () => {
+    if (this.state.bikeColor === "" || this.state.bikeColor === "Select") {
+      this.setState({
+        bikeColorError: "Required",
+        bikeColor_font_color: "red"
+      });
+      return false;
+    } else {
+      this.setState({
+        bikeColorError: "",
+        bikeColor_font_color: "#1a73e8"
+      });
+      return true;
+    }
+  };
+
+  validateVehicleLicense = () => {
+    if (this.state.vehicleLicense === "") {
+      this.setState({
+        border_Color_vehicleLicense: "red",
+        vehicleLicenseError: "Required",
+        vehicleLicense_font_color: "red",
+        vehicleLicense_onFocus_border: "red"
+      });
+      return false;
+    } else {
+      this.setState({
+        border_Color_vehicleLicense: "#dadce0",
+        vehicleLicenseError: "",
+        vehicleLicense_font_color: "#1a73e8",
+        vehicleLicense_onFocus_border: "#1a73e8"
+      });
+      return true;
+    }
+  };
+
+  validateDrivingLicense = () => {
+    if (this.state.drivingLicense === "") {
+      this.setState({
+        border_Color_drivingLicense: "red",
+        drivingLicenseError: "Required",
+        drivingLicense_font_color: "red",
+        drivingLicense_onFocus_border: "red"
+      });
+      return false;
+    } else {
+      this.setState({
+        border_Color_drivingLicense: "#dadce0",
+        drivingLicenseError: "",
+        vehicleLicense_font_color: "#1a73e8",
+        vehicleLicense_onFocus_border: "#1a73e8"
+      });
+      return true;
+    }
+  };
+
+  validate = () => {
+    if (
+      this.validateManufacturer() &
+      this.validateModal() &
+      this.validateColor() &
+      this.validateVehicleLicense() &
+      this.validateDrivingLicense()
+    ) {
+      this.nextPreprocess();
+    }
   };
 
   nextPreprocess = () => {
@@ -136,11 +251,18 @@ export default class Bike extends Component {
               })
             }
           >
+            <Picker.Item label="Select" value="" />
             {modals.map((item, i) => {
               return <Picker.Item key={i} label={item} value={item} />;
             })}
           </Picker>
         </View>
+        {this.state.modalError !== "" && (
+          <Text style={styles.error}>
+            <Icon name="alert-circle" color="red" size={16} />{" "}
+            {this.state.modalError}
+          </Text>
+        )}
       </View>
     );
   };
@@ -237,7 +359,7 @@ export default class Bike extends Component {
                     })
                   }
                 >
-                  <Picker.Item label="Select Manufacturer" value="" />
+                  <Picker.Item label="Select" value="" />
                   {this.state.bike.map((item, i) => {
                     return (
                       <Picker.Item
@@ -249,6 +371,12 @@ export default class Bike extends Component {
                   })}
                 </Picker>
               </View>
+              {this.state.manufacturerError !== "" && (
+                <Text style={styles.error}>
+                  <Icon name="alert-circle" color="red" size={16} />{" "}
+                  {this.state.manufacturerError}
+                </Text>
+              )}
 
               {this.state.manufacturerSelected && this.filterArray()}
 
@@ -294,12 +422,18 @@ export default class Bike extends Component {
                     })
                   }
                 >
-                  <Picker.Item label="Select Bike Color" value="" />
+                  <Picker.Item label="Select" value="" />
                   {this.state.Colors.map((item, i) => {
                     return <Picker.Item key={i} label={item} value={item} />;
                   })}
                 </Picker>
               </View>
+              {this.state.bikeColorError !== "" && (
+                <Text style={styles.error}>
+                  <Icon name="alert-circle" color="red" size={16} />{" "}
+                  {this.state.bikeColorError}
+                </Text>
+              )}
 
               <FloatingLabelInput
                 label="Vehicle License Number"
@@ -366,8 +500,7 @@ export default class Bike extends Component {
                     borderRadius: 10,
                     marginTop: 60
                   }}
-                  /* onPress={this.validate}*/
-                  onPress={this.nextPreprocess}
+                  onPress={this.validate}
                 >
                   <Text
                     style={{
