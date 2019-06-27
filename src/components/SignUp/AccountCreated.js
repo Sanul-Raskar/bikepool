@@ -28,29 +28,9 @@ export default class AccountCreated extends Component {
     this.props.nextFn();
   };
 
-  getAllData = () => {
+  getAllData = async () => {
     let data = this.props.getState();
     console.log(data);
-    /*
-    let Firstname = data[0].firstname;
-    let Lastname = data[0].lastname;
-    let Email = data[0].email;
-    let Mobile = data[0].mobile;
-    let Password = data[0].password;
-    let Birthdate = data[0].birthdate;
-    let Gender = data[0].gender;
-
-    let WorkLat = data[1].WorkLat;
-    let WorkLng = data[1].WorkLng;
-    let HomeLat = data[1].HomeLat;
-    let HomeLng = data[1].HomeLng;
-
-    let Manufacturer = data[2].manufacturer;
-    let Modal = data[2].modal;
-    let bikeColor = data[2].bikeColor;
-    let DrivingLicense = data[2].drivingLicense;
-    let VehicleLicense = data[2].vehicleLicense;
-*/
     dataObj = {
       firstname: data[0].firstname,
       lastname: data[0].lastname,
@@ -70,6 +50,41 @@ export default class AccountCreated extends Component {
       vehiclelicense: data[2].vehicleLicense
     };
 
+    try {
+      let response = await fetch(
+        "https://sanultemp.000webhostapp.com/user_registration.php",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(dataObj)
+        }
+      );
+
+      let responseJson = await response.json();
+      if (responseJson == "Success") {
+        console.log("Execute SuccessView");
+        this.setState({
+          creatingView: false,
+          successView: true,
+          failureView: false
+        });
+      } else {
+        console.log("Execute FailureView");
+        this.setState({
+          creatingView: false,
+          successView: false,
+          failureView: true
+        });
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    /*
     fetch("https://sanultemp.000webhostapp.com/user_registration.php", {
       method: "POST",
       headers: {
@@ -100,8 +115,9 @@ export default class AccountCreated extends Component {
       })
       .catch(error => {
         console.error(error);
-      });
+      });*/
   };
+
   componentDidMount() {
     this.getAllData();
   }
