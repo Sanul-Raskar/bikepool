@@ -185,7 +185,6 @@ export default class Bike extends Component {
   };
 
   renderManufacturer = () => {
-    console.log(this.state.bike);
     this.state.bike.map((item, i) => {
       return (
         <Picker.Item
