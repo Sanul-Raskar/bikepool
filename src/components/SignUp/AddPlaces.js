@@ -7,7 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Dimensions
+  Dimensions,
+  BackHandler
 } from "react-native";
 import { InputGroup } from "native-base";
 var {
@@ -39,7 +40,6 @@ export default class AddPlaces extends Component {
   };
 
   nextPreprocess = () => {
-    // Save step state for use in other steps of the wizard
     this.props.saveState(1, {
       WorkLat: this.state.WorkLat,
       WorkLng: this.state.WorkLng,
@@ -47,9 +47,32 @@ export default class AddPlaces extends Component {
       HomeLng: this.state.HomeLng
     });
 
-    // Go to next step
     this.props.nextFn();
   };
+
+  handleBackPress = () => {
+    if (this.state.infoView == true && this.state.addLocationsView == false) {
+      this.props.saveState(1, {
+        WorkLat: this.state.WorkLat,
+        WorkLng: this.state.WorkLng,
+        HomeLat: this.state.HomeLat,
+        HomeLng: this.state.HomeLng
+      });
+      this.props.prevFn();
+    } else {
+      this.toggleView();
+    }
+    return true;
+  };
+
+  componentDidMount() {
+    BackHandler.addEventListener("hardwareBackPress", this.handleBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener("hardwareBackPress", this.handleBackPress);
+  }
+
   render() {
     var { height, width } = Dimensions.get("window");
     const { navigate } = this.props.navigation;
@@ -94,7 +117,6 @@ export default class AddPlaces extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.NextButton}
-                  /* onPress={() => navigate("AddHomeWork")}*/
                   onPress={this.toggleView}
                 >
                   <Text style={styles.ButtonText}>Add Location</Text>
@@ -210,7 +232,7 @@ export default class AddPlaces extends Component {
                       autoFocus={false}
                       returnKeyType={"default"}
                       fetchDetails={true}
-                      onPress={(data, details=null) => {
+                      onPress={(data, details = null) => {
                         this.setState({
                           WorkLat: details.geometry.location.lat
                         });

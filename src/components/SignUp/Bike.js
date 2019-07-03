@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   StatusBar,
   Picker,
-  ScrollView
+  ScrollView,
+  BackHandler
 } from "react-native";
 import FloatingLabelInput from "../FormAnimation/formAnimation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
 
 export default class Bike extends Component {
   constructor(props) {
@@ -18,7 +18,6 @@ export default class Bike extends Component {
     this.state = {
       askBikeView: true,
       bikeInfoView: false,
-
       manufacturerSelected: false,
 
       Colors: ["White", "Black", "Light Blue", "Red"],
@@ -174,7 +173,6 @@ export default class Bike extends Component {
   };
 
   nextPreprocess = () => {
-    // Save step state for use in other steps of the wizard
     this.props.saveState(2, {
       manufacturer: this.state.manufacturer,
       modal: this.state.modal,
@@ -183,7 +181,6 @@ export default class Bike extends Component {
       vehicleLicense: this.state.vehicleLicense
     });
 
-    // Go to next step
     this.props.nextFn();
   };
 
@@ -273,6 +270,30 @@ export default class Bike extends Component {
   handleDrivingLicenseChange = newValue => {
     this.setState({ drivingLicense: newValue });
   };
+
+  handleBackPress = () => {
+    if (this.state.askBikeView == true && this.state.bikeInfoView == false) {
+      this.props.saveState(2, {
+        manufacturer: this.state.manufacturer,
+        modal: this.state.modal,
+        bikeColor: this.state.bikeColor,
+        drivingLicense: this.state.drivingLicense,
+        vehicleLicense: this.state.vehicleLicense
+      });
+      this.props.prevFn();
+    } else {
+      this.toggleView();
+    }
+    return true;
+  };
+
+  componentDidMount() {
+    BackHandler.addEventListener("hardwareBackPress", this.handleBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener("hardwareBackPress", this.handleBackPress);
+  }
 
   render() {
     const { navigate } = this.props.navigation;
