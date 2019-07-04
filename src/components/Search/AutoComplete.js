@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
-  ScrollView
+  ScrollView,
+  Image,
+  Picker
 } from "react-native";
 var {
   GooglePlacesAutocomplete
@@ -23,18 +25,58 @@ export default class GPlacesDemo extends Component {
       sourceLat: 0,
       sourceLng: 0,
       destinationLat: 0,
-      destinationLng: 0
+      destinationLng: 0,
+      isScooterSelected: false,
+      isBikeSelected: false,
+      isPowerBikeSelected: false,
+      scooterBorderColor: "#dadce0",
+      bikeBorderColor: "#dadce0",
+      powerBikeBorderColor: "#dadce0",
+      gender: ""
     };
   }
 
-  source_destination_coordinates() {
+  toggleBike = () => {
+    if (this.state.isBikeSelected) {
+      this.setState({ bikeBorderColor: "#dadce0", isBikeSelected: false });
+    } else {
+      this.setState({ bikeBorderColor: "#1a73e8", isBikeSelected: true });
+    }
+  };
+
+  toggleScooter = () => {
+    if (this.state.isScooterSelected) {
+      this.setState({
+        scooterBorderColor: "#dadce0",
+        isScooterSelected: false
+      });
+    } else {
+      this.setState({ scooterBorderColor: "#1a73e8", isScooterSelected: true });
+    }
+  };
+
+  togglePowerBike = () => {
+    if (this.state.isPowerBikeSelected) {
+      this.setState({
+        powerBikeBorderColor: "#dadce0",
+        isPowerBikeSelected: false
+      });
+    } else {
+      this.setState({
+        powerBikeBorderColor: "#1a73e8",
+        isPowerBikeSelected: true
+      });
+    }
+  };
+
+  source_destination_coordinates = () => {
     global.isSourceMarker = true;
     global.isDestinationMarker = true;
     global.SourceLatitude = this.state.sourceLat;
     global.SourceLongitude = this.state.sourceLng;
     global.DestinationLatitude = this.state.destinationLat;
     global.DestinationLongitude = this.state.destinationLat;
-  }
+  };
 
   render() {
     const screenWidth = Dimensions.get("window").width;
@@ -49,7 +91,7 @@ export default class GPlacesDemo extends Component {
 
     return (
       <View style={{ width: screenWidth, backgroundColor: "white" }}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.inputWrapper}>
             <InputGroup>
               <MaterialIcon name="search" size={18} color="black" />
@@ -188,6 +230,113 @@ export default class GPlacesDemo extends Component {
               </InputGroup>
             </TouchableOpacity>
           </View>
+
+          <Text style={{ paddingHorizontal: 22, paddingTop: 14 }}>
+            Choose your preferred vehicle. You may choose multiple types
+          </Text>
+
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: 22,
+              textAlign: "center",
+              paddingTop: 10
+            }}
+          >
+            <TouchableOpacity onPress={this.toggleScooter}>
+              <View
+                style={{
+                  borderColor: this.state.scooterBorderColor,
+                  borderRadius: 10,
+                  borderWidth: 1.5,
+                  padding: 10
+                }}
+              >
+                <Image
+                  resizeMode="contain"
+                  style={styles.image}
+                  source={require("../../assets/img/bike/scooter.png")}
+                />
+                <Text style={{ textAlign: "center" }}>Scooter</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={this.toggleBike}>
+              <View
+                style={{
+                  borderColor: this.state.bikeBorderColor,
+                  borderRadius: 10,
+                  borderWidth: 1.5,
+                  padding: 10
+                }}
+              >
+                <Image
+                  resizeMode="contain"
+                  style={styles.image}
+                  source={require("../../assets/img/bike/bike.png")}
+                />
+                <Text style={{ textAlign: "center" }}>Bike</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.togglePowerBike}>
+              <View
+                style={{
+                  borderColor: this.state.powerBikeBorderColor,
+                  borderRadius: 10,
+                  borderWidth: 1.5,
+                  padding: 10
+                }}
+              >
+                <Image
+                  resizeMode="contain"
+                  style={styles.image}
+                  source={require("../../assets/img/bike/powerBike.png")}
+                />
+                <Text style={{ textAlign: "center" }}>Power Bike</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{ padding: 22 }}>
+            <Text
+              style={{
+                fontSize: 16,
+                marginTop: 8,
+                color: this.state.gender_font_color,
+                zIndex: 10,
+                backgroundColor: "white",
+                width: 170,
+                marginBottom: 0,
+                marginLeft: 8
+              }}
+            >
+              I'm Comfortable with:
+            </Text>
+            <View
+              style={{
+                borderWidth: 1.5,
+                borderRadius: 8,
+                marginBottom: 8,
+                borderColor: "#dadce0",
+                marginTop: -8
+              }}
+            >
+              <Picker
+                selectedValue={this.state.gender}
+                mode="dialog"
+                style={{ height: 50, width: "100%" }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ gender: itemValue })
+                }
+              >
+                <Picker.Item label="Select" value="" />
+                <Picker.Item label="Only Male" value="male" />
+                <Picker.Item label="Only Female" value="female" />
+                <Picker.Item label="Comfortable with anyone" value="both" />
+              </Picker>
+            </View>
+          </View>
           <View
             style={{
               flex: 1,
@@ -262,7 +411,7 @@ const styles = StyleSheet.create({
     color: "white",
     paddingVertical: 10,
     paddingHorizontal: 18,
-    textAlign:"center"
+    textAlign: "center"
   },
 
   CancelButtonText: {
@@ -274,6 +423,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     padding: 10,
-    textAlign:"center"
+    textAlign: "center"
+  },
+  image: {
+    width: 70,
+    height: 70
   }
 });

@@ -324,8 +324,8 @@ export default class App extends Component {
   };
 
   nextPreprocess = () => {
-    // Save step state for use in other steps of the wizard
     this.props.saveState(0, {
+      data: true,
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
@@ -334,9 +334,29 @@ export default class App extends Component {
       birthdate: this.state.birthdate,
       gender: this.state.gender
     });
-    // Go to next step
     this.props.nextFn();
   };
+
+  setData = () => {
+    let data = this.props.getState();
+    if (data.length != 0) {
+      let isSet = data[0].data;
+      if (isSet == true) {
+        this.setState({
+          firstname: data[0].firstname,
+          lastname: data[0].lastname,
+          email: data[0].email,
+          mobile: data[0].mobile,
+          birthdate: data[0].birthdate,
+          gender: data[0].gender
+        });
+      }
+    }
+  };
+
+  componentWillMount() {
+    this.setData();
+  }
 
   render() {
     const { navigate } = this.props.navigation;
