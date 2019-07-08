@@ -6,39 +6,118 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from "react-native";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
-export default class SavedHome extends Component {
+
+export default class SavedWork extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      InfoView: true,
+      savedLocationsView: false,
+      address: "",
+      lat: 0,
+      lng: 0
+    };
   }
 
   render() {
     const { navigate } = this.props.navigation;
+    let { height, width } = Dimensions.get("window");
 
     return (
       <View style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="white" />
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.center}>
-            <Image
-              resizeMode="contain"
-              source={require("../../assets/img/work.jpg")}
-              style={styles.image}
-            />
-            <Text>Looks like you haven't saved any location.</Text>
-            <Text style={{textAlign:"center"}}>
-              You can quickly use saved location {"\n"} while booking your ride.
-            </Text>
-            <TouchableOpacity>
-              <Text style={styles.button} onPress={() => navigate("AddWork")}>
-                Add Work Location
-              </Text>
-            </TouchableOpacity>
+
+        {this.state.InfoView && (
+          <View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={styles.center}>
+                <Image
+                  resizeMode="contain"
+                  source={require("../../assets/img/work.jpg")}
+                  style={styles.image}
+                />
+                <Text>Looks like you haven't saved any location.</Text>
+                <Text style={{ textAlign: "center" }}>
+                  You can quickly use saved location {"\n"} while booking your
+                  ride.
+                </Text>
+                <TouchableOpacity>
+                  <Text
+                    style={styles.button}
+                    onPress={() => navigate("AddWork")}
+                  >
+                    Add Work Location
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
           </View>
-        </ScrollView>
+        )}
+        {this.state.savedLocationsView && (
+          <View style={{ backgroundColor: "white", padding: 10, width: width }}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View
+                style={{
+                  borderColor: "#dadce0",
+                  borderRadius: 10,
+                  borderWidth: 1,
+                  padding: 10
+                }}
+              >
+                <View>
+                  <MapView
+                    provider={PROVIDER_GOOGLE}
+                    style={{ width: "100%", height: 300, alignSelf: "stretch" }}
+                    region={{
+                      latitude: this.state.lat,
+                      longitude: this.state.lng,
+                      latitudeDelta: 0.0043,
+                      longitudeDelta: 0.0034
+                    }}
+                  >
+                    <MapView.Marker
+                      coordinate={{
+                        latitude: this.state.lat,
+                        longitude: this.state.lng,
+                        latitudeDelta: 0.0043,
+                        longitudeDelta: 0.0034
+                      }}
+                      pinColor="red"
+                    />
+                  </MapView>
+                </View>
+                <View>
+                  <Text
+                    style={{ fontWeight: "bold", fontSize: 18, marginTop: 10 }}
+                  >
+                    Address:
+                  </Text>
+                  <Text>{this.state.address}</Text>
+                  <Text
+                    style={{ fontWeight: "bold", fontSize: 18, marginTop: 10 }}
+                  >
+                    Latitude:
+                  </Text>
+                  <Text>{this.state.lat}</Text>
+                  <Text
+                    style={{ fontWeight: "bold", fontSize: 18, marginTop: 10 }}
+                  >
+                    Longitude:
+                  </Text>
+                  <Text>{this.state.lng}</Text>
+                </View>
+              </View>
+              <TouchableOpacity style={styles.center}>
+                <Text style={styles.button}>Edit Work Location</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+        )}
       </View>
     );
   }
@@ -57,7 +136,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop:20
+    marginTop: 20
   },
   button: {
     fontSize: 18,
@@ -68,7 +147,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     padding: 10,
-    textAlign:"center"
-
+    textAlign: "center"
   }
 });

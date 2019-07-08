@@ -12,12 +12,6 @@ import LoginScreen from "../Login/login";
 import SignUpScreen from "../SignUp/signup";
 import HomeScreen from "../Home/home";
 import EditProfile from "../EditProfile/EditProfile";
-import EditFirstName from "../EditProfile/editFirstName";
-import EditLastName from "../EditProfile/editLastName";
-import EditPhoneNumber from "../EditProfile/editPhoneNumber";
-import EditEmail from "../EditProfile/editEmail";
-import EditUID from "../EditProfile/editUID";
-import EditPassword from "../EditProfile/editPassword";
 import AddHome from "../EditProfile/addHome";
 import AddWork from "../EditProfile/addWork";
 import RideDetails from "../Ride/Ride";
@@ -32,7 +26,8 @@ import AddPlaces from "../SignUp/AddPlaces";
 import AddHomeWork from "../SignUp/AddHomeWork";
 import Bike from "../SignUp/Bike";
 import AddBikeInfo from "../SignUp/AddBikeInfo";
-import AccountCreated from "../SignUp/AccountCreated"
+import AccountCreated from "../SignUp/AccountCreated";
+import SignUpWizard from "../SignUp/SignUpWizard";
 
 export default class componentName extends Component {
   render() {
@@ -45,16 +40,11 @@ class AuthLoadingScreen extends React.Component {
     this._bootstrapAsync();
   }
 
-  // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     const userToken = await AsyncStorage.getItem("userToken");
-
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
     this.props.navigation.navigate(userToken ? "App" : "Auth");
   };
 
-  // Render any loading content that you like here
   render() {
     return (
       <View style={styles.container}>
@@ -90,84 +80,6 @@ const AppStack = createStackNavigator(
           backgroundColor: "white"
         },
         headerTintColor: "#1a73e8",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditFirstName: {
-      screen: EditFirstName,
-      navigationOptions: {
-        title: "Edit First Name",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditLastName: {
-      screen: EditLastName,
-      navigationOptions: {
-        title: "Edit Last Name",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditPhoneNumber: {
-      screen: EditPhoneNumber,
-      navigationOptions: {
-        title: "Edit Phone Number",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditEmail: {
-      screen: EditEmail,
-      navigationOptions: {
-        title: "Edit Email",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditUID: {
-      screen: EditUID,
-      navigationOptions: {
-        title: "Edit UID",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    EditPassword: {
-      screen: EditPassword,
-      navigationOptions: {
-        title: "Edit Password",
-        headerStyle: {
-          backgroundColor: "black"
-        },
-        headerTintColor: "#fff",
         headerTitleStyle: {
           fontWeight: "bold"
         }
@@ -322,10 +234,10 @@ const AuthStack = createStackNavigator(
         header: null
       }
     },
-    AddPlaces: {
-      screen: AddPlaces,
+    SignUpWizard: {
+      screen: SignUpWizard,
       navigationOptions: {
-        title: "Add Favourite Places",
+        title: "Sign Up",
         headerStyle: {
           backgroundColor: "white"
         },
@@ -333,45 +245,30 @@ const AuthStack = createStackNavigator(
         headerTitleStyle: {
           fontWeight: "bold"
         }
+      }
+    },
+    AddPlaces: {
+      screen: AddPlaces,
+      navigationOptions: {
+        header: null
       }
     },
     AddHomeWork: {
       screen: AddHomeWork,
       navigationOptions: {
-        title: "Add Home & Work",
-        headerStyle: {
-          backgroundColor: "white"
-        },
-        headerTintColor: "#1a73e8",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
+        header: null
       }
     },
     Bike: {
       screen: Bike,
       navigationOptions: {
-        title: "",
-        headerStyle: {
-          backgroundColor: "white"
-        },
-        headerTintColor: "#1a73e8",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
+        header: null
       }
     },
     AddBikeInfo: {
       screen: AddBikeInfo,
       navigationOptions: {
-        title: "Add Bike Information",
-        headerStyle: {
-          backgroundColor: "white"
-        },
-        headerTintColor: "#1a73e8",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
+        header: null
       }
     },
     AccountCreated: {

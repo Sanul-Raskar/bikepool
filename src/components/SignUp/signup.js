@@ -32,6 +32,8 @@ export default class App extends Component {
       birthdate: "",
       gender: "",
       today: "",
+      birthdateError: "",
+      genderError: "",
       firstname_font_color: "#1a73e8",
       firstname_onFocus_border: "#1a73e8",
       lastname_font_color: "#1a73e8",
@@ -40,12 +42,8 @@ export default class App extends Component {
       email_onFocus_border: "#1a73e8",
       mobile_font_color: "#1a73e8",
       mobile_onFocus_border: "#1a73e8",
-
       birthdate_font_color: "#1a73e8",
-      birthdate_onFocus_border: "#1a73e8",
       gender_font_color: "#1a73e8",
-      gender_onFocus_border: "#1a73e8",
-
       password1_font_color: "#1a73e8",
       password1_onFocus_border: "#1a73e8",
       password2_font_color: "#1a73e8",
@@ -54,25 +52,11 @@ export default class App extends Component {
       border_Color_lastname: "#dadce0",
       border_Color_email: "#dadce0",
       border_Color_mobile: "#dadce0",
-
       border_Color_birthdate: "#dadce0",
       border_Color_gender: "#dadce0",
-
       border_Color_password1: "#dadce0",
       border_Color_password2: "#dadce0"
     };
-
-    /*
-    this.validate = this.validate.bind(this);
-    this.validateFirstName = this.validateFirstName.bind(this);
-    this.validateLastName = this.validateLastName.bind(this);
-    this.validateMobile = this.validateMobile.bind(this);
-    this.validateEmail = this.validateEmail.bind(this);
-    this.validatePassword1 = this.validatePassword1.bind(this);
-    this.validatePassword2 = this.validatePassword2.bind(this);
-    this.getcurrentDate = this.getcurrentDate.bind(this);
-    this.onChangePasswordMeter = this.onChangePasswordMeter.bind(this);
-    */
   }
 
   handleFirstNameChange = newValue => {
@@ -280,6 +264,42 @@ export default class App extends Component {
     }
   };
 
+  validateBirthdate = () => {
+    if (this.state.birthdate === "") {
+      this.setState({
+        border_Color_birthdate: "red",
+        birthdateError: "Please select birthdate",
+        birthdate_font_color: "red"
+      });
+      return false;
+    } else {
+      this.setState({
+        border_Color_birthdate: "#dadce0",
+        birthdateError: "",
+        birthdate_font_color: "#1a73e8"
+      });
+      return true;
+    }
+  };
+
+  validateGender = () => {
+    if (this.state.gender === "" || this.state.gender === "Select") {
+      this.setState({
+        border_Color_gender: "red",
+        genderError: "Please select gender",
+        gender_font_color: "red"
+      });
+      return false;
+    } else {
+      this.setState({
+        border_Color_gender: "#dadce0",
+        genderError: "",
+        gender_font_color: "#1a73e8"
+      });
+      return true;
+    }
+  };
+
   validate = () => {
     if (
       this.validateFirstName() &
@@ -287,10 +307,11 @@ export default class App extends Component {
       this.validateMobile() &
       this.validateEmail() &
       this.validatePassword1() &
-      this.validatePassword2()
+      this.validatePassword2() &
+      this.validateGender() &
+      this.validateBirthdate()
     ) {
-      //submit form
-      alert("Submit Form");
+      this.nextPreprocess();
     }
   };
 
@@ -302,6 +323,41 @@ export default class App extends Component {
     console.log(password, score, { label, labelColor, activeBarColor });
   };
 
+  nextPreprocess = () => {
+    this.props.saveState(0, {
+      data: true,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      email: this.state.email,
+      mobile: this.state.mobile,
+      password: this.state.password1,
+      birthdate: this.state.birthdate,
+      gender: this.state.gender
+    });
+    this.props.nextFn();
+  };
+
+  setData = () => {
+    let data = this.props.getState();
+    if (data.length != 0) {
+      let isSet = data[0].data;
+      if (isSet == true) {
+        this.setState({
+          firstname: data[0].firstname,
+          lastname: data[0].lastname,
+          email: data[0].email,
+          mobile: data[0].mobile,
+          birthdate: data[0].birthdate,
+          gender: data[0].gender
+        });
+      }
+    }
+  };
+
+  componentWillMount() {
+    this.setData();
+  }
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -309,7 +365,6 @@ export default class App extends Component {
       <View style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.heading}>Sign Up</Text>
           <Text style={styles.subheading}>Create your Account</Text>
 
           <FloatingLabelInput
@@ -382,7 +437,7 @@ export default class App extends Component {
             style={{
               fontSize: 16,
               marginTop: 2,
-              color: "#666666",
+              color: this.state.birthdate_font_color,
               zIndex: 10,
               backgroundColor: "white",
               width: 80,
@@ -417,11 +472,18 @@ export default class App extends Component {
             }}
           />
 
+          {this.state.birthdateError !== "" && (
+            <Text style={styles.error}>
+              <Icon name="alert-circle" color="red" size={16} />{" "}
+              {this.state.birthdateError}
+            </Text>
+          )}
+
           <Text
             style={{
               fontSize: 16,
               marginTop: 8,
-              color: "#666666",
+              color: this.state.gender_font_color,
               zIndex: 10,
               backgroundColor: "white",
               width: 60,
@@ -462,7 +524,12 @@ export default class App extends Component {
               <Picker.Item label="Other" value="other" />
             </Picker>
           </View>
-
+          {this.state.genderError !== "" && (
+            <Text style={styles.error}>
+              <Icon name="alert-circle" color="red" size={16} />{" "}
+              {this.state.genderError}
+            </Text>
+          )}
           <FloatingLabelInput
             label="Password"
             value={this.state.password1}
@@ -489,7 +556,7 @@ export default class App extends Component {
             border={this.state.border_Color_password2}
             onChangeText={this.handlePassword2Change}
             keyboardLayout="default"
-            passwordSecurity={this.state.pass}
+            passwordSecurity={true}
             fontColor={this.state.password2_font_color}
             onFocusBorder={this.state.password2_onFocus_border}
           />
@@ -513,7 +580,7 @@ export default class App extends Component {
                   borderRadius: 10,
                   borderWidth: 2,
                   padding: 10,
-                  textAlign:"center"
+                  textAlign: "center"
                 }}
                 onPress={() => navigate("MainScreen")}
               >
@@ -522,8 +589,7 @@ export default class App extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.signUpButton}
-              /*onPress={this.validate}*/
-              onPress={() => navigate("AddPlaces")}
+              onPress={this.validate}
             >
               <Text style={styles.ButtonText}>Next</Text>
             </TouchableOpacity>
@@ -575,7 +641,7 @@ const styles = StyleSheet.create({
     color: "white",
     paddingVertical: 10,
     paddingHorizontal: 18,
-    textAlign:"center"
+    textAlign: "center"
   },
   bottomButtons: {
     flex: 1,
