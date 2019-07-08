@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, StyleSheet ,StatusBar} from "react-native";
-import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-import Foundation from "react-native-vector-icons/Foundation";
+import { View, Text, ScrollView, StyleSheet, StatusBar } from "react-native";
+import { connect } from "react-redux";
+import { getloginedUser } from "../../../action/action";
+import { getUser, getUserError } from "../../../reducer/reducer";
 
-export default class ViewProfile extends Component {
+export class ViewProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "Sanul",
+      firstName: "",
       lastName: "Raskar",
       email: "sanulraskar@gmail.com",
       mobile: "7350142164",
@@ -15,44 +16,41 @@ export default class ViewProfile extends Component {
       gender: "Male"
     };
   }
+  componentDidMount() {
+    this.props.getloginedUser();
+  }
 
   render() {
     return (
       <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
+        <StatusBar barStyle="dark-content" backgroundColor="white" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.title}>
-            <MaterialIcon name="person" color="#1a73e8" size={30} />
             <Text style={styles.listText}>First Name</Text>
           </View>
           <Text style={styles.listSubTextLabel}>{this.state.firstName}</Text>
 
           <View style={styles.title}>
-            <MaterialIcon name="person" color="#1a73e8" size={30} />
             <Text style={styles.listText}>Last Name</Text>
           </View>
           <Text style={styles.listSubTextLabel}>{this.state.lastName}</Text>
 
           <View style={styles.title}>
-            <MaterialIcon name="email" color="#1a73e8" size={30} />
             <Text style={styles.listText}>Email</Text>
           </View>
           <Text style={styles.listSubTextLabel}>{this.state.email}</Text>
 
           <View style={styles.title}>
-            <MaterialIcon name="phone-iphone" color="#1a73e8" size={30} />
             <Text style={styles.listText}>Mobile</Text>
           </View>
           <Text style={styles.listSubTextLabel}>{this.state.mobile}</Text>
 
           <View style={styles.title}>
-            <MaterialIcon name="cake" color="#1a73e8" size={30} />
             <Text style={styles.listText}>Birthdate</Text>
           </View>
           <Text style={styles.listSubTextLabel}>{this.state.birthDate}</Text>
 
           <View style={styles.title}>
-            <Foundation name="male-female" color="#1a73e8" size={30} />
             <Text style={styles.listText}>Gender</Text>
           </View>
           <Text style={styles.listSubTextLabel}>{this.state.gender}</Text>
@@ -87,3 +85,17 @@ const styles = StyleSheet.create({
     marginBottom: 20
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    user: state.userData
+  };
+};
+
+const mapDispatchToProps = {
+  getloginedUser
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ViewProfile);
