@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   userData: null,
-  loading: false,
+  loading: true,
   error: null
 };
 
@@ -16,7 +16,8 @@ export default function getUserDataReducer(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
+        userData:null
       };
 
     case FETCH_USERDATA_SUCCESS:
@@ -31,7 +32,7 @@ export default function getUserDataReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        error: action.payload,
         userData:null
       };
 

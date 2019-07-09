@@ -19,7 +19,7 @@ export const getloginedUser = () => {
     } catch (error) {
       dispatch({
         type: FETCH_USERDATA_ERROR,
-        payload: { error }
+        payload: error
       });
     }
   };

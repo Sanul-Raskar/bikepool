@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import userData from "./reducer";
+import ViewProfile from "./reducer";
 
 
 export default combineReducers({
-    userData
+    ViewProfile
   });
