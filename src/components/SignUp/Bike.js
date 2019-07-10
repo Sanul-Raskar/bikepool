@@ -19,31 +19,39 @@ export default class Bike extends Component {
       askBikeView: true,
       bikeInfoView: false,
       manufacturerSelected: false,
-
+      typeSelected: false,
       Colors: ["White", "Black", "Light Blue", "Red"],
       bike: [
         {
           key: "1",
           manufacturer: "Honda",
-          modal: ["Activa", "bike1", "bike2"]
+          powerbike: ["CB Hornet", "CBR 250", "XBlade"],
+          scooter: ["Activa", "Dio"],
+          bike: ["Dream Neo", "CB Shine", "Unicorn"]
         },
         {
           key: "2",
           manufacturer: "TVS",
-          modal: ["Scooty", "Jupiter", "bike1"]
+          powerbike: ["Apache RTR", "Apache RR"],
+          scooter: ["Scooty Pep", "Jupiter", "NTORQ"],
+          bike: ["Sport", "Star City Plus"]
         },
         {
           key: "3",
           manufacturer: "Hero",
-          modal: ["Pleasure", "Mestro", "CD Deluxe"]
+          powerbike: ["Xtreme", "XPulse", "Karizma"],
+          scooter: ["Maestro", "Pleasure", "Duet"],
+          bike: ["Splender", "CD Deluxe", "Passion"]
         }
       ],
       drivingLicense: "",
       vehicleLicense: "",
       manufacturer: "",
+      vehicleType: "",
       modal: "",
       bikeColor: "",
       manufacturerError: "",
+      vehicleTypeError: "",
       modalError: "",
       bikeColorError: "",
       drivingLicenseError: "",
@@ -59,6 +67,7 @@ export default class Bike extends Component {
 
       manufacturer_font_color: "#1a73e8",
       modal_font_color: "#1a73e8",
+      type_font_color: "#1a73e8",
       bikeColor_font_color: "#1a73e8"
     };
   }
@@ -99,6 +108,22 @@ export default class Bike extends Component {
       this.setState({
         modalError: "",
         modal_font_color: "#1a73e8"
+      });
+      return true;
+    }
+  };
+
+  validateType = () => {
+    if (this.state.vehicleType === "" || this.state.vehicleType === "Select") {
+      this.setState({
+        vehicleTypeError: "Required",
+        type_font_color: "red"
+      });
+      return false;
+    } else {
+      this.setState({
+        vehicleTypeError: "",
+        type_font_color: "#1a73e8"
       });
       return true;
     }
@@ -163,6 +188,7 @@ export default class Bike extends Component {
   validate = () => {
     if (
       this.validateManufacturer() &
+      this.validateType() &
       this.validateModal() &
       this.validateColor() &
       this.validateVehicleLicense() &
@@ -175,6 +201,7 @@ export default class Bike extends Component {
   nextPreprocess = () => {
     this.props.saveState(2, {
       manufacturer: this.state.manufacturer,
+      vehicleType: this.state.vehicleType,
       modal: this.state.modal,
       bikeColor: this.state.bikeColor,
       drivingLicense: this.state.drivingLicense,
@@ -200,7 +227,15 @@ export default class Bike extends Component {
     let modals;
     let filtered = this.state.bike.filter(item => {
       if (this.state.manufacturer == item.manufacturer) {
-        modals = item.modal;
+        if (this.state.typeSelected) {
+          if (this.state.vehicleType === "bike") {
+            modals = item.bike;
+          } else if (this.state.vehicleType === "scooter") {
+            modals = item.scooter;
+          } else {
+            modals = item.powerbike;
+          }
+        }
         return item;
       }
     });
@@ -210,10 +245,10 @@ export default class Bike extends Component {
           style={{
             fontSize: 16,
             marginTop: 8,
-            color: "#666666",
+            color: this.state.modal_font_color,
             zIndex: 10,
             backgroundColor: "white",
-            width: 120,
+            width: 100,
             marginBottom: 0,
             marginLeft: 8
           }}
@@ -274,6 +309,7 @@ export default class Bike extends Component {
     if (this.state.askBikeView == true && this.state.bikeInfoView == false) {
       this.props.saveState(2, {
         manufacturer: this.state.manufacturer,
+        vehicleType: this.state.vehicleType,
         modal: this.state.modal,
         bikeColor: this.state.bikeColor,
         drivingLicense: this.state.drivingLicense,
@@ -340,7 +376,7 @@ export default class Bike extends Component {
                 style={{
                   fontSize: 16,
                   marginTop: 8,
-                  color: "#666666",
+                  color: this.state.manufacturer_font_color,
                   zIndex: 10,
                   backgroundColor: "white",
                   width: 150,
@@ -372,12 +408,21 @@ export default class Bike extends Component {
                     marginTop: 0,
                     color: "#666666"
                   }}
-                  onValueChange={itemValue =>
-                    this.setState({
-                      manufacturer: itemValue,
-                      manufacturerSelected: true
-                    })
-                  }
+                  onValueChange={itemValue => {
+                    if (itemValue === "") {
+                      this.setState({
+                        manufacturerSelected: false,
+                        manufacturer: itemValue,
+                        vehicleType: "",
+                        modal: ""
+                      });
+                    } else {
+                      this.setState({
+                        manufacturer: itemValue,
+                        manufacturerSelected: true
+                      });
+                    }
+                  }}
                 >
                   <Picker.Item label="Select" value="" />
                   {this.state.bike.map((item, i) => {
@@ -398,13 +443,79 @@ export default class Bike extends Component {
                 </Text>
               )}
 
-              {this.state.manufacturerSelected && this.filterArray()}
+              <Text
+                style={{
+                  fontSize: 16,
+                  marginTop: 8,
+                  color: this.state.type_font_color,
+                  zIndex: 10,
+                  backgroundColor: "white",
+                  width: 100,
+                  marginBottom: 0,
+                  marginLeft: 8
+                }}
+              >
+                Select Type
+              </Text>
+
+              <View
+                style={{
+                  borderWidth: 1.5,
+                  borderRadius: 8,
+                  marginBottom: 8,
+                  borderColor: "#dadce0",
+                  marginTop: -8
+                }}
+              >
+                <Picker
+                  selectedValue={this.state.vehicleType}
+                  mode="dialog"
+                  style={{
+                    height: 50,
+                    width: "100%",
+                    borderColor: "#dadce0",
+                    borderWidth: 1.5,
+                    borderRadius: 8,
+                    marginTop: 0,
+                    color: "#666666"
+                  }}
+                  onValueChange={itemValue => {
+                    if (itemValue === "") {
+                      this.setState({
+                        vehicleType: itemValue,
+                        typeSelected: false
+                      });
+                    } else {
+                      this.setState({
+                        vehicleType: itemValue,
+                        typeSelected: true
+                      });
+                    }
+                  }}
+                >
+                  <Picker.Item label="Select" value="" />
+                  <Picker.Item label="Bike" value="bike" />
+                  <Picker.Item label="Scooter" value="scooter" />
+                  <Picker.Item label="Power Bike" value="powerbike" />
+                </Picker>
+              </View>
+
+              {this.state.vehicleTypeError !== "" && (
+                <Text style={styles.error}>
+                  <Icon name="alert-circle" color="red" size={16} />{" "}
+                  {this.state.vehicleTypeError}
+                </Text>
+              )}
+
+              {this.state.manufacturerSelected &&
+                this.state.typeSelected &&
+                this.filterArray()}
 
               <Text
                 style={{
                   fontSize: 16,
                   marginTop: 8,
-                  color: "#666666",
+                  color: this.state.bikeColor_font_color,
                   zIndex: 10,
                   backgroundColor: "white",
                   width: 80,

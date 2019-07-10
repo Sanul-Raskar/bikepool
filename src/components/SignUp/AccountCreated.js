@@ -44,6 +44,7 @@ export default class AccountCreated extends Component {
       homelat: data[1].HomeLat,
       homelng: data[1].HomeLng,
       manufacturer: data[2].manufacturer,
+      vehicleType: data[2].vehicleType,
       modal: data[2].modal,
       bikecolor: data[2].bikeColor,
       drivinglicense: data[2].drivingLicense,
