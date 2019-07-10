@@ -14,7 +14,6 @@ import HomeScreen from "../Home/home";
 import EditProfile from "../EditProfile/EditProfile";
 import AddHome from "../EditProfile/addHome";
 import AddWork from "../EditProfile/addWork";
-import RideDetails from "../Ride/Ride";
 import FeedBack from "../Feedback/Feedback";
 import RiderBiker from "../RiderBiker/RiderBiker";
 import ViewProfile from "../Profile/ViewProfile";
@@ -28,6 +27,7 @@ import Bike from "../SignUp/Bike";
 import AddBikeInfo from "../SignUp/AddBikeInfo";
 import AccountCreated from "../SignUp/AccountCreated";
 import SignUpWizard from "../SignUp/SignUpWizard";
+import Search from "../Search/Search"
 
 export default class componentName extends Component {
   render() {
@@ -71,7 +71,19 @@ const AppStack = createStackNavigator(
         header: null
       }
     },
-
+    Search: {
+      screen: Search,
+      navigationOptions: {
+        title: "Search",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
     EditProfile: {
       screen: EditProfile,
       navigationOptions: {
@@ -102,19 +114,6 @@ const AppStack = createStackNavigator(
       screen: AddWork,
       navigationOptions: {
         title: "Add Work",
-        headerStyle: {
-          backgroundColor: "white"
-        },
-        headerTintColor: "#1a73e8",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    },
-    RideDetails: {
-      screen: RideDetails,
-      navigationOptions: {
-        title: "Ride Details",
         headerStyle: {
           backgroundColor: "white"
         },

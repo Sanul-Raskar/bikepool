@@ -148,7 +148,7 @@ export class Home extends Component {
               }}
             >
               <List>
-                <ListItem onPress={() => navigate("RideDetails")}>
+                <ListItem onPress={() => navigate("Search")}>
                   <Left>
                     <Text style={{ paddingLeft: 14, fontSize: 20 }}>
                       Where To?

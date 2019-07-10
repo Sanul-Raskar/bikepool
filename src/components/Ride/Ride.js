@@ -1,10 +1,11 @@
+/*Delete this file */
 import React, { Component } from "react";
 import { Text, View, StyleSheet, ScrollView,StatusBar } from "react-native";
 import ToggleSwitch from "toggle-switch-react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import SearchBox from "../Search/AutoComplete";
+import SearchBox from "../Search/Search";
 import { Left, Body, Right, Card, CardItem } from "native-base";
 
 export default class Ride extends Component {

@@ -7,32 +7,47 @@ import {
   Dimensions,
   ScrollView,
   Image,
-  Picker
+  Picker,
+  Button
 } from "react-native";
 var {
   GooglePlacesAutocomplete
 } = require("react-native-google-places-autocomplete");
 import { InputGroup } from "native-base";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-import "../global";
+import { Left, Body, Right, Card, CardItem } from "native-base";
+import ToggleSwitch from "toggle-switch-react-native";
+import Modal from "react-native-modal";
 
-export default class GPlacesDemo extends Component {
+/*
+Toggle behavior
+GetRide: true
+OfferRide: false
+*/
+
+export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      modalVisible: false,
+      visibleModal: "bottom",
+      isOnDefaultToggleSwitch: false,
       showSourcePlacesList: false,
       showDestinationPlacesList: false,
       sourceLat: 0,
       sourceLng: 0,
+      sourceDescription: "",
       destinationLat: 0,
       destinationLng: 0,
+      destinationDescription: "",
       isScooterSelected: false,
       isBikeSelected: false,
       isPowerBikeSelected: false,
       scooterBorderColor: "#dadce0",
       bikeBorderColor: "#dadce0",
       powerBikeBorderColor: "#dadce0",
-      gender: ""
+      gender: "",
+      mode: "OFFER_RIDE"
     };
   }
 
@@ -69,13 +84,174 @@ export default class GPlacesDemo extends Component {
     }
   };
 
-  source_destination_coordinates = () => {
-    global.isSourceMarker = true;
-    global.isDestinationMarker = true;
-    global.SourceLatitude = this.state.sourceLat;
-    global.SourceLongitude = this.state.sourceLng;
-    global.DestinationLatitude = this.state.destinationLat;
-    global.DestinationLongitude = this.state.destinationLat;
+  onToggle = () => {
+    if (this.state.isOnDefaultToggleSwitch) {
+      this.setState({ mode: "GET_RIDE" });
+    } else {
+      this.setState({ mode: "OFFER_RIDE" });
+    }
+  };
+
+  modalContent = () => {
+    if (this.state.mode === "GET_RIDE") {
+      return (
+        <View>
+          <Text style={{ fontWeight: "bold" }}>
+            Mode : <Text style={{ fontWeight: "normal" }}>Get Ride</Text>{" "}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Source :{" "}
+            <Text style={{ fontWeight: "normal" }}>
+              {this.state.sourceDescription}
+            </Text>{" "}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Destination :{" "}
+            <Text style={{ fontWeight: "normal" }}>
+              {this.state.destinationDescription}
+            </Text>{" "}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Preferred Vehicle :{" "}
+            <Text style={{ fontWeight: "normal" }}>All Types</Text>
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Preferred Gender :{" "}
+            <Text style={{ fontWeight: "normal" }}>Both</Text>
+          </Text>
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <Text style={{ fontWeight: "bold" }}>
+            Mode : <Text style={{ fontWeight: "normal" }}>Offer Ride</Text>{" "}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Source :{" "}
+            <Text style={{ fontWeight: "normal" }}>
+              {this.state.sourceDescription}
+            </Text>{" "}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Destination :{" "}
+            <Text style={{ fontWeight: "normal" }}>
+              {this.state.destinationDescription}
+            </Text>{" "}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Preferred Gender :{" "}
+            <Text style={{ fontWeight: "normal" }}>Both</Text>
+          </Text>
+        </View>
+      );
+    }
+  };
+
+  showModal = () => {
+    return (
+      <View>
+        <Modal
+          isVisible={this.state.visibleModal === "bottom"}
+          onSwipeComplete={() => this.setState({ visibleModal: null })}
+          swipeDirection={["down"]}
+          style={styles.bottomModal}
+        >
+          <View
+            style={{
+              backgroundColor: "#1a73e8",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+              paddingVertical: 10
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
+              Are you Sure?
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "white",
+              padding: 22,
+              justifyContent: "center",
+              alignItems: "center",
+              borderColor: "rgba(0, 0, 0, 0.1)"
+            }}
+          >
+            {this.modalContent()}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                backgroundColor: "white"
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => this.setState({ modalVisible: false })}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "#1a73e8",
+                    marginBottom: 10,
+                    marginTop: 20,
+                    borderColor: "#1a73e8",
+                    borderRadius: 10,
+                    borderWidth: 2,
+                    padding: 10,
+                    textAlign: "center",
+                    marginHorizontal: 22
+                  }}
+                >
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#1a73e8",
+                  marginBottom: 10,
+                  borderRadius: 10,
+                  marginTop: 20,
+                  marginHorizontal: 22
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "white",
+                    paddingTop: 10,
+                    paddingBottom: 12,
+                    paddingHorizontal: 18,
+                    textAlign: "center"
+                  }}
+                >
+                  Next
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    );
+  };
+
+  setVariables = () => {
+    let rideData = {
+      rideMode: this.state.mode,
+      sourceLat: this.state.sourceLat,
+      sourceLng: this.state.sourceLng,
+      destinationLat: this.state.destinationLat,
+      destinationLng: this.state.destinationLng,
+      isScooterSelected: this.state.isScooterSelected,
+      isBikeSelected: this.state.isBikeSelected,
+      isPowerBikeSelected: this.state.isPowerBikeSelected,
+      comfortableGender: this.state.gender
+    };
+    console.log(rideData);
   };
 
   render() {
@@ -91,6 +267,37 @@ export default class GPlacesDemo extends Component {
 
     return (
       <View style={{ width: screenWidth, backgroundColor: "white" }}>
+        <View
+          style={{
+            paddingHorizontal: 22,
+            borderRadius: 10,
+            marginTop: 10,
+            marginBottom: 10
+          }}
+        >
+          <Card>
+            <CardItem>
+              <Left>
+                <Text style={styles.toggleSwitchLabels}>Offer Ride</Text>
+              </Left>
+              <Body style={{ alignItems: "center" }}>
+                <ToggleSwitch
+                  isOn={this.state.isOnDefaultToggleSwitch}
+                  onColor="#1a73e8"
+                  offColor="#2e80ea"
+                  size="medium"
+                  onToggle={isOnDefaultToggleSwitch => {
+                    this.setState({ isOnDefaultToggleSwitch });
+                    this.onToggle();
+                  }}
+                />
+              </Body>
+              <Right>
+                <Text style={styles.toggleSwitchLabels}>Get Ride</Text>
+              </Right>
+            </CardItem>
+          </Card>
+        </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.inputWrapper}>
             <InputGroup>
@@ -112,9 +319,12 @@ export default class GPlacesDemo extends Component {
                   returnKeyType={"default"}
                   fetchDetails={true}
                   onPress={(data, details = null) => {
-                    this.setState({ sourceLat: details.geometry.location.lat });
-                    this.setState({ sourceLng: details.geometry.location.lng });
+                    this.setState({
+                      sourceLat: details.geometry.location.lat,
+                      sourceLng: details.geometry.location.lng
+                    });
                     console.log(this.state.sourceLat);
+                    console.log(this.state.sourceLng);
                   }}
                   getDefaultValue={() => {
                     return "";
@@ -298,7 +508,7 @@ export default class GPlacesDemo extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{ padding: 22 }}>
+          <View style={{ paddingHorizontal: 22, paddingVertical: 10 }}>
             <Text
               style={{
                 fontSize: 16,
@@ -342,7 +552,8 @@ export default class GPlacesDemo extends Component {
               flex: 1,
               flexDirection: "row",
               justifyContent: "space-between",
-              padding: 20
+              padding: 20,
+              marginBottom: 70
             }}
           >
             <TouchableOpacity>
@@ -350,12 +561,13 @@ export default class GPlacesDemo extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.FindButton}
-              onPress={() => this.source_destination_coordinates()}
+              onPress={() => this.setState({ modalVisible: true })}
             >
               <Text style={styles.ButtonText}>Find Ride</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
+        {this.state.modalVisible && this.showModal()}
       </View>
     );
   }
@@ -428,5 +640,14 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 70
+  },
+  toggleSwitchLabels: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "black"
+  },
+  bottomModal: {
+    justifyContent: "flex-end",
+    margin: 0
   }
 });
