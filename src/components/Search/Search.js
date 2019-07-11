@@ -7,8 +7,7 @@ import {
   Dimensions,
   ScrollView,
   Image,
-  Picker,
-  Button
+  Picker
 } from "react-native";
 var {
   GooglePlacesAutocomplete
@@ -21,14 +20,15 @@ import Modal from "react-native-modal";
 
 /*
 Toggle behavior
-GetRide: true
-OfferRide: false
+GetRide: false
+OfferRide: true
 */
 
 export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showVehiclePreference: false,
       modalVisible: false,
       visibleModal: "bottom",
       isOnDefaultToggleSwitch: false,
@@ -85,10 +85,11 @@ export default class Search extends Component {
   };
 
   onToggle = () => {
-    if (this.state.isOnDefaultToggleSwitch) {
-      this.setState({ mode: "GET_RIDE" });
+    console.log(this.state.isOnDefaultToggleSwitch);
+    if (!this.state.isOnDefaultToggleSwitch) {
+      this.setState({ mode: "GET_RIDE", showVehiclePreference: true });
     } else {
-      this.setState({ mode: "OFFER_RIDE" });
+      this.setState({ mode: "OFFER_RIDE", showVehiclePreference: false });
     }
   };
 
@@ -211,6 +212,7 @@ export default class Search extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
+                onPress={this.setVariables}
                 style={{
                   backgroundColor: "#1a73e8",
                   marginBottom: 10,
@@ -441,73 +443,78 @@ export default class Search extends Component {
             </TouchableOpacity>
           </View>
 
-          <Text style={{ paddingHorizontal: 22, paddingTop: 14 }}>
-            Choose your preferred vehicle. You may choose multiple types
-          </Text>
+          {this.state.showVehiclePreference && (
+            <View>
+              <Text style={{ paddingHorizontal: 22, paddingTop: 14 }}>
+                Choose your preferred vehicle. You may choose multiple types
+              </Text>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              padding: 22,
-              textAlign: "center",
-              paddingTop: 10
-            }}
-          >
-            <TouchableOpacity onPress={this.toggleScooter}>
               <View
                 style={{
-                  borderColor: this.state.scooterBorderColor,
-                  borderRadius: 10,
-                  borderWidth: 1.5,
-                  padding: 10
+                  flex: 1,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  padding: 22,
+                  textAlign: "center",
+                  paddingTop: 10
                 }}
               >
-                <Image
-                  resizeMode="contain"
-                  style={styles.image}
-                  source={require("../../assets/img/bike/scooter.png")}
-                />
-                <Text style={{ textAlign: "center" }}>Scooter</Text>
-              </View>
-            </TouchableOpacity>
+                <TouchableOpacity onPress={this.toggleScooter}>
+                  <View
+                    style={{
+                      borderColor: this.state.scooterBorderColor,
+                      borderRadius: 10,
+                      borderWidth: 1.5,
+                      padding: 10
+                    }}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      style={styles.image}
+                      source={require("../../assets/img/bike/scooter.png")}
+                    />
+                    <Text style={{ textAlign: "center" }}>Scooter</Text>
+                  </View>
+                </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.toggleBike}>
-              <View
-                style={{
-                  borderColor: this.state.bikeBorderColor,
-                  borderRadius: 10,
-                  borderWidth: 1.5,
-                  padding: 10
-                }}
-              >
-                <Image
-                  resizeMode="contain"
-                  style={styles.image}
-                  source={require("../../assets/img/bike/bike.png")}
-                />
-                <Text style={{ textAlign: "center" }}>Bike</Text>
+                <TouchableOpacity onPress={this.toggleBike}>
+                  <View
+                    style={{
+                      borderColor: this.state.bikeBorderColor,
+                      borderRadius: 10,
+                      borderWidth: 1.5,
+                      padding: 10
+                    }}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      style={styles.image}
+                      source={require("../../assets/img/bike/bike.png")}
+                    />
+                    <Text style={{ textAlign: "center" }}>Bike</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.togglePowerBike}>
+                  <View
+                    style={{
+                      borderColor: this.state.powerBikeBorderColor,
+                      borderRadius: 10,
+                      borderWidth: 1.5,
+                      padding: 10
+                    }}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      style={styles.image}
+                      source={require("../../assets/img/bike/powerBike.png")}
+                    />
+                    <Text style={{ textAlign: "center" }}>Power Bike</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.togglePowerBike}>
-              <View
-                style={{
-                  borderColor: this.state.powerBikeBorderColor,
-                  borderRadius: 10,
-                  borderWidth: 1.5,
-                  padding: 10
-                }}
-              >
-                <Image
-                  resizeMode="contain"
-                  style={styles.image}
-                  source={require("../../assets/img/bike/powerBike.png")}
-                />
-                <Text style={{ textAlign: "center" }}>Power Bike</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+            </View>
+          )}
+
           <View style={{ paddingHorizontal: 22, paddingVertical: 10 }}>
             <Text
               style={{
