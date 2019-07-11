@@ -187,7 +187,8 @@ export default class Search extends Component {
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                backgroundColor: "white"
+                backgroundColor: "white",
+                marginTop: 20
               }}
             >
               <TouchableOpacity
@@ -195,7 +196,7 @@ export default class Search extends Component {
               >
                 <Text
                   style={{
-                    fontSize: 18,
+                    fontSize: 16,
                     color: "#1a73e8",
                     marginBottom: 10,
                     marginTop: 20,
@@ -204,7 +205,7 @@ export default class Search extends Component {
                     borderWidth: 2,
                     padding: 10,
                     textAlign: "center",
-                    marginHorizontal: 22
+                    marginHorizontal: 30
                   }}
                 >
                   Cancel
@@ -218,12 +219,12 @@ export default class Search extends Component {
                   marginBottom: 10,
                   borderRadius: 10,
                   marginTop: 20,
-                  marginHorizontal: 22
+                  marginHorizontal: 30
                 }}
               >
                 <Text
                   style={{
-                    fontSize: 18,
+                    fontSize: 16,
                     color: "white",
                     paddingTop: 10,
                     paddingBottom: 12,
