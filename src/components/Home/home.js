@@ -189,8 +189,12 @@ export class Settings extends Component {
   }
 
   _signOutAsync = async () => {
-    await AsyncStorage.clear();
-    this.props.navigation.navigate("Auth");
+    try {
+      await AsyncStorage.removeItem("userToken");
+      this.props.navigation.navigate("AuthLoading");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {

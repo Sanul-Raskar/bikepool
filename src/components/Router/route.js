@@ -27,7 +27,7 @@ import Bike from "../SignUp/Bike";
 import AddBikeInfo from "../SignUp/AddBikeInfo";
 import AccountCreated from "../SignUp/AccountCreated";
 import SignUpWizard from "../SignUp/SignUpWizard";
-import Search from "../Search/Search"
+import Search from "../Search/Search";
 
 export default class componentName extends Component {
   render() {
