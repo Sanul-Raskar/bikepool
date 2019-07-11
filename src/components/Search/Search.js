@@ -17,6 +17,8 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { Left, Body, Right, Card, CardItem } from "native-base";
 import ToggleSwitch from "toggle-switch-react-native";
 import Modal from "react-native-modal";
+import { saveRideDetails } from "../../../action/rideAction";
+import { connect } from "react-redux";
 
 /*
 Toggle behavior
@@ -24,7 +26,7 @@ GetRide: false
 OfferRide: true
 */
 
-export default class Search extends Component {
+export class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -255,6 +257,7 @@ export default class Search extends Component {
       comfortableGender: this.state.gender
     };
     console.log(rideData);
+    this.props.saveRideDetails(rideData);
   };
 
   render() {
@@ -659,3 +662,15 @@ const styles = StyleSheet.create({
     margin: 0
   }
 });
+
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = {
+  saveRideDetails
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Search);

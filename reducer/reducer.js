@@ -2,7 +2,7 @@ import {
   FETCH_USERDATA_BEGINS,
   FETCH_USERDATA_SUCCESS,
   FETCH_USERDATA_ERROR
-} from "../action/action";
+} from "../action/types";
 
 const initialState = {
   userData: null,

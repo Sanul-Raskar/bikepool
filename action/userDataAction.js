@@ -1,6 +1,8 @@
-export const FETCH_USERDATA_BEGINS = "FETCH_USERDATA_BEGINS";
-export const FETCH_USERDATA_SUCCESS = "FETCH_USERDATA_SUCCESS";
-export const FETCH_USERDATA_ERROR = "FETCH_USERDATA_ERROR";
+import {
+  FETCH_USERDATA_BEGINS,
+  FETCH_USERDATA_SUCCESS,
+  FETCH_USERDATA_ERROR
+} from "./types";
 
 export const getloginedUser = () => {
   return async dispatch => {
@@ -10,7 +12,7 @@ export const getloginedUser = () => {
       );
       dispatch({ type: FETCH_USERDATA_BEGINS });
       const data = await response.json();
-      console.log("Fetched Data:")
+      console.log("Fetched Data:");
       console.log(data);
       dispatch({
         type: FETCH_USERDATA_SUCCESS,

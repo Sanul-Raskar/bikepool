@@ -10,7 +10,7 @@ import {
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Foundation from "react-native-vector-icons/Foundation";
 import { connect } from "react-redux";
-import { getloginedUser } from "../../../action/action";
+import { getloginedUser } from "../../../action/userDataAction";
 
 export class ViewProfile extends Component {
   constructor(props) {
