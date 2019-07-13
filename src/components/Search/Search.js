@@ -87,7 +87,6 @@ export class Search extends Component {
   };
 
   onToggle = () => {
-    console.log(this.state.isOnDefaultToggleSwitch);
     if (!this.state.isOnDefaultToggleSwitch) {
       this.setState({ mode: "GET_RIDE", showVehiclePreference: true });
     } else {
