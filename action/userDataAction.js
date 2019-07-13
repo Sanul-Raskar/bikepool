@@ -4,7 +4,8 @@ import {
   FETCH_USERDATA_ERROR,
   FETCH_HOME_BEGINS,
   FETCH_HOME_SUCCESS,
-  FETCH_HOME_ERROR
+  FETCH_HOME_ERROR,
+  DELETE_HOME
 } from "./types";
 
 export const getloginedUser = () => {
@@ -52,6 +53,24 @@ export const getHome = id => {
         type: FETCH_HOME_ERROR,
         payload: error
       });
+    }
+  };
+};
+
+export const deleteHome = id => {
+  return async dispatch => {
+    try {
+      const response = await fetch(
+        "https://my-json-server.typicode.com/Sanul-Raskar/fakeJsonServer-Bikepool/savedPlaces/?userID=" +
+          id +
+          "&name=Home",
+        { method: "delete" }
+      );
+      const data = await response.json();
+      console.log(data);
+      dispatch({ type: DELETE_HOME });
+    } catch (error) {
+      console.log(error);
     }
   };
 };

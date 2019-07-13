@@ -12,7 +12,8 @@ import {
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { connect } from "react-redux";
-import { getHome } from "../../../action/userDataAction";
+import { getHome, deleteHome } from "../../../action/userDataAction";
+import Modal from "react-native-modal";
 
 export class SavedHome extends Component {
   constructor(props) {
@@ -22,7 +23,9 @@ export class SavedHome extends Component {
       savedLocationsView: false,
       address: "",
       lat: 0,
-      lng: 0
+      lng: 0,
+      modalVisible: false,
+      visibleModal: "bottom"
     };
   }
 
@@ -51,6 +54,102 @@ export class SavedHome extends Component {
     );
   };
 
+  showModal = () => {
+    return (
+      <View>
+        <Modal
+          isVisible={this.state.visibleModal === "bottom"}
+          onSwipeComplete={() => this.setState({ visibleModal: null })}
+          swipeDirection={["down"]}
+          style={styles.bottomModal}
+        >
+          <View
+            style={{
+              backgroundColor: "#1a73e8",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+              paddingVertical: 10
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
+              Confirm
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "white",
+              padding: 22,
+              justifyContent: "center",
+              alignItems: "center",
+              borderColor: "rgba(0, 0, 0, 0.1)"
+            }}
+          >
+            <Text>Are you sure you want to delete saved home location?</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                backgroundColor: "white",
+                marginTop: 20
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => this.setState({ modalVisible: false })}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "#1a73e8",
+                    marginBottom: 10,
+                    marginTop: 20,
+                    borderColor: "#1a73e8",
+                    borderRadius: 10,
+                    borderWidth: 2,
+                    padding: 10,
+                    textAlign: "center",
+                    marginHorizontal: 30
+                  }}
+                >
+                  No
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  const userID = "1";
+                  this.props.deleteHome(userID);
+                }}
+                style={{
+                  backgroundColor: "#1a73e8",
+                  marginBottom: 10,
+                  borderRadius: 10,
+                  marginTop: 20,
+                  marginHorizontal: 30
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    paddingTop: 10,
+                    paddingBottom: 12,
+                    paddingHorizontal: 18,
+                    textAlign: "center"
+                  }}
+                >
+                  Yes
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    );
+  };
+
   showLoading = () => {
     return (
       <View
@@ -67,6 +166,8 @@ export class SavedHome extends Component {
   };
 
   showSavedHome = () => {
+    console.log("render");
+    const { navigate } = this.props.navigation;
     let { height, width } = Dimensions.get("window");
     return (
       <View style={{ backgroundColor: "white", padding: 10, width: width }}>
@@ -123,7 +224,7 @@ export class SavedHome extends Component {
               justifyContent: "space-evenly"
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.deleteHomeLocation}>
               <Text
                 style={{
                   fontSize: 18,
@@ -146,6 +247,9 @@ export class SavedHome extends Component {
                 marginBottom: 50,
                 borderRadius: 10,
                 marginTop: 60
+              }}
+              onPress={() => {
+                navigate("AddHome");
               }}
             >
               <Text
@@ -185,6 +289,12 @@ export class SavedHome extends Component {
     }
   };
 
+  deleteHomeLocation = () => {
+    this.setState({
+      modalVisible: true
+    });
+  };
+
   setView = () => {
     if (this.props.loading) {
       return this.showLoading();
@@ -201,12 +311,11 @@ export class SavedHome extends Component {
   }
 
   render() {
-    console.log(this.props.home);
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="white" />
         {this.setView()}
+        {this.state.modalVisible && this.showModal()}
       </View>
     );
   }
@@ -236,6 +345,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 10,
     textAlign: "center"
+  },
+  bottomModal: {
+    justifyContent: "flex-end",
+    margin: 0
   }
 });
 
@@ -249,7 +362,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  getHome
+  getHome,
+  deleteHome
 };
 export default connect(
   mapStateToProps,
