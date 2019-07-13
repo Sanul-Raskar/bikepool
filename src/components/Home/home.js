@@ -375,7 +375,7 @@ export class Settings extends Component {
                   />
                 </Right>
               </ListItem>
-              <ListItem>
+              <ListItem onPress={() => navigate("ViewBikeInfo")}>
                 <Left>
                   <FontAwesome5 name="motorcycle" color="#1a73e8" size={24} />
                   <Text style={styles.listText}>Bike Information</Text>

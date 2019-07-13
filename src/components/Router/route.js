@@ -28,6 +28,7 @@ import AddBikeInfo from "../SignUp/AddBikeInfo";
 import AccountCreated from "../SignUp/AccountCreated";
 import SignUpWizard from "../SignUp/SignUpWizard";
 import Search from "../Search/Search";
+import ViewBikeInfo from "../Profile/BikeInfo"
 
 export default class componentName extends Component {
   render() {
@@ -192,6 +193,19 @@ const AppStack = createStackNavigator(
       screen: SavedWork,
       navigationOptions: {
         title: "Work Location",
+        headerStyle: {
+          backgroundColor: "white"
+        },
+        headerTintColor: "#1a73e8",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    ViewBikeInfo: {
+      screen: ViewBikeInfo,
+      navigationOptions: {
+        title: "Saved Bikes",
         headerStyle: {
           backgroundColor: "white"
         },
