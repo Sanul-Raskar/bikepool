@@ -10,8 +10,9 @@ import {
   Dimensions,
   ActivityIndicator
 } from "react-native";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import LinearGradient from "react-native-linear-gradient";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 
 export class BikeInfo extends Component {
   constructor(props) {
@@ -54,9 +55,7 @@ export class BikeInfo extends Component {
               Looks like you haven't saved any bike.
             </Text>
             <TouchableOpacity>
-              <Text style={styles.button}>
-                Add Bike
-              </Text>
+              <Text style={styles.button}>Add Bike</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -64,17 +63,97 @@ export class BikeInfo extends Component {
     );
   };
 
-  showSavedBikes = () =>{
-    return(
-        <View>
+  showSavedBikes = () => {
+    return (
+      <View style={{ flex: 1, paddingHorizontal: 22 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-        
-        </View>
+          <LinearGradient
+            colors={["#2c28b1", "#9b5cf6"]}
+            style={{ padding: 22, borderRadius: 10, marginVertical: 10 }}
+          >
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "flex-end"
+              }}
+            >
+              <TouchableOpacity>
+                <MaterialIcon
+                  name="edit"
+                  color="white"
+                  size={24}
+                  style={{ marginHorizontal: 6 }}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity>
+                <MaterialIcon
+                  name="delete"
+                  color="white"
+                  size={24}
+                  style={{ marginHorizontal: 6 }}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={{ color: "white", fontWeight: "bold", fontSize: 20 }}>
+              Hero
+            </Text>
+            <Text style={{ color: "white", fontWeight: "bold", fontSize: 36 }}>
+              CD Deluxe
+            </Text>
+            <Text style={{ color: "white", fontSize: 18 }}>MH 12 ES 1047</Text>
+            <Text style={{ color: "white", fontSize: 18 }}>Type: Bike</Text>
+          </LinearGradient>
+
+          <LinearGradient
+            colors={["#2c28b1", "#9b5cf6"]}
+            style={{ padding: 22, borderRadius: 10, marginVertical: 10 }}
+          >
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "flex-end"
+              }}
+            >
+              <TouchableOpacity>
+                <MaterialIcon
+                  name="edit"
+                  color="white"
+                  size={24}
+                  style={{ marginHorizontal: 6 }}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity>
+                <MaterialIcon
+                  name="delete"
+                  color="white"
+                  size={24}
+                  style={{ marginHorizontal: 6 }}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={{ color: "white", fontWeight: "bold", fontSize: 20 }}>
+              TVS
+            </Text>
+            <Text style={{ color: "white", fontWeight: "bold", fontSize: 36 }}>
+              Jupiter
+            </Text>
+            <Text style={{ color: "white", fontSize: 18 }}>MH 10 XY 2359</Text>
+            <Text style={{ color: "white", fontSize: 18 }}>Type: Scooter</Text>
+          </LinearGradient>
+
+          <TouchableOpacity>
+              <Text style={styles.button}>
+                Add Bike
+              </Text>
+            </TouchableOpacity>
         </ScrollView>
-        </View>
-    )
-  }
+      </View>
+    );
+  };
   fetchData = () => {};
 
   componentDidMount() {
@@ -85,7 +164,7 @@ export class BikeInfo extends Component {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="white" />
-        {this.InfoView()}
+        {this.showSavedBikes()}
       </View>
     );
   }
