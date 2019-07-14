@@ -79,7 +79,6 @@ export default class AccountCreated extends Component {
           successView: false,
           failureView: true
         });
-        throw error;
       }
     } catch (error) {
       console.error(error);
