@@ -68,7 +68,7 @@ export class BikeInfo extends Component {
       <View style={{ flex: 1, paddingHorizontal: 22 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <LinearGradient
-            colors={["#2c28b1", "#9b5cf6"]}
+            colors={["#201c7d", "#7b25f4"]}
             style={{ padding: 22, borderRadius: 10, marginVertical: 10 }}
           >
             <View
@@ -107,7 +107,7 @@ export class BikeInfo extends Component {
           </LinearGradient>
 
           <LinearGradient
-            colors={["#2c28b1", "#9b5cf6"]}
+            colors={["#201c7d", "#7b25f4"]}
             style={{ padding: 22, borderRadius: 10, marginVertical: 10 }}
           >
             <View
