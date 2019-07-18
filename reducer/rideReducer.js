@@ -1,7 +1,12 @@
-import { SAVE_RIDE } from "../action/types";
+import {
+  SAVE_RIDE,
+  CURRENT_LOCATION_ERROR,
+  GET_CURRENT_LOCATION
+} from "../action/types";
 
 const initialState = {
-  rideData: null
+  rideData: null,
+  userCurrentLocation: null
 };
 
 export default function rideDetailsReducer(state = initialState, action) {
@@ -10,6 +15,12 @@ export default function rideDetailsReducer(state = initialState, action) {
       return {
         ...state,
         rideData: action.payload
+      };
+
+    case GET_CURRENT_LOCATION:
+      return {
+        ...state,
+        userCurrentLocation: action.payload
       };
 
     default:

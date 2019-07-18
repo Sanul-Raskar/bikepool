@@ -10,7 +10,7 @@ import {
 import MainScreen from "../Initial/mainScreen";
 import LoginScreen from "../Login/login";
 import SignUpScreen from "../SignUp/signup";
-import HomeScreen from "../Home/home";
+import {tabNavigator as HomeScreen} from "../Home/home";
 import EditProfile from "../EditProfile/EditProfile";
 import AddHome from "../EditProfile/addHome";
 import AddWork from "../EditProfile/addWork";

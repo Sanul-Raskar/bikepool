@@ -11,18 +11,22 @@ import {
   StatusBar
 } from "react-native";
 import Ride from "./topTabs";
+import HomeScreen from "./HomeScreen";
 import { createBottomTabNavigator } from "react-navigation";
 import { List, ListItem, Left, Right, Separator } from "native-base";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { getCurrentLocation } from "../../../action/rideAction";
+import { connect } from "react-redux";
+
 import "../global";
 HEADER_MAX_HEIGHT = 100;
 HEADER_MIN_HEIGHT = 60;
 PROFILE_IMAGE_MAX_HEIGHT = 100;
 PROFILE_IMAGE_MIN_HEIGHT = 60;
-
+/*
 export class Home extends Component {
   constructor(props) {
     super(props);
@@ -38,8 +42,8 @@ export class Home extends Component {
       destinationLng: global.DestinationLongitude
     };
   }
-
-  getCurrentLocation = () => {
+*/
+  /*getCurrentLocation1 = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -58,8 +62,8 @@ export class Home extends Component {
         maximumAge: 10000
       }
     );
-  };
-
+  };*/
+/*
   plotSourceMarker = () => {
     if (isSourceMarker) {
       console.log(this.state.sourceLat);
@@ -93,11 +97,6 @@ export class Home extends Component {
       );
     }
   };
-  /*
-  componentWillMount() {
-    this.getCurrentLocation();
-  }
-*/
 
   render() {
     const { navigate } = this.props.navigation;
@@ -164,7 +163,7 @@ export class Home extends Component {
 
           <TouchableOpacity
             style={styles.locateButton}
-            onPress={this.getCurrentLocation}
+            onPress={this.location}
           >
             <Text>
               <Icon name="md-locate" color="black" size={38} />
@@ -175,7 +174,7 @@ export class Home extends Component {
     );
   }
 }
-
+*/
 export class Rides extends Component {
   render() {
     return <Ride />;
@@ -497,10 +496,10 @@ export class Settings extends Component {
   }
 }
 
-export default createBottomTabNavigator(
+export const tabNavigator = createBottomTabNavigator(
   {
     Home: {
-      screen: Home,
+      screen: HomeScreen,
       navigationOptions: {
         tabBarLabel: "Home",
         tabBarIcon: ({ tintColor }) => (
@@ -590,3 +589,15 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject
   }
 });
+/*
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = {
+  getCurrentLocation
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);*/
