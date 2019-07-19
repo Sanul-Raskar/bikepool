@@ -5,7 +5,8 @@ import {
   ScrollView,
   StyleSheet,
   StatusBar,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Foundation from "react-native-vector-icons/Foundation";
@@ -15,9 +16,22 @@ import { getloginedUser } from "../../../action/userDataAction";
 export class ViewProfile extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      fetchedData: false
+    };
   }
+
+  fetchProfile = async () => {
+    await this.props.getloginedUser();
+    if (this.props.user.userData != null) {
+      this.setState({
+        fetchedData: true
+      });
+    }
+  };
+
   componentDidMount() {
-    this.props.getloginedUser();
+    this.fetchProfile();
   }
 
   showActivityIndicator = () => {
@@ -32,41 +46,77 @@ export class ViewProfile extends Component {
     const user = this.props.user.userData;
     return (
       <View>
-        <View style={styles.title}>
-          <MaterialIcon name="person" color="#1a73e8" size={30} />
-          <Text style={styles.listText}>First Name</Text>
-        </View>
-        <Text style={styles.listSubTextLabel}>{user.firstname}</Text>
+        {this.state.fetchedData == false && (
+          <View
+            style={{
+              flex: 1,
+              padding: 22,
+              backgroundColor: "white",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+              Error loading profile
+            </Text>
+            <TouchableOpacity onPress={this.fetchProfile}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  color: "#1a73e8",
+                  marginBottom: 50,
+                  marginTop: 30,
+                  borderColor: "#1a73e8",
+                  borderRadius: 10,
+                  borderWidth: 2,
+                  padding: 10,
+                  textAlign: "center"
+                }}
+              >
+                Try Again
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {this.state.fetchedData && (
+          <View>
+            <View style={styles.title}>
+              <MaterialIcon name="person" color="#1a73e8" size={30} />
+              <Text style={styles.listText}>First Name</Text>
+            </View>
+            <Text style={styles.listSubTextLabel}>{user.firstname}</Text>
 
-        <View style={styles.title}>
-          <MaterialIcon name="person" color="#1a73e8" size={30} />
-          <Text style={styles.listText}>Last Name</Text>
-        </View>
-        <Text style={styles.listSubTextLabel}>{user.lastname}</Text>
+            <View style={styles.title}>
+              <MaterialIcon name="person" color="#1a73e8" size={30} />
+              <Text style={styles.listText}>Last Name</Text>
+            </View>
+            <Text style={styles.listSubTextLabel}>{user.lastname}</Text>
 
-        <View style={styles.title}>
-          <MaterialIcon name="email" color="#1a73e8" size={30} />
-          <Text style={styles.listText}>Email</Text>
-        </View>
-        <Text style={styles.listSubTextLabel}>{user.email}</Text>
+            <View style={styles.title}>
+              <MaterialIcon name="email" color="#1a73e8" size={30} />
+              <Text style={styles.listText}>Email</Text>
+            </View>
+            <Text style={styles.listSubTextLabel}>{user.email}</Text>
 
-        <View style={styles.title}>
-          <MaterialIcon name="phone-iphone" color="#1a73e8" size={30} />
-          <Text style={styles.listText}>Mobile</Text>
-        </View>
-        <Text style={styles.listSubTextLabel}>{user.mobile}</Text>
+            <View style={styles.title}>
+              <MaterialIcon name="phone-iphone" color="#1a73e8" size={30} />
+              <Text style={styles.listText}>Mobile</Text>
+            </View>
+            <Text style={styles.listSubTextLabel}>{user.mobile}</Text>
 
-        <View style={styles.title}>
-          <MaterialIcon name="cake" color="#1a73e8" size={30} />
-          <Text style={styles.listText}>Birthdate</Text>
-        </View>
-        <Text style={styles.listSubTextLabel}>{user.birthdate}</Text>
+            <View style={styles.title}>
+              <MaterialIcon name="cake" color="#1a73e8" size={30} />
+              <Text style={styles.listText}>Birthdate</Text>
+            </View>
+            <Text style={styles.listSubTextLabel}>{user.birthdate}</Text>
 
-        <View style={styles.title}>
-          <Foundation name="male-female" color="#1a73e8" size={30} />
-          <Text style={styles.listText}>Gender</Text>
-        </View>
-        <Text style={styles.listSubTextLabel}>{user.gender}</Text>
+            <View style={styles.title}>
+              <Foundation name="male-female" color="#1a73e8" size={30} />
+              <Text style={styles.listText}>Gender</Text>
+            </View>
+            <Text style={styles.listSubTextLabel}>{user.gender}</Text>
+          </View>
+        )}
       </View>
     );
   };
