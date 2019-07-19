@@ -5,16 +5,20 @@ import {
   FETCH_HOME_BEGINS,
   FETCH_HOME_SUCCESS,
   FETCH_HOME_ERROR,
-  DELETE_HOME
+  DELETE_HOME,
+  UPDATE_PROFILE_BEGINS,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_ERROR
 } from "./types";
 
 export const getloginedUser = () => {
   return async dispatch => {
     try {
+      dispatch({ type: FETCH_USERDATA_BEGINS });
+
       const response = await fetch(
         "https://358e2951-b1fd-4977-874f-c488dee6a4ee.mock.pstmn.io/users/1"
       );
-      dispatch({ type: FETCH_USERDATA_BEGINS });
       const data = await response.json();
       console.log("Fetched Data:");
       console.log(data);
@@ -23,8 +27,30 @@ export const getloginedUser = () => {
         payload: data
       });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: FETCH_USERDATA_ERROR,
+        payload: error
+      });
+    }
+  };
+};
+
+export const updateProfile = data => {
+  return async dispatch => {
+    try {
+      dispatch({ type: UPDATE_PROFILE_BEGINS });
+      console.log("Ready to send updated profile");
+      console.log(data);
+      /*Send data to server*/
+      dispatch({
+        type: UPDATE_PROFILE_SUCCESS,
+        payload: data
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: UPDATE_PROFILE_ERROR,
         payload: error
       });
     }
@@ -49,6 +75,7 @@ export const getHome = id => {
         payload: data
       });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: FETCH_HOME_ERROR,
         payload: error
