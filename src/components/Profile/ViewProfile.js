@@ -21,8 +21,7 @@ export class ViewProfile extends Component {
     };
   }
 
-  fetchProfile = async () => {
-    await this.props.getloginedUser();
+  fetchProfile = () => {
     if (this.props.user.userData != null) {
       this.setState({
         fetchedData: true
@@ -82,15 +81,11 @@ export class ViewProfile extends Component {
           <View>
             <View style={styles.title}>
               <MaterialIcon name="person" color="#1a73e8" size={30} />
-              <Text style={styles.listText}>First Name</Text>
+              <Text style={styles.listText}>Name</Text>
             </View>
-            <Text style={styles.listSubTextLabel}>{user.firstname}</Text>
-
-            <View style={styles.title}>
-              <MaterialIcon name="person" color="#1a73e8" size={30} />
-              <Text style={styles.listText}>Last Name</Text>
-            </View>
-            <Text style={styles.listSubTextLabel}>{user.lastname}</Text>
+            <Text style={styles.listSubTextLabel}>
+              {user.firstname + " " + user.lastname}
+            </Text>
 
             <View style={styles.title}>
               <MaterialIcon name="email" color="#1a73e8" size={30} />

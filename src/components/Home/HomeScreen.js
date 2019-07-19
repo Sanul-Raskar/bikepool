@@ -11,6 +11,8 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Icon from "react-native-vector-icons/Ionicons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { getCurrentLocation } from "../../../action/rideAction";
+import { getloginedUser } from "../../../action/userDataAction";
+
 import { connect } from "react-redux";
 
 export class HomeScreen extends Component {
@@ -57,9 +59,14 @@ export class HomeScreen extends Component {
     );
   };
 
-  componentWillMount() {
+  componentDidMount() {
+    this.fetchUser();
     this.fetchCurrentLocation();
   }
+
+  fetchUser = async () => {
+    await this.props.getloginedUser();
+  };
 
   fetchCurrentLocation = () => {
     this.props.getCurrentLocation();
@@ -175,7 +182,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  getCurrentLocation
+  getCurrentLocation,
+  getloginedUser
 };
 export default connect(
   mapStateToProps,

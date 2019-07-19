@@ -3,8 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  TouchableOpacity,
   ScrollView,
   Animated,
   AsyncStorage,
@@ -14,6 +12,7 @@ import { List, ListItem, Left, Right, Separator } from "native-base";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { connect } from "react-redux";
+import UserAvatar from "react-native-user-avatar";
 
 HEADER_MAX_HEIGHT = 100;
 HEADER_MIN_HEIGHT = 60;
@@ -23,9 +22,38 @@ PROFILE_IMAGE_MIN_HEIGHT = 60;
 export class Settings extends Component {
   constructor(props) {
     super(props);
-    this.state = {scrollY: new Animated.Value(0)};
+    this.state = {
+      scrollY: new Animated.Value(0),
+      name: "A B",
+      avatarColor: "#fff"
+    };
   }
 
+  getName = () => {
+    const user = this.props.user.userData;
+    if (user != null) {
+      const username = user.firstname + " " + user.lastname;
+      this.setState({
+        name: username,
+        avatarColor: "#000"
+      });
+    }
+  };
+
+  componentWillReceiveProps(nextProps) {
+    const user = nextProps.user.userData;
+    if (user != null) {
+      const username = user.firstname + " " + user.lastname;
+      this.setState({
+        name: username,
+        avatarColor: "#000"
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.getName();
+  }
   _signOutAsync = async () => {
     try {
       await AsyncStorage.removeItem("userToken");
@@ -138,11 +166,10 @@ export class Settings extends Component {
               marginRight: "auto"
             }}
           >
-            <Image
-              source={{
-                uri:
-                  "https://facebook.github.io/react-native/docs/assets/favicon.png"
-              }}
+            <UserAvatar
+              size="98"
+              name={this.state.name}
+              color={this.state.avatarColor}
               style={{
                 flex: 1,
                 width: null,
@@ -372,7 +399,12 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => {
+  const user = state.ViewProfile;
+  return {
+    user
+  };
+};
 
 const mapDispatchToProps = {};
 
