@@ -26,15 +26,16 @@ export class EditProfile extends Component {
       lastname: "",
       email: "",
       mobile: "",
-      password1: "",
-      password2: "",
+      birthdate: "",
+      gender: "",
+      
       firstnameError: "",
       lastnameError: "",
       emailError: "",
       mobileError: "",
-      birthdate: "",
-      gender: "",
-      today: "",
+      birthdateError: "",
+      genderError: "",
+      
       firstname_font_color: "#1a73e8",
       firstname_onFocus_border: "#1a73e8",
       lastname_font_color: "#1a73e8",
@@ -228,6 +229,12 @@ export class EditProfile extends Component {
           }}
         />
 
+        {this.state.birthdateError !== "" && (
+          <Text style={styles.error}>
+            <Icon name="alert-circle" color="red" size={16} />{" "}
+            {this.state.birthdateError}
+          </Text>
+        )}
         <Text
           style={{
             fontSize: 16,
@@ -273,6 +280,13 @@ export class EditProfile extends Component {
             <Picker.Item label="Other" value="other" />
           </Picker>
         </View>
+
+        {this.state.genderError !== "" && (
+          <Text style={styles.error}>
+            <Icon name="alert-circle" color="red" size={16} />{" "}
+            {this.state.genderError}
+          </Text>
+        )}
 
         <View style={styles.bottomButtons}>
           <TouchableOpacity>
@@ -436,61 +450,39 @@ export class EditProfile extends Component {
     }
   };
 
-  validatePassword1 = () => {
-    let regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (this.state.password1 === "") {
+  validateGender = () => {
+    if (this.state.gender === "" || this.state.gender === "Select") {
       this.setState({
-        border_Color_password1: "red",
-        password1Error: "Please fill this field.",
-        password1_font_color: "red",
-        password1_onFocus_border: "red"
+        border_Color_gender: "red",
+        genderError: "Please select gender",
+        gender_font_color: "red"
       });
       return false;
-    } else if (this.state.password1.match(regExp)) {
-      this.setState({
-        border_Color_password1: "#dadce0",
-        password1Error: "",
-        password1_font_color: "#1a73e8",
-        password1_onFocus_border: "#1a73e8"
-      });
-      return true;
     } else {
       this.setState({
-        border_Color_password1: "red",
-        password1Error:
-          "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
-        password1_font_color: "red",
-        password1_onFocus_border: "red"
+        border_Color_gender: "#dadce0",
+        genderError: "",
+        gender_font_color: "#1a73e8"
       });
-      return false;
+      return true;
     }
   };
 
-  validatePassword2 = () => {
-    if (this.state.password2 === "") {
+  validateBirthdate = () => {
+    if (this.state.birthdate === "") {
       this.setState({
-        border_Color_password2: "red",
-        password2Error: "Please fill this field.",
-        password2_font_color: "red",
-        password2_onFocus_border: "red"
+        border_Color_birthdate: "red",
+        birthdateError: "Please select birthdate",
+        birthdate_font_color: "red"
       });
       return false;
-    } else if (this.state.password1 == this.state.password2) {
-      this.setState({
-        border_Color_password2: "#dadce0",
-        password2Error: "",
-        password2_font_color: "#1a73e8",
-        password2_onFocus_border: "#1a73e8"
-      });
-      return true;
     } else {
       this.setState({
-        border_Color_password2: "red",
-        password2Error: "Passwords do not match!",
-        password2_font_color: "red",
-        password2_onFocus_border: "red"
+        border_Color_birthdate: "#dadce0",
+        birthdateError: "",
+        birthdate_font_color: "#1a73e8"
       });
-      return false;
+      return true;
     }
   };
 
@@ -499,7 +491,9 @@ export class EditProfile extends Component {
       this.validateFirstName() &
       this.validateLastName() &
       this.validateMobile() &
-      this.validateEmail()
+      this.validateEmail() &
+      this.validateBirthdate() &
+      this.validateGender()
     ) {
       this.setNewVariables();
     }
